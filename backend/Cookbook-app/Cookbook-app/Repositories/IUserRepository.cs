@@ -5,13 +5,16 @@ namespace Cookbook_app.Repositories;
 public interface IUserRepository
 {
 
-    Task<User> GetUserById(int id);
+   
+    Task<User?> GetUserByIdAsync(int id);
+
+    Task<User?> GetUserByEmailAsync(string email);
     
-    Task AddUser(User user);
+    Task AddUserAsync(User user);
 
-    Task DeleteUser(User user);
+    Task DeleteUserAsync(User user);
 
-    Task UpdateUser(User user);
+    Task UpdateUserAsync(User user);
 
 
 }
