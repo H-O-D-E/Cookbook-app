@@ -1,4 +1,5 @@
 using Cookbook_app.Data;
+using Cookbook_app.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,12 +11,21 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+// Add DI Scopes here
+builder.Services.AddScoped<IRecipeBookRepository, RecipeBookRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+
 //DB connection
 
 builder.Services.AddDbContext<CookbookDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+
+
 var app = builder.Build();
+
 
 
 // Configure the HTTP request pipeline.

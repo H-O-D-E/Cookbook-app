@@ -12,24 +12,24 @@ public class RecipeBookRepository : IRecipeBookRepository
     {
         _context = context;
     }
-    
-    
-    public Task<RecipeBook> GetRecipeBookById(int id)
+
+
+    public Task<RecipeBook?> GetRecipeBookByIdAsync(int id)
     {
         throw new NotImplementedException();
     }
 
-    public Task AddRecipeBook(RecipeBook recipeBook)
+    public Task AddRecipeBookAsync(RecipeBook recipeBook)
     {
         throw new NotImplementedException();
     }
 
-    public Task DeleteRecipeBook(RecipeBook recipeBook)
+    public Task DeleteRecipeBookAsync(RecipeBook recipeBook)
     {
         throw new NotImplementedException();
     }
 
-    public Task UpdateRecipeBook(RecipeBook recipeBook)
+    public Task UpdateRecipeBookAsync(RecipeBook recipeBook)
     {
         throw new NotImplementedException();
     }

@@ -8,6 +8,8 @@ public interface IUserRepository
    
     Task<User?> GetUserByIdAsync(int id);
 
+    Task<List<User>> GetAllUsers();
+
     Task<User?> GetUserByEmailAsync(string email);
     
     Task AddUserAsync(User user);
@@ -16,5 +18,7 @@ public interface IUserRepository
 
     Task UpdateUserAsync(User user);
 
+    
+    
 
 }
