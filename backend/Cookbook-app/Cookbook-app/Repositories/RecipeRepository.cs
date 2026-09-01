@@ -37,7 +37,7 @@ public static Recipe GetRecipeByRecipeId(int recipeId)
 public static Recipe GetRecipeByUserId(int userId){
  throw  new NotImplementedException();
 }
-public async Task<IEnumerable<Recipe>> GetAllRecipesAsync(){
+public Task<IEnumerable<Recipe>> GetAllRecipesAsync(){
  throw  new NotImplementedException();
 }
 
