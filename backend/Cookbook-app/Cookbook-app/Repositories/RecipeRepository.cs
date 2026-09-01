@@ -12,7 +12,7 @@ private readonly CookbookDbContext _context;
 
 public RecipeRepository(CookbookDbContext context)
 {
- _context = _context;
+        _context = context;
 }
 
 public async Task<Recipe> GetRecipeByIdAsync(int recipeId)
