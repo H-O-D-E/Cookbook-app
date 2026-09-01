@@ -5,7 +5,7 @@ namespace Cookbook_app.Repositories;
 
 public interface IRecipeRepository
 {
-    Task<Recipe> GetRecipeByIdAsync(int recipeId);
+    Task<Recipe> GetRecipeByIdAsync(string recipeId);
     Task<IEnumerable<Recipe>> GetAllRecipesAsync();
     Task<Recipe> GetRecipeByUserIdAsync(int userId);
   Task <IEnumerable<Recipe>> GetAllRecipesByUserIdAsync(int userId);
