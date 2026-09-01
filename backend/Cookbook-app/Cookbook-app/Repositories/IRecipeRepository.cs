@@ -1,0 +1,17 @@
+using Cookbook_app.Models;
+
+namespace Cookbook_app.Repositories;
+
+
+public interface IRecipeRepository
+{
+    Task<Recipe> GetRecipeByIdAsync(int recipeId);
+    Task<IEnumerable<Recipe>> GetAllRecipesAsync();
+    Task<Recipe> GetRecipeByUserIdAsync(int userId);
+  Task <IEnumerable<Recipe>> GetAllRecipesByUserIdAsync(int userId);
+ Task ADDRecipeAsync(Recipe recipe);
+  Task UpdateRecipeAsync(Recipe recipe);
+  Task DeleteRecipeAsync(Recipe recipe);
+    
+    
+}
