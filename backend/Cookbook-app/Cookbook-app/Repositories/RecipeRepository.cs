@@ -15,7 +15,7 @@ public RecipeRepository(CookbookDbContext context)
         _context = context;
 }
 
-public async Task<Recipe> GetRecipeByIdAsync(int recipeId)
+public Task<Recipe> GetRecipeByIdAsync(string recipeId)
 {
  throw  new NotImplementedException();
 }
