@@ -1,5 +1,8 @@
 using Cookbook_app.Data;
+using Cookbook_app.Models;
 using Cookbook_app.Repositories;
+using Cookbook_app.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +18,13 @@ builder.Services.AddSwaggerGen();
 // Add DI Scopes here
 builder.Services.AddScoped<IRecipeBookRepository, RecipeBookRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
+
+
+//For passord hashing
+
+builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+
 
 
 //DB connection
