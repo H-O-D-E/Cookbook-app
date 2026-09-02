@@ -1,66 +1,43 @@
-using Cookbook_app.Data;
+﻿using Cookbook_app.Data;
 using Cookbook_app.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cookbook_app.Repositories;
 
 public class RecipeRepository : IRecipeRepository
-
 {
-private readonly CookbookDbContext _context;
+    private readonly CookbookDbContext _context;
 
-public RecipeRepository(CookbookDbContext context)
-{
+    public RecipeRepository(CookbookDbContext context)
+    {
         _context = context;
-}
+    }
 
-public Task<Recipe> GetRecipeByIdAsync(string recipeId)
-{
- throw  new NotImplementedException();
-}
+    public async Task<Recipe?> GetRecipeByRecipeIdAsync(int id)
+    {
+        return await _context.Recipes.FirstOrDefaultAsync(r => r.RecipeId == id);
+    }
 
-public async Task<Recipe> GetRecipeByUserIdAsync(int userId)
-{
- throw  new NotImplementedException();
-}
+    public async Task<IEnumerable<Recipe?>> GetAllRecipesAsync()
+    {
+        return await _context.Recipes.ToListAsync();
+    }
 
-public async Task<Recipe> GetRecipeByRecipeIdAsync(int recipeId)
-{
- throw  new NotImplementedException();
-}
+    public async Task AddRecipeAsync(Recipe recipe)
+    {
+        _context.Recipes.Add(recipe);
+        await _context.SaveChangesAsync();
+    }
 
-public static Recipe GetRecipeByRecipeId(int recipeId)
-{
- throw  new NotImplementedException();
-}
-public static Recipe GetRecipeByUserId(int userId){
- throw  new NotImplementedException();
-}
-public Task<IEnumerable<Recipe>> GetAllRecipesAsync(){
- throw  new NotImplementedException();
-}
+    public async Task UpdateRecipeAsync(Recipe recipe)
+    {
+        _context.Recipes.Update(recipe);
+        await _context.SaveChangesAsync();
+    }
 
-public async Task<IEnumerable<Recipe>> GetAllRecipesByUserIdAsync(int userId)
-{
- throw  new NotImplementedException();
-}
-
-public Task AddRecipeAsync(Recipe recipe)
-{
- throw  new NotImplementedException();
-}
-
-public Task UpdateRecipeAsync(Recipe recipe)
-{
- throw new NotImplementedException();
-}
-
-public async Task DeleteRecipeAsync(Recipe recipe)
-{
- throw  new NotImplementedException();
-}
-
-
-
-
+    public async Task DeleteRecipeAsync(Recipe recipe)
+    {
+        _context.Recipes.Remove(recipe);
+        await _context.SaveChangesAsync();
+    }
 }

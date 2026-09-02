@@ -5,9 +5,8 @@ namespace Cookbook_app.Models;
 
 public class Recipe
 {
-    
     [Key]
-    public string RecipeId { get; set;}
+    public int RecipeId { get; set;}
     
     public string Name { get; set; }
     
