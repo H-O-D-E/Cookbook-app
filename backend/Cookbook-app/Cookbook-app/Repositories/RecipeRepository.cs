@@ -45,7 +45,7 @@ public async Task<IEnumerable<Recipe>> GetAllRecipesByUserIdAsync(int userId)
  throw  new NotImplementedException();
 }
 
-public async Task ADDRecipeAsync(Recipe recipe)
+public Task AddRecipeAsync(Recipe recipe)
 {
  throw  new NotImplementedException();
 }
