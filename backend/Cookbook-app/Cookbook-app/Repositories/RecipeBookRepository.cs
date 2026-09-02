@@ -1,5 +1,6 @@
 ﻿using Cookbook_app.Data;
 using Cookbook_app.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cookbook_app.Repositories;
 
@@ -12,25 +13,28 @@ public class RecipeBookRepository : IRecipeBookRepository
     {
         _context = context;
     }
-
-
-    public Task<RecipeBook?> GetRecipeBookByIdAsync(int id)
+    
+    
+    public async Task<RecipeBook?> GetRecipeBookByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        return await _context.RecipeBooks.FirstOrDefaultAsync(b => b.RecipeBookId == id);
     }
 
-    public Task AddRecipeBookAsync(RecipeBook recipeBook)
+    public async Task AddRecipeBookAsync(RecipeBook recipeBook)
     {
-        throw new NotImplementedException();
+        _context.RecipeBooks.Add(recipeBook);
+        await _context.SaveChangesAsync();
     }
 
-    public Task DeleteRecipeBookAsync(RecipeBook recipeBook)
+    public async Task DeleteRecipeBookAsync(RecipeBook recipeBook)
     {
-        throw new NotImplementedException();
+        _context.RecipeBooks.Remove(recipeBook);
+        await _context.SaveChangesAsync();
     }
 
-    public Task UpdateRecipeBookAsync(RecipeBook recipeBook)
+    public async Task UpdateRecipeBookAsync(RecipeBook recipeBook)
     {
-        throw new NotImplementedException();
+        _context.RecipeBooks.Update(recipeBook);
+        await _context.SaveChangesAsync();
     }
 }
