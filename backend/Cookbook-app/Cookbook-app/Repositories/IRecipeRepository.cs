@@ -8,9 +8,9 @@ public interface IRecipeRepository
     Task<Recipe> GetRecipeByIdAsync(string recipeId);
     Task<IEnumerable<Recipe>> GetAllRecipesAsync();
     Task<Recipe> GetRecipeByUserIdAsync(int userId);
-  Task <IEnumerable<Recipe>> GetAllRecipesByUserIdAsync(int userId);
- Task ADDRecipeAsync(Recipe recipe);
-  Task UpdateRecipeAsync(Recipe recipe);
+    Task<IEnumerable<Recipe>> GetAllRecipesByUserIdAsync(int userId);
+    Task AddRecipeAsync(Recipe recipe);
+    Task UpdateRecipeAsync(Recipe recipe);
   Task DeleteRecipeAsync(Recipe recipe);
     
     
