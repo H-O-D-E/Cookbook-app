@@ -2,8 +2,9 @@ using Cookbook_app.Models;
 
 public class Recipe
 {
-    public string RecipeId { get; set; }
-
+    [Key]
+    public int RecipeId { get; set;}
+    
     public string Name { get; set; }
 
     public string Description { get; set; }
