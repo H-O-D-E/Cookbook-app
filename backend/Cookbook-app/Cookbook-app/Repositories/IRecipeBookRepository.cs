@@ -4,9 +4,9 @@ namespace Cookbook_app.Repositories;
 
 public interface IRecipeBookRepository
 {
-    public Task<RecipeBook> GetRecipeBookById(int id);
-    public Task AddRecipeBook(RecipeBook recipeBook);
-    public Task DeleteRecipeBook(RecipeBook recipeBook);
-    public Task UpdateRecipeBook(RecipeBook recipeBook);
+    public Task<RecipeBook?> GetRecipeBookByIdAsync(int id);
+    public Task AddRecipeBookAsync(RecipeBook recipeBook);
+    public Task DeleteRecipeBookAsync(RecipeBook recipeBook);
+    public Task UpdateRecipeBookAsync(RecipeBook recipeBook);
     
 }
