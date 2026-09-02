@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Cookbook_app.Models;
 
 public class Recipe

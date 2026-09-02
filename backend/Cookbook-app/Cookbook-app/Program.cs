@@ -1,7 +1,7 @@
 using System.Text;
 using Cookbook_app.Data;
-using Cookbook_app.Models;
 using Cookbook_app.Repositories;
+using Cookbook_app.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +15,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IJwtService, JwtService>();
 
 
 // Add DI Scopes here
