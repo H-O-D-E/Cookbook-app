@@ -1,9 +1,10 @@
 using Cookbook_app.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cookbook_app.Data;
 
-public class CookbookDbContext : DbContext
+public class CookbookDbContext : IdentityDbContext
 {
 
     public CookbookDbContext(DbContextOptions<CookbookDbContext> options) : base (options)
@@ -13,7 +14,7 @@ public class CookbookDbContext : DbContext
     
     //DBSETS kommer her
     
-    public DbSet<User> Users { get; set; }
+ 
     public DbSet<Recipe> Recipes { get; set; }
     public DbSet<RecipeBook> RecipeBooks { get; set; }
     
