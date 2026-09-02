@@ -1,17 +1,16 @@
-using Cookbook_app.Models;
+using System.Threading.RateLimiting;using Cookbook_app.Models;
 
 public class Recipe
 {
-    [Key]
     public int RecipeId { get; set;}
     
     public string Name { get; set; }
 
     public string Description { get; set; }
 
-    public List<string> Ingredients { get; set; }
+    public string Ingredients { get; set; }
 
-    public List<string> Instructions { get; set; }
+    public string Instructions { get; set; }
 
     public float RecipeScore { get; set; }
 
