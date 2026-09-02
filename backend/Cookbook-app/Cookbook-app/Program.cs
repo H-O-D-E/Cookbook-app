@@ -1,9 +1,11 @@
+using System.Text;
 using Cookbook_app.Data;
 using Cookbook_app.Models;
 using Cookbook_app.Repositories;
-using Cookbook_app.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,13 +19,10 @@ builder.Services.AddSwaggerGen();
 
 // Add DI Scopes here
 builder.Services.AddScoped<IRecipeBookRepository, RecipeBookRepository>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IUserService, UserService>();
 
 
 //For passord hashing
 
-builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
 
 
@@ -33,6 +32,44 @@ builder.Services.AddDbContext<CookbookDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
+//Authentication with JWT signing key. claim
+builder.Services
+    .AddIdentityCore<IdentityUser>()
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<CookbookDbContext>();
+
+var issuer = builder.Configuration["Jwt:ValidIssuer"];
+var audience = builder.Configuration["Jwt:ValidAudience"];
+var signingKey = builder.Configuration["Jwt:IssuerSigningKey"];
+
+if (string.IsNullOrWhiteSpace(signingKey))
+{
+    throw new InvalidOperationException(
+        "JWT signing key is not configured.");
+}
+
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+
+            ValidIssuer = issuer,
+            ValidAudience = audience,
+
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(signingKey)),
+
+            ClockSkew = TimeSpan.Zero
+        };
+    });
+
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -47,6 +84,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

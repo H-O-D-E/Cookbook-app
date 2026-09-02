@@ -1,17 +1,18 @@
+using Microsoft.AspNetCore.Identity;
+
 namespace Cookbook_app.Models;
 
 public class RecipeBook
 {
-    
     public int RecipeBookId { get; set; }
-    
-    public List<Recipe> ListOfRecipes { get; set; } = new();
-    
+
     public string Name { get; set; }
-    
+
     public float RecipeBookScore { get; set; }
 
-    public RecipeBook()
-    {
-    }
+    public string UserId { get; set; }
+    
+    public IdentityUser User { get; set; }
+
+    public List<Recipe> Recipes { get; set; } = new();
 }
