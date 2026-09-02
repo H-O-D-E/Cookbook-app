@@ -16,5 +16,6 @@ public class Recipe
     public float RecipeScore { get; set; }
 
     public int RecipeBookId { get; set; }
+    
     public RecipeBook RecipeBook { get; set; }
 }
