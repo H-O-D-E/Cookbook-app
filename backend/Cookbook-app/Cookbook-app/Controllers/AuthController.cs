@@ -23,7 +23,7 @@ public class AuthController : ControllerBase
     }
 
 
-    [HttpPost("/register")]
+    [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterUserRequest registerRequest)
     {
         var newUser = new IdentityUser

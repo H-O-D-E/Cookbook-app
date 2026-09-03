@@ -1,10 +1,9 @@
 ﻿using System.Security.Claims;
+using Cookbook_app.DTOs.RequestDTO;
 using Cookbook_app.DTOs.ResponseDTO;
-using Cookbook_app.Models;
+using Cookbook_app.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Cookbook_app.Controllers;
 
@@ -25,7 +24,7 @@ public class RecipeBookController : ControllerBase
     [HttpGet("{id:int}")]
     public async Task<ActionResult<RecipeBookResponse>> GetRecipeBookAsync(int id)
     {
-        var book = await _service.GetRecipeBookAsync(id);
+        var book = await _service.GetRecipeBookAsync(id, UserId);
         if (book is null) return NotFound("Recipe book not found :( ");
 
         return Ok(new RecipeBookResponse(book.RecipeBookId, book.Name, book.RecipeBookScore));
@@ -60,8 +59,7 @@ public class RecipeBookController : ControllerBase
     [HttpDelete("{id:int}")]
     public async Task<ActionResult> DeleteRecipeBookAsync(int id)
     {
-
-        if (await _service.DeleteRecipeBookAsync(id, UserId) == null)
+        if (!await _service.DeleteRecipeBookAsync(id, UserId))
         {
             return NotFound(new ProblemDetails
             {
@@ -70,7 +68,7 @@ public class RecipeBookController : ControllerBase
                 Status = StatusCodes.Status404NotFound
             });
         }
-        
+
         return NoContent();
     }
     
