@@ -45,14 +45,32 @@ public class RecipeBookController : ControllerBase
     [HttpPut("{id:int}")]
     public async Task<ActionResult> UpdateRecipeBookAsync(int id, UpdateRecipeBookRequest request)
     {
-        await _service.UpdateRecipeBookAsync(id, request, UserId);
+        if (await _service.UpdateRecipeBookAsync(id, request, UserId) == null)
+        {
+            return NotFound(new ProblemDetails
+            {
+                Title = "Recipebook not found",
+                Detail = $"No recipebook with id {id} exists.",
+                Status = StatusCodes.Status404NotFound
+            });
+        }
         return NoContent();
     }
 
     [HttpDelete("{id:int}")]
     public async Task<ActionResult> DeleteRecipeBookAsync(int id)
     {
-        await _service.DeleteRecipeBookAsync(id, UserId);
+
+        if (await _service.DeleteRecipeBookAsync(id, UserId) == null)
+        {
+            return NotFound(new ProblemDetails
+            {
+                Title = "Recipebook not found",
+                Detail = $"No recipebook with id {id} exists.",
+                Status = StatusCodes.Status404NotFound
+            });
+        }
+        
         return NoContent();
     }
     
