@@ -21,6 +21,8 @@ builder.Services.AddScoped<IJwtService, JwtService>();
 // Add DI Scopes here
 builder.Services.AddScoped<IRecipeBookRepository, RecipeBookRepository>();
 
+builder.Services.AddScoped<IRecipeRepository, RecipeRepository>();
+builder.Services.AddScoped<IRecipeService, RecipeService>();
 
 //For passord hashing
 

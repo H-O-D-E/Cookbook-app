@@ -8,7 +8,7 @@ public class RecipeBook
 
     public string Name { get; set; }
 
-    public float RecipeBookScore { get; set; }
+    public float RecipeBookScore { get; set; } = 0;
 
     public string UserId { get; set; }
     

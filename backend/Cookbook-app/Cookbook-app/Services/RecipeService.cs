@@ -14,47 +14,45 @@ public class RecipeService : IRecipeService
     
     public async Task<Recipe?> GetRecipeAsync(int recipeId)
     {
-        return await _recipeRepository.GetRecipeByRecipeIdAsync(recipeId);
+        var recipe = await _recipeRepository.GetRecipeByRecipeIdAsync(recipeId);
+        
+        if (recipe is null) return null;
+
+        return recipe;
     }
 
-    public async Task CreateRecipeAsync(string recipeName, string desc, string ingredients, string instructions, int recipebookId)
+    public async Task<Recipe> CreateRecipeAsync(CreateRecipeRequest request)
     {
-        var existingRecipe = await _recipeRepository.GetRecipeByNameAsync(recipeName);
-        if (existingRecipe != null)
-        {
-            throw new Exception("Recipe already exists");
-        }
-
-        var newRecipe = new Recipe { Name = recipeName, Description = desc, Ingredients = ingredients, 
-            Instructions = instructions, RecipeScore = 0, RecipeBookId = recipebookId 
+        var newRecipe = new Recipe { Name = request.RecipeName, Description = request.Description, Ingredients = request.Ingredients, 
+            Instructions = request.Instructions, RecipeBookId = request.RecipebookId 
         };
         await _recipeRepository.AddRecipeAsync(newRecipe);
+        return newRecipe;
     }
 
-    public async Task UpdateRecipeAsync(int recipeId, UpdateRecipeRequest request)
+    public async Task<Recipe?> UpdateRecipeAsync(int recipeId, UpdateRecipeRequest request)
     {
         var existingRecipe = await GetRecipeAsync(recipeId);
-        if (existingRecipe == null)
-        {
-            throw new Exception("Recipe does not exists");
-        }
+        
+        if (existingRecipe is null) return null;
 
-        if (request.Name != null) existingRecipe.Name = request.Name;
-        if (request.Description != null) existingRecipe.Description = request.Description;
-        if (request.Ingredients != null) existingRecipe.Ingredients = request.Ingredients;
-        if (request.Instructions != null) existingRecipe.Instructions = request.Instructions;
+        if (request.Name is not null) existingRecipe.Name = request.Name;
+        if (request.Description is not null) existingRecipe.Description = request.Description;
+        if (request.Ingredients is not null) existingRecipe.Ingredients = request.Ingredients;
+        if (request.Instructions is not null) existingRecipe.Instructions = request.Instructions;
         
         await _recipeRepository.UpdateRecipeAsync(existingRecipe);
+        return existingRecipe;
     }
 
-    public async Task DeleteRecipeAsync(int recipeId)
+    public async Task<bool> DeleteRecipeAsync(int recipeId)
     {
-        var existingRecipe = await GetRecipeAsync(recipeId);
-        if (existingRecipe == null)
-        {
-            throw new Exception("Recipe does not exists");
-        }
+        var existingRecipe = await _recipeRepository.GetRecipeByRecipeIdAsync(recipeId);
+
+        if (existingRecipe is null) return false;
 
         await _recipeRepository.DeleteRecipeAsync(existingRecipe);
+
+        return true;
     }
 }

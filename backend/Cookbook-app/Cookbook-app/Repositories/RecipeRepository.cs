@@ -23,11 +23,6 @@ public class RecipeRepository : IRecipeRepository
         return await _context.Recipes.ToListAsync();
     }
 
-    public async Task<Recipe?> GetRecipeByNameAsync(string name)
-    {
-        return await _context.Recipes.FirstOrDefaultAsync(r => r.Name == name);
-    }
-
     public async Task AddRecipeAsync(Recipe recipe)
     {
         _context.Recipes.Add(recipe);

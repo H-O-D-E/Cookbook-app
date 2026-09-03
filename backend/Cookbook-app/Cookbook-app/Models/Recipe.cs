@@ -12,7 +12,7 @@ public class Recipe
 
     public string Instructions { get; set; }
 
-    public float RecipeScore { get; set; }
+    public float RecipeScore { get; set; } = 0;
 
     public int RecipeBookId { get; set; }
     
