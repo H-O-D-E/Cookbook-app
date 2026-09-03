@@ -15,9 +15,9 @@ public class RecipeBookRepository : IRecipeBookRepository
     }
     
     
-    public async Task<RecipeBook?> GetRecipeBookByIdAsync(int id)
+    public async Task<RecipeBook?> GetRecipeBookByIdAsync(int id, string userid)
     {
-        return await _context.RecipeBooks.FirstOrDefaultAsync(b => b.RecipeBookId == id);
+        return await _context.RecipeBooks.FirstOrDefaultAsync(b => b.RecipeBookId == id && b.UserId == userid);
     }
 
     public async Task<RecipeBook?> GetRecipeBookByNameAsync(string name, string userid)

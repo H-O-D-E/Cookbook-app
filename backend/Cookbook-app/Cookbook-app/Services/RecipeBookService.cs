@@ -18,7 +18,7 @@ public class RecipeBookService : IRecipeBookService
 
     public async Task<RecipeBook?> GetRecipeBookAsync(int recipeBookId, string userId)
     {
-        var cookbook = await _recipeBookRepository.GetRecipeBookByIdAsync(recipeBookId);
+        var cookbook = await _recipeBookRepository.GetRecipeBookByIdAsync(recipeBookId, userId);
 
         if (cookbook is null)
         {
@@ -63,7 +63,7 @@ public class RecipeBookService : IRecipeBookService
         string userId)
     {
         var recipeBook =
-            await _recipeBookRepository.GetRecipeBookByIdAsync(id);
+            await _recipeBookRepository.GetRecipeBookByIdAsync(id,userId);
 
         if (recipeBook is null)
             return null;
@@ -82,7 +82,7 @@ public class RecipeBookService : IRecipeBookService
     public async Task<bool> DeleteRecipeBookAsync(int id, string userId)
     {
 
-        var recipeBook = await _recipeBookRepository.GetRecipeBookByIdAsync(id);
+        var recipeBook = await _recipeBookRepository.GetRecipeBookByIdAsync(id,userId);
 
         if (recipeBook is null) return false;
 
