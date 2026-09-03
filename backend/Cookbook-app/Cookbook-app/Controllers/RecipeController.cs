@@ -9,9 +9,9 @@ namespace Cookbook_app.Controllers;
 [Route("/recipes")]
 public class RecipeController : ControllerBase
 {
-    private readonly RecipeService _recipeService;
+    private readonly IRecipeService _recipeService;
 
-    public RecipeController(RecipeService recipeService)
+    public RecipeController(IRecipeService recipeService)
     {
         _recipeService = recipeService;
     }

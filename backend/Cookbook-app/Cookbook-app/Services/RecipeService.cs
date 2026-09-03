@@ -5,9 +5,9 @@ namespace Cookbook_app.Services;
 
 public class RecipeService : IRecipeService
 {
-    private readonly RecipeRepository _recipeRepository;
+    private readonly IRecipeRepository _recipeRepository;
 
-    public RecipeService(RecipeRepository recipeRepository)
+    public RecipeService(IRecipeRepository recipeRepository)
     {
         _recipeRepository = recipeRepository;
     }
