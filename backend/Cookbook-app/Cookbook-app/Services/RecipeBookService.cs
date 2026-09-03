@@ -36,6 +36,16 @@ public class RecipeBookService : IRecipeBookService
         CreateRecipeBookRequest request,
         string userId)
     {
+
+
+        var existingCookBook = await _recipeBookRepository.GetRecipeBookByNameAsync(request.RecipeBookName, userId);
+
+        if (existingCookBook is not     null)
+        {
+            return null;
+        }
+            
+        
         var recipeBook = new RecipeBook
         {
             Name = request.RecipeBookName,
