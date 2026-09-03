@@ -20,7 +20,11 @@ public class RecipeBookRepository : IRecipeBookRepository
         return await _context.RecipeBooks.FirstOrDefaultAsync(b => b.RecipeBookId == id);
     }
 
-  
+    public async Task<RecipeBook?> GetRecipeBookByNameAsync(string name)
+    {
+        return await _context.RecipeBooks.FirstOrDefaultAsync(b => b.Name == name);
+    }
+
 
     public async Task AddRecipeBookAsync(RecipeBook recipeBook)
     {
