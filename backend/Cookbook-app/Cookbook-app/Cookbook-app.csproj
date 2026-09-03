@@ -27,9 +27,4 @@
       </Content>
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="DTOs\Requests\" />
-      <Folder Include="DTOs\Responses\" />
-    </ItemGroup>
-
 </Project>

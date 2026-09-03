@@ -22,6 +22,8 @@ builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IRecipeBookRepository, RecipeBookRepository>();
 builder.Services.AddScoped<IRecipeBookService, RecipeBookService>();
 
+builder.Services.AddScoped<IRecipeRepository, RecipeRepository>();
+builder.Services.AddScoped<IRecipeService, RecipeService>();
 
 //For passord hashing
 
