@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Cookbook_app.Controllers;
 
 [ApiController]
-[Route("/recipes")]
+[Route("/api/recipes")]
 public class RecipeController : ControllerBase
 {
     private readonly IRecipeService _recipeService;
@@ -16,7 +16,7 @@ public class RecipeController : ControllerBase
         _recipeService = recipeService;
     }
 
-    [HttpGet("/{recipeId:int}")]
+    [HttpGet("{recipeId:int}")]
     public async Task<ActionResult<GetRecipeResponse>> GetRecipeAsync(int recipeId)
     {
         var recipe = await _recipeService.GetRecipeAsync(recipeId);
@@ -35,7 +35,7 @@ public class RecipeController : ControllerBase
             recipe.Instructions, recipe.RecipeScore));
     }
 
-    [HttpPost("/createRecipe")]
+    [HttpPost]
     public async Task<ActionResult<GetRecipeResponse>> CreateRecipeAsync(CreateRecipeRequest request)
     {
         var recipe = await _recipeService.CreateRecipeAsync(request);
@@ -47,7 +47,7 @@ public class RecipeController : ControllerBase
                 recipe.Instructions, recipe.RecipeScore));
     }
 
-    [HttpPut("/{recipeId:int}")]
+    [HttpPut("{recipeId:int}")]
     public async Task<ActionResult<GetRecipeResponse>> UpdateRecipe(int recipeId, UpdateRecipeRequest request)
     {
         var recipe = await _recipeService.UpdateRecipeAsync(recipeId, request);
@@ -66,7 +66,7 @@ public class RecipeController : ControllerBase
             recipe.Instructions, recipe.RecipeScore));
     }
 
-    [HttpDelete("/{recipeId:int}")]
+    [HttpDelete("{recipeId:int}")]
     public async Task<ActionResult<bool>> DeleteRecipe(int recipeId)
     {
         var deleted = await _recipeService.DeleteRecipeAsync(recipeId);
