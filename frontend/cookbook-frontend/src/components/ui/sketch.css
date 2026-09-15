@@ -1,0 +1,172 @@
+:root {
+  --sketch-seed: "20260828";
+  --sketch-bowing: 1.4;
+  --sketch-roughness: 1.1;
+  --sketch-stroke: currentColor;
+  --sketch-stroke-width: 1.6;
+  --sketch-disable-multi-stroke: true;
+  --sketch-preserve-vertices: true;
+  --sketch-fill-style: solid;
+
+  --sketch-bg-stroke: transparent;
+  --sketch-bg-fill: currentColor;
+  --sketch-bg-fill-style: hachure;
+  --sketch-bg-fill-weight: 0.4;
+  --sketch-bg-hachure-gap: 4;
+  --sketch-bg-hachure-angle: -45;
+  --sketch-bg-opacity: 0.5;
+
+  --paper-pattern: #9c92ac;
+}
+
+[data-sketch-bg] {
+  opacity: var(--sketch-bg-opacity, 1);
+}
+
+[data-sketch-outline] path,
+[data-sketch-bg] path {
+  vector-effect: non-scaling-stroke;
+}
+
+[data-sketch-outline] path {
+  stroke-dasharray: var(--sketch-dash, none);
+  animation: var(--sketch-dash-animation, none);
+}
+
+@property --sketch-bg-reveal-lead {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+
+@property --sketch-bg-reveal-trail {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+
+[data-sketch-reveal] [data-sketch-bg] {
+  --sketch-bg-reveal-mask: linear-gradient(
+    calc((180 + var(--sketch-bg-hachure-angle)) * 1deg),
+    transparent var(--sketch-bg-reveal-trail),
+    #000 var(--sketch-bg-reveal-trail),
+    #000 var(--sketch-bg-reveal-lead),
+    transparent var(--sketch-bg-reveal-lead)
+  );
+  mask-image: var(--sketch-bg-reveal-mask);
+  -webkit-mask-image: var(--sketch-bg-reveal-mask);
+  animation: sketch-hatch-reveal 2400ms linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-sketch-outline] path {
+    animation: none;
+  }
+
+  [data-sketch-reveal] [data-sketch-bg] {
+    animation: none;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+}
+
+[data-sketch-outline] path[fill]:not([fill="none"]) {
+  fill: var(--sketch-fill);
+  fill-opacity: var(--sketch-fill-opacity, 1);
+  transition:
+    fill 150ms ease,
+    fill-opacity 150ms ease;
+}
+
+[data-slot="card"][data-variant]:not([data-variant="default"]) {
+  background-color: var(--background);
+}
+
+[data-paper]:not([data-paper="default"])::before,
+[data-slot="card"][data-variant]:not([data-variant="default"])::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--paper-pattern);
+  opacity: var(--paper-opacity, 0.4);
+  mask-image: var(--paper-image);
+  -webkit-mask-image: var(--paper-image);
+  mask-repeat: repeat;
+  -webkit-mask-repeat: repeat;
+}
+
+[data-paper="polkadots"],
+[data-slot="card"][data-variant="polkadots"] {
+  --paper-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+[data-paper="filled-dots"],
+[data-slot="card"][data-variant="filled-dots"] {
+  --paper-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23000' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+}
+
+[data-paper="hexagons"],
+[data-slot="card"][data-variant="hexagons"] {
+  --paper-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='34.641' height='60' viewBox='0 0 34.641 60'%3E%3Cg fill='none' stroke='%23000'%3E%3Cpath d='M34.641 -10 34.641 10 17.321 20 0 10 0 -10 17.321 -20 Z'/%3E%3Cpath d='M34.641 50 34.641 70 17.321 80 0 70 0 50 17.321 40 Z'/%3E%3Cpath d='M17.321 20 17.321 40 0 50 -17.321 40 -17.321 20 0 10 Z'/%3E%3Cpath d='M51.962 20 51.962 40 34.641 50 17.321 40 17.321 20 34.641 10 Z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+[data-paper="graph"],
+[data-slot="card"][data-variant="graph"] {
+  --paper-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23000'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+[data-paper="plus"],
+[data-slot="card"][data-variant="plus"] {
+  --paper-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/*
+  Hand-drawn "boil": two positions, half a dash period apart, held 0.5s each.
+  steps(2) samples progress at 0 and 0.5, so the -10 endpoint (one full
+  --sketch-dash period, which would land back where it started) is never shown.
+*/
+@keyframes sketch-dash-boil {
+  to {
+    stroke-dashoffset: -10;
+  }
+}
+
+/*
+  Alternating dashes: with a 5/5 dasharray the period is 10, so sampling the
+  -10 sweep at steps(2) swaps dash and gap positions on every other frame.
+*/
+@keyframes sketch-dash-alternate {
+  to {
+    stroke-dashoffset: -10;
+  }
+}
+
+@keyframes sketch-icon-wiggle {
+  0%,
+  100% {
+    transform: rotate(-5deg);
+  }
+
+  50% {
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes sketch-hatch-reveal {
+  0% {
+    --sketch-bg-reveal-lead: 0%;
+    --sketch-bg-reveal-trail: 0%;
+  }
+
+  45%,
+  55% {
+    --sketch-bg-reveal-lead: 100%;
+    --sketch-bg-reveal-trail: 0%;
+  }
+
+  100% {
+    --sketch-bg-reveal-lead: 100%;
+    --sketch-bg-reveal-trail: 100%;
+  }
+}
