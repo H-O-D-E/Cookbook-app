@@ -2,22 +2,26 @@ import { Outlet } from "react-router";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { UserPlus } from "lucide-react";
+import { useState } from "react";
+// Importeres med <UserPlus />
 
 function MainLayout() {
   return (
-    <div className="bg-blue-200 min-h-dvh flex center-items justify-center">
-      <header>
-        <Navbar />
-        <UserPlus />
-      </header>
+    <div className="grid grid-rows-[8%_92%]">
+      <div className="bg-gray-200 min-h-dvh flex items-top justify-center">
+        <header className="w-full">
+          <Navbar/>
+        </header>
+      </div>
+      <div>
+        <main>
+          <Outlet />
+        </main>
 
-      <main>
-        <Outlet />
-      </main>
-
-      <footer>
-        <Footer />
-      </footer>
+        <footer>
+          <Footer />
+        </footer>
+      </div>
     </div>
   );
 }
