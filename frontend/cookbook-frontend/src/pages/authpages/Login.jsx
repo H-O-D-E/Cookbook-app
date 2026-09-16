@@ -1,7 +1,7 @@
 import { login } from "@/api/authApi/auth";
 import { setToken } from "@/auth/token";
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -52,7 +52,9 @@ function Login() {
           />
           <p className="font-bold text-black">
             New user?
-            <span className="pl-2 underline">click here</span>
+            <span className="pl-2 underline">
+              <NavLink to="/register">click here</NavLink>
+            </span>
           </p>
           <button className="btn btn-neutral mt-4" type="submit">
             Login
