@@ -17,11 +17,19 @@ public class RecipeRepository : IRecipeRepository
     {
         return await _context.Recipes.FirstOrDefaultAsync(r => r.RecipeId == id);
     }
-
-    public async Task<IEnumerable<Recipe?>> GetAllRecipesAsync()
+    
+    public async Task<List<Recipe>> GetRecipesByRecipeBookIdAsync(
+        int recipeBookId,
+        string userId)
     {
-        return await _context.Recipes.ToListAsync();
+        return await _context.Recipes
+            .Where(recipe =>
+                recipe.RecipeBookId == recipeBookId &&
+                recipe.RecipeBook.UserId == userId)
+            .ToListAsync();
     }
+
+ 
 
     public async Task AddRecipeAsync(Recipe recipe)
     {

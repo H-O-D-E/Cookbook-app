@@ -20,6 +20,14 @@ public class RecipeService : IRecipeService
 
         return recipe;
     }
+    public async Task<List<Recipe>> GetRecipesByRecipeBookIdAsync(
+        int recipeBookId,
+        string userId)
+    {
+        return await _recipeRepository.GetRecipesByRecipeBookIdAsync(
+            recipeBookId,
+            userId);
+    }
 
     public async Task<Recipe> CreateRecipeAsync(CreateRecipeRequest request)
     {
