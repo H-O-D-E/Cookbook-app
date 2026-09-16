@@ -6,6 +6,7 @@ import Login from "./pages/authpages/Login";
 import Register from "./pages/authpages/Register";
 import { ToastContainer } from "react-toastify";
 import MainLayout from "./layouts/MainLayout";
+import ProtectedRoute from "./auth/ProtectedRoute";
 
 const queryClient = new QueryClient();
 
@@ -16,9 +17,11 @@ function App() {
 
       <BrowserRouter>
         <Routes>
-          <Route element={<MainLayout />}>
-            {/* mainpage */}
-            <Route path="/" element={<Homepage />} />
+          <Route element={<ProtectedRoute />}>
+            <Route element={<MainLayout />}>
+              {/* mainpage */}
+              <Route path="/" element={<Homepage />} />
+            </Route>
           </Route>
 
           {/* auth */}
