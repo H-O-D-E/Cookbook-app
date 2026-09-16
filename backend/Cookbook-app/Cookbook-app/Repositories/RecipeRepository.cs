@@ -1,3 +1,4 @@
+// REVIEW(good): everything here goes through EF Core LINQ, so there is no string-concatenated SQL and no injection surface. If you ever reach for FromSqlRaw, use FromSqlInterpolated or pass parameters; never build the query with string interpolation yourself.
 ﻿using Cookbook_app.Data;
 using Cookbook_app.Models;
 using Microsoft.EntityFrameworkCore;

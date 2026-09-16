@@ -16,6 +16,7 @@ public class RecipeBookService : IRecipeBookService
 
   
 
+    // REVIEW(noob): the repository already filters on UserId, then the service checks UserId again. Defence in depth is fine, but know which layer is the one that actually enforces it, so nobody later 'simplifies' the repository query and quietly removes the real check.
     public async Task<RecipeBook?> GetRecipeBookAsync(int recipeBookId, string userId)
     {
         var cookbook = await _recipeBookRepository.GetRecipeBookByIdAsync(recipeBookId, userId);
@@ -32,6 +33,8 @@ public class RecipeBookService : IRecipeBookService
 
     }
 
+    // REVIEW(bug): the declared return type is Task<RecipeBook> (non-nullable) but this returns null on the duplicate-name path. The compiler is warning about it and the controller then dereferences the null. Model 'already exists' explicitly instead of overloading null.
+    // REVIEW(noob): check-then-insert with no unique index on (UserId, Name) is a race. Add the index in a migration and let the database be the authority.
     public async Task<RecipeBook> CreateRecipeBookAsync(
         CreateRecipeBookRequest request,
         string userId)

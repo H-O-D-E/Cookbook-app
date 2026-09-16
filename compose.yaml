@@ -1,10 +1,14 @@
 ﻿services:
+  # REVIEW(azure): this file only starts PostgreSQL. There is a Dockerfile for the API right there, so add an api service that builds it, depends_on the db, and passes the connection string as an environment variable. Right now 'docker compose up' gives a teammate a database and nothing else, and nobody ever exercises the Dockerfile until deployment day.
+  # REVIEW(azure): no frontend service either. Even a simple vite dev container (or an nginx stage) makes 'clone and run' one command.
   db:
     image: postgres:17
     environment:
       POSTGRES_DB: cookbook
       POSTGRES_USER: cookbook
+      # REVIEW(config): the database password is committed here and repeated verbatim in appsettings.Development.json. For a throwaway local database that is survivable, but get into the habit now: POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-devpassword} plus a .env that is gitignored. On Azure this value comes from a Key Vault reference or a container app secret, never from a file in the repo.
       POSTGRES_PASSWORD: hodehodehode
+    # REVIEW(azure): publishing 5432 to the host is convenient locally and wrong everywhere else. Once there is an api service in this file it can reach the db by service name on the compose network without any published port.
     ports:
       - "5432:5432"
     volumes:
