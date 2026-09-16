@@ -36,6 +36,20 @@ builder.Services.AddDbContext<CookbookDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
+// connections to the frontend
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("ReactFrontend", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173") // change this to whatever ur running ur frontend with
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials(); 
+    });
+});
+
+
 //Authentication with JWT signing key. claim
 builder.Services
     .AddIdentityCore<IdentityUser>()
@@ -87,6 +101,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("ReactFrontend");
 
 
 app.UseAuthentication();
