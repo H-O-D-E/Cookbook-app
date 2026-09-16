@@ -2,14 +2,23 @@
 using Cookbook_app.DTOs.ResponseDTO;
 using Cookbook_app.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Cookbook_app.Controllers;
 
 [ApiController]
+
 [Route("/api/recipes")]
+[Authorize]
+
+
 public class RecipeController : ControllerBase
 {
     private readonly IRecipeService _recipeService;
+    private string UserId =>
+        User.FindFirstValue(ClaimTypes.NameIdentifier)
+        ?? throw new UnauthorizedAccessException("User ID claim is missing.");
 
     public RecipeController(IRecipeService recipeService)
     {
@@ -33,6 +42,25 @@ public class RecipeController : ControllerBase
 
         return Ok(new GetRecipeResponse(recipe.Name, recipe.Description, recipe.Ingredients,
             recipe.Instructions, recipe.RecipeScore));
+    }
+    
+    [HttpGet("/api/recipebooks/{recipeBookId:int}/recipes")]
+    public async Task<ActionResult<IEnumerable<GetRecipeResponse>>>
+        GetRecipesByRecipeBookIdAsync(int recipeBookId)
+    {
+        var recipes = await _recipeService
+            .GetRecipesByRecipeBookIdAsync(recipeBookId, UserId);
+
+        var response = recipes.Select(recipe =>
+            new GetRecipeResponse(
+                recipe.Name,
+                recipe.Description,
+                recipe.Ingredients,
+                recipe.Instructions,
+                recipe.RecipeScore
+            ));
+
+        return Ok(response);
     }
 
     [HttpPost]
