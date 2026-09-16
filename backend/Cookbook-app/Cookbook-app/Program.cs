@@ -36,16 +36,25 @@ builder.Services.AddDbContext<CookbookDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
-// connections to the frontend
+// Only allow frontends listed in configuration to call this api.
+//
+var allowedFrontendOrigins = builder.Configuration
+    .GetSection("Cors:AllowedOrigins")
+    .Get<string[]>() ?? [];
+
+if (allowedFrontendOrigins.Length == 0)
+{
+    throw new InvalidOperationException(
+        "At least one frontend origin must be configured in Cors:AllowedOrigins.");
+}
 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("ReactFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:5173") // change this to whatever ur running ur frontend with
+        policy.WithOrigins(allowedFrontendOrigins)
             .AllowAnyHeader()
-            .AllowAnyMethod()
-            .AllowCredentials(); 
+            .AllowAnyMethod();
     });
 });
 
