@@ -1,5 +1,9 @@
 function Homepage() {
-  return <div>Homepage</div>;
+  return (
+    <div>
+      <button className="btn btn-xl">Hello world</button>
+    </div>
+  );
 }
 
 export default Homepage;
