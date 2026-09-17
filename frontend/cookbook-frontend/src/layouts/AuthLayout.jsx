@@ -9,11 +9,11 @@ function AuthLayout() {
     <div className="min-h-dvh bg-neo-grid grid grid-cols-1 lg:grid-cols-2">
       <div className="flex flex-col items-center justify-center p-8">
         <div className="mb-8 max-w-xl text-center lg:text-left">
-          <h1 className="mb-4 text-6xl font-black tracking-tight text-foreground lg:text-7xl">
+          <h1 className="mb-4 text-6xl font-black tracking-tight text-call-to-action lg:text-7xl">
             Cookbooklet
           </h1>
 
-          <h2 className="mb-3 text-3xl font-bold tracking-tight text-foreground lg:text-4xl">
+          <h2 className="mb-3 text-3xl font-bold tracking-tight text-call-to-action lg:text-4xl">
             Are you cooked?
           </h2>
 

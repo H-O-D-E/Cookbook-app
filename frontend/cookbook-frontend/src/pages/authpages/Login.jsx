@@ -31,7 +31,7 @@ function Login() {
           handleLogin();
         }}
       >
-        <fieldset className="fieldset bg-surface text-foreground rounded-2xl w-[32rem] border border-border p-10 shadow-xl">
+        <fieldset className="fieldset bg-surface text-foreground rounded-2xl w-lg border border-border p-10 shadow-xl">
           <div className="mb-5">
             <h1 className="text-3xl font-bold">Welcome back</h1>
             <p className="mt-1 text-sm font-normal text-muted">

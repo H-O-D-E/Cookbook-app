@@ -28,8 +28,8 @@ function Navbar() {
             <Book />
           </Link>
           <ThemeToggler theme={theme} toggleTheme={toggleTheme} />
-          <button className="btn btn-ghost" onClick={handleLogout}>
-            Log out
+          <button className="btn btn-ghost text-2xl" onClick={handleLogout}>
+            Sign out
           </button>
         </div>
       </div>
