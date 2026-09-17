@@ -17,8 +17,8 @@ function Navbar() {
   return (
     <nav className="grid grid-cols-3 items-start px-4 pt-3 bg-base-100 h-16">
       <div className="flex justify-start">
-        <Link to="/" className=" text-xl">
-          Fork-IT
+        <Link to="/" className=" text-2xl font-bold">
+          Cookbooklet
         </Link>
       </div>
       <div />
@@ -28,8 +28,8 @@ function Navbar() {
             <Book />
           </Link>
           <ThemeToggler theme={theme} toggleTheme={toggleTheme} />
-          <button className="btn btn-ghost" onClick={handleLogout}>
-            Log out
+          <button className="btn btn-ghost text-2xl" onClick={handleLogout}>
+            Sign out
           </button>
         </div>
       </div>

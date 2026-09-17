@@ -1,5 +1,9 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { getAllRecipeBooks } from "@/api/recipeBookApi/recipeBookApi";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-export function useGetAllCookbooks() {
-  const QueryClient = useQueryClient();
+export function useGetAllRecipebooks() {
+  return useQuery({
+    queryKey: ["recipebooks"],
+    queryFn: getAllRecipeBooks,
+  });
 }
