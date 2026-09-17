@@ -29,6 +29,23 @@ public class RecipeBookController : ControllerBase
 
         return Ok(new RecipeBookResponse(book.RecipeBookId, book.Name, book.RecipeBookScore));
     }
+    
+    [HttpGet]
+    public async Task<ActionResult<List<RecipeBookResponse>>> GetAllRecipeBooksAsync()
+    {
+        var books = await _service.GetAllRecipeBooksAsync(UserId);
+
+        var response = books
+            .Select(book => new RecipeBookResponse(
+                book.RecipeBookId,
+                book.Name,
+                book.RecipeBookScore))
+            .ToList();
+
+        return Ok(response);
+    }
+    
+    
 
     [HttpPost]
     [ActionName("GetRecipeBookAsync")]        // To avoid removal of Async suffix from action name
@@ -55,6 +72,8 @@ public class RecipeBookController : ControllerBase
         }
         return NoContent();
     }
+    
+    
 
     [HttpDelete("{id:int}")]
     public async Task<ActionResult> DeleteRecipeBookAsync(int id)
