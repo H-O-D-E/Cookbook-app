@@ -1,6 +1,6 @@
 import Cookbook from "@/components/Cookbook";
 import CreateNewCookbook from "@/components/CreateNewCookbook";
-import CreateNewRecipebook from "@/components/CreateNewRecipebook";
+
 import Modal from "@/components/Modal";
 import { useGetAllRecipebooks } from "@/hooks/cookbook/useGetAllCookbooks";
 import { useState } from "react";
