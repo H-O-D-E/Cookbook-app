@@ -83,7 +83,7 @@ public class RecipeBookController : ControllerBase
             return NotFound(new ProblemDetails
             {
                 Title = "Recipebook not found",
-                Detail = $"No recipebook with id {id} exists.",
+                Detail = $"No recipebook with id {id} found.",
                 Status = StatusCodes.Status404NotFound
             });
         }
