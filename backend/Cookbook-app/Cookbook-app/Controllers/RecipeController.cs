@@ -40,7 +40,7 @@ public class RecipeController : ControllerBase
             });
         }
 
-        return Ok(new GetRecipeResponse(recipe.Name, recipe.Description, recipe.Ingredients,
+        return Ok(new GetRecipeResponse(recipe.RecipeId, recipe.Name, recipe.Description, recipe.ImageUrl, recipe.Ingredients,
             recipe.Instructions, recipe.RecipeScore));
     }
     
@@ -53,8 +53,10 @@ public class RecipeController : ControllerBase
 
         var response = recipes.Select(recipe =>
             new GetRecipeResponse(
+                recipe.RecipeId,
                 recipe.Name,
                 recipe.Description,
+                recipe.ImageUrl,
                 recipe.Ingredients,
                 recipe.Instructions,
                 recipe.RecipeScore
@@ -71,7 +73,7 @@ public class RecipeController : ControllerBase
         return CreatedAtAction(
             "GetRecipe",
             new { recipeId = recipe.RecipeId },
-            new GetRecipeResponse(recipe.Name, recipe.Description, recipe.Ingredients,
+            new GetRecipeResponse(recipe.RecipeId, recipe.Name, recipe.Description, recipe.ImageUrl, recipe.Ingredients,
                 recipe.Instructions, recipe.RecipeScore));
     }
 
@@ -90,16 +92,14 @@ public class RecipeController : ControllerBase
             });
         }
 
-        return Ok(new GetRecipeResponse(recipe.Name, recipe.Description, recipe.Ingredients,
+        return Ok(new GetRecipeResponse(recipe.RecipeId, recipe.Name, recipe.Description, recipe.ImageUrl, recipe.Ingredients,
             recipe.Instructions, recipe.RecipeScore));
     }
 
     [HttpDelete("{recipeId:int}")]
     public async Task<ActionResult<bool>> DeleteRecipe(int recipeId)
     {
-        var deleted = await _recipeService.DeleteRecipeAsync(recipeId);
-
-        if (false)
+        if (!await _recipeService.DeleteRecipeAsync(recipeId))
         {
             return NotFound(new ProblemDetails
             {

@@ -1,4 +1,6 @@
-using System.Threading.RateLimiting;using Cookbook_app.Models;
+using System.ComponentModel.DataAnnotations;
+
+namespace Cookbook_app.Models;
 
 public class Recipe
 {
@@ -7,6 +9,10 @@ public class Recipe
     public string Name { get; set; }
 
     public string Description { get; set; }
+
+    [Url]
+    [Display(Name = "Recipe Image URL")]
+    public string ImageUrl { get; set; }
 
     public string Ingredients { get; set; }
 
