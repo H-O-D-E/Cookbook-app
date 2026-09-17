@@ -10,6 +10,16 @@ export async function getRecipeBook() {
     return response.json();
 }
 
+export async function getAllRecipeBooks() {
+    const response = await apiFetch('/api/recipebooks');
+
+    if (!response.ok) {
+        throw new Error("Unable to fetch recipe books");
+    }
+
+    return response.json();
+}
+
 export async function createRecipeBook(recipeBookName) {
     const response = await apiFetch("api/recipebooks", {
         method: "POST",
