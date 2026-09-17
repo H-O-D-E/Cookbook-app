@@ -14,7 +14,7 @@ function AuthLayout() {
           </h1>
 
           <h2 className="mb-3 text-3xl font-bold tracking-tight text-foreground lg:text-4xl">
-            No idea what to cook?
+            Are you cooked?
           </h2>
 
           <p className="text-lg leading-relaxed text-muted lg:text-xl">
