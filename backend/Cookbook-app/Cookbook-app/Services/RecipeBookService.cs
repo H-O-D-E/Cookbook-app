@@ -32,6 +32,11 @@ public class RecipeBookService : IRecipeBookService
 
     }
 
+    public async Task<List<RecipeBook>> GetAllRecipeBooksAsync(string userId)
+    {
+        return await _recipeBookRepository.GetAllRecipeBooksAsync(userId);
+    }
+
     public async Task<RecipeBook> CreateRecipeBookAsync(
         CreateRecipeBookRequest request,
         string userId)
