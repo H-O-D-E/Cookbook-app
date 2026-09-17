@@ -28,7 +28,7 @@ public class RecipeController : ControllerBase
     [HttpGet("{recipeId:int}")]
     public async Task<ActionResult<GetRecipeResponse>> GetRecipeAsync(int recipeId)
     {
-        var recipe = await _recipeService.GetRecipeAsync(recipeId);
+        var recipe = await _recipeService.GetRecipeAsync(recipeId, UserId);
         
         if (recipe is null)
         {
@@ -66,7 +66,11 @@ public class RecipeController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<GetRecipeResponse>> CreateRecipeAsync(CreateRecipeRequest request)
     {
-        var recipe = await _recipeService.CreateRecipeAsync(request);
+        var recipe = await _recipeService.CreateRecipeAsync(request, UserId);
+        if (recipe is null)
+        {
+            return NotFound();
+        }
 
         return CreatedAtAction(
             "GetRecipe",
@@ -78,7 +82,7 @@ public class RecipeController : ControllerBase
     [HttpPut("{recipeId:int}")]
     public async Task<ActionResult<GetRecipeResponse>> UpdateRecipe(int recipeId, UpdateRecipeRequest request)
     {
-        var recipe = await _recipeService.UpdateRecipeAsync(recipeId, request);
+        var recipe = await _recipeService.UpdateRecipeAsync(recipeId, request, UserId);
 
         if (recipe is null)
         {
@@ -97,9 +101,9 @@ public class RecipeController : ControllerBase
     [HttpDelete("{recipeId:int}")]
     public async Task<ActionResult<bool>> DeleteRecipe(int recipeId)
     {
-        var deleted = await _recipeService.DeleteRecipeAsync(recipeId);
+        var deleted = await _recipeService.DeleteRecipeAsync(recipeId, UserId);
 
-        if (false)
+        if (!deleted)
         {
             return NotFound(new ProblemDetails
             {
