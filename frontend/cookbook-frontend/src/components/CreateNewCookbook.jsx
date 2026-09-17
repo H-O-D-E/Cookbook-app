@@ -1,9 +1,10 @@
 function CreateNewCookbook() {
   return (
-    <div className="flex justify-center text-center item-center">
-      <fieldset className="fieldset bg-surface text-foreground rounded-2xl w-lg p-10  text-lg">
-        <div className="mb-5">
+    <form className="w-full">
+      <fieldset className="fieldset bg-surface text-foreground rounded-2xl w-full p-10 text-lg">
+        <div className="mb-5 text-center">
           <h1 className="text-4xl font-bold">Create new cookbook</h1>
+
           <p className="mt-1 text-sm font-normal text-muted">
             Please fill out the form to create a new cookbook
           </p>
@@ -36,7 +37,7 @@ function CreateNewCookbook() {
           Save
         </button>
       </fieldset>
-    </div>
+    </form>
   );
 }
 
