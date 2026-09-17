@@ -7,9 +7,9 @@ import { useState } from "react";
 
 function MainLayout() {
   return (
-    <div className="grid grid-rows-[8%_92%] bg-neo-grid ">
+    <div className="grid grid-rows-[3%_90%] bg-neo-grid ">
       <div className=" min-h-dvh flex items-top justify-center">
-        <header className="w-full">
+        <header className="w-full ">
           <Navbar />
         </header>
       </div>

@@ -17,7 +17,7 @@ function Navbar() {
   return (
     <nav className="grid grid-cols-3 items-start px-4 pt-3 bg-base-100 h-16">
       <div className="flex justify-start">
-        <Link to="/" className="btn btn-ghost text-xl">
+        <Link to="/" className=" text-xl">
           Fork-IT
         </Link>
       </div>
