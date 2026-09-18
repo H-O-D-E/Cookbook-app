@@ -17,7 +17,9 @@ function Cookbook({ cookbook }) {
         <h2 className="card-title text-foreground text-2xl">{cookbook.name}</h2>
         <p className="font-semibold text-lg">{cookbook.description}</p>
         <div className="card-actions justify-end">
-          <button className="btn btn-primary">View</button>
+          <button className="btn btn-primary bg-call-to-action border-0 p-4">
+            View
+          </button>
         </div>
       </div>
     </div>
