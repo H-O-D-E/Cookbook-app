@@ -103,7 +103,7 @@ public class RecipeController : ControllerBase
     [HttpDelete("{recipeId:int}")]
     public async Task<ActionResult<bool>> DeleteRecipe(int recipeId)
     {
-        if (!await _recipeService.DeleteRecipeAsync(recipeId))
+        if (!await _recipeService.DeleteRecipeAsync(recipeId, UserId));
         {
             return NotFound(new ProblemDetails
             {

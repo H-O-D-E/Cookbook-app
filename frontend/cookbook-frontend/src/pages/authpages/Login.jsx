@@ -35,7 +35,7 @@ function Login() {
           <div className="mb-5">
             <h1 className="text-3xl font-bold">Welcome back</h1>
             <p className="mt-1 text-sm font-normal text-muted">
-              Sign in to continue to Cookbook
+              Sign in to explore Cookbooklet
             </p>
           </div>
 

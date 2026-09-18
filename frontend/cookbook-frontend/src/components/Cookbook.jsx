@@ -1,4 +1,5 @@
-import { Ellipsis } from "lucide-react";
+import { useDeleteCookbook } from "@/hooks/cookbook/useDeleteCookbook";
+import EditCookbookMenu from "./EditCookbookMenu";
 
 function Cookbook({ cookbook }) {
   return (
@@ -11,11 +12,8 @@ function Cookbook({ cookbook }) {
         />
       </figure>
       <div className="card-body">
-        <div className="right-4 absolute">
-          <button className="">
-            <Ellipsis />
-          </button>
-        </div>
+        <EditCookbookMenu cookbookInfo={cookbook} />
+
         <h2 className="card-title text-foreground text-2xl">{cookbook.name}</h2>
         <p className="font-semibold text-lg">{cookbook.description}</p>
         <div className="card-actions justify-end">
