@@ -3,7 +3,7 @@ import EditCookbookMenu from "./EditCookbookMenu";
 
 function Cookbook({ cookbook }) {
   return (
-    <div className="card  bg-surface border-2 w-auto shadow-sm hover:scale-101">
+    <div className="card  bg-surface border-2 w-auto shadow-sm ">
       <figure className="h-64 w-full">
         <img
           src={cookbook.imageUrl}
