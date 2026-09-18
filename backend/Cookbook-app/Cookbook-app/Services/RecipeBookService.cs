@@ -28,8 +28,11 @@ public class RecipeBookService : IRecipeBookService
         if (cookbook.UserId != userId) return null;
 
         return cookbook;
+    }
 
-
+    public async Task<List<RecipeBook>> GetAllRecipeBooksAsync(string userId)
+    {
+        return await _recipeBookRepository.GetAllRecipeBooksAsync(userId);
     }
 
     public async Task<RecipeBook> CreateRecipeBookAsync(
@@ -40,7 +43,7 @@ public class RecipeBookService : IRecipeBookService
 
         var existingCookBook = await _recipeBookRepository.GetRecipeBookByNameAsync(request.RecipeBookName, userId);
 
-        if (existingCookBook is not     null)
+        if (existingCookBook is not null)
         {
             return null;
         }
@@ -49,6 +52,8 @@ public class RecipeBookService : IRecipeBookService
         var recipeBook = new RecipeBook
         {
             Name = request.RecipeBookName,
+            Description = request.Description,
+            ImageUrl = request.ImageUrl,
             UserId = userId
         };
 
@@ -73,6 +78,12 @@ public class RecipeBookService : IRecipeBookService
 
         if (request.Name is not null)
             recipeBook.Name = request.Name;
+        
+        if (request.Description is not null)
+            recipeBook.Description = request.Description;
+
+        if (request.ImageUrl is not null)
+            recipeBook.ImageUrl = request.ImageUrl;
 
         await _recipeBookRepository.UpdateRecipeBookAsync(recipeBook);
 

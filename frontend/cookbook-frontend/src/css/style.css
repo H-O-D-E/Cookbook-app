@@ -2,32 +2,62 @@
 @plugin "daisyui";
 
 :root {
-  --background: #282828;
-  --foreground: #ebdbb2;
-  --accent-color: #fabd2f;
-  --call-to-action: #fe8019;
-  --grid-color: rgba(235, 219, 178, 0.08);
+  --background: #f3e9d2;
+  --foreground: #545655;
+
+  --surface: #fffaf0;
+  --surface-secondary: #f2efe7;
+
+  --accent-color: #0f8a63;
+  --call-to-action: #087f5b;
+
+  --border: #120d00;
+  --muted: #6b705c;
+
+  --grid-color: rgba(15, 138, 99, 0.11);
 }
 
 .dark {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --grid-color: rgba(255, 255, 255, 0.08);
+  /* Dark — Deep Forest */
+  --background: #07110d;
+  --foreground: #e6f4ec;
+
+  --surface: #0d1c15;
+  --surface-secondary: #14271d;
+
+  --accent-color: #34d399;
+  --call-to-action: #10b981;
+
+  --border: #254534;
+  --muted: #8daf9c;
+
+  --grid-color: rgba(52, 211, 153, 0.1);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  --color-surface: var(--surface);
+  --color-surface-secondary: var(--surface-secondary);
+
   --color-accent-color: var(--accent-color);
   --color-call-to-action: var(--call-to-action);
+
+  --color-border: var(--border);
+  --color-muted: var(--muted);
 }
 
 .bg-neo-grid {
   background-color: var(--background);
 
   background-image:
-    linear-gradient(to right, var(--grid-color) 3px, transparent 2px),
-    linear-gradient(to bottom, var(--grid-color) 3px, transparent 2px);
+    linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
 
   background-size: 50px 50px;
+}
+
+body {
+  font-family: "Lora Variable", serif;
 }

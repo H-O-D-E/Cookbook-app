@@ -1,3 +1,3 @@
 ﻿namespace Cookbook_app.DTOs.ResponseDTO;
 
-public record GetRecipeResponse(string Name, string Description, string Ingredients, string Instructions, float RecipeScore);
+public record GetRecipeResponse(int RecipeId, string Name, string Description, string ImageUrl, string Ingredients, string Instructions, float RecipeScore);

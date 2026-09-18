@@ -1,4 +1,5 @@
 ﻿using Cookbook_app.DTOs.RequestDTO;
+using Cookbook_app.Models;
 
 namespace Cookbook_app.Services;
 

@@ -31,46 +31,69 @@ function Register() {
           handleRegister();
         }}
       >
-        <fieldset className="fieldset bg-accent-color font-bold border-base-300 rounded-box w-xs border p-4">
-          <label className="label text-black">Username</label>
+        <fieldset className="fieldset bg-surface text-foreground rounded-2xl w-[32rem] border border-border p-10 shadow-xl">
+          <div className="mb-5">
+            <h1 className="text-3xl font-bold">Create an account</h1>
+            <p className="mt-1 text-sm font-normal text-muted">
+              Sign up to start using Cookbook
+            </p>
+          </div>
+
+          <label className="label font-semibold text-foreground">
+            Username
+          </label>
+
           <input
             type="text"
-            className="input"
+            className="input input-lg w-full bg-surface-secondary border-border text-foreground"
             placeholder="Username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
           />
 
-          <label className="label text-black">Email</label>
+          <label className="label mt-3 font-semibold text-foreground">
+            Email
+          </label>
+
           <input
             type="email"
-            className="input"
+            className="input input-lg w-full bg-surface-secondary border-border text-foreground"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
 
-          <label className="label text-black">Password</label>
+          <label className="label mt-3 font-semibold text-foreground">
+            Password
+          </label>
+
           <input
             type="password"
-            className="input"
+            className="input input-lg w-full bg-surface-secondary border-border text-foreground"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <p className="text-black">
-            Already have a user?
-            <span className="underline pl-2">
-              <NavLink to="/login">Log in here</NavLink>
-            </span>
-          </p>
 
-          <button className="btn btn-neutral mt-4" type="submit">
+          <button
+            className="btn mt-7 w-full border-0 bg-call-to-action text-white"
+            type="submit"
+          >
             Register
           </button>
+
+          <p className="mt-3 text-center text-sm font-normal text-muted">
+            Already have an account?
+            <NavLink
+              className="ml-1 font-semibold text-accent-color hover:underline"
+              to="/login"
+            >
+              Log in
+            </NavLink>
+          </p>
         </fieldset>
       </form>
     </div>
