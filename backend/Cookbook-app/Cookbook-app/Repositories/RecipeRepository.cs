@@ -13,9 +13,9 @@ public class RecipeRepository : IRecipeRepository
         _context = context;
     }
 
-    public async Task<Recipe?> GetRecipeByRecipeIdAsync(int id)
+    public async Task<Recipe?> GetRecipeByRecipeIdAsync(int id, string userId)
     {
-        return await _context.Recipes.FirstOrDefaultAsync(r => r.RecipeId == id);
+        return await _context.Recipes.FirstOrDefaultAsync(r => r.RecipeId == id && r.RecipeBook.UserId==userId);
     }
     
     public async Task<List<Recipe>> GetRecipesByRecipeBookIdAsync(

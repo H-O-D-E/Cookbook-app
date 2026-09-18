@@ -7,15 +7,17 @@ namespace Cookbook_app.Services;
 public class RecipeService : IRecipeService
 {
     private readonly IRecipeRepository _recipeRepository;
+    private readonly IRecipeBookRepository _recipeBookRepository;
 
-    public RecipeService(IRecipeRepository recipeRepository)
+    public RecipeService(IRecipeRepository recipeRepository, IRecipeBookRepository recipeBookRepository)
     {
         _recipeRepository = recipeRepository;
+        _recipeBookRepository = recipeBookRepository;
     }
     
-    public async Task<Recipe?> GetRecipeAsync(int recipeId)
+    public async Task<Recipe?> GetRecipeAsync(int recipeId, string userId)
     {
-        var recipe = await _recipeRepository.GetRecipeByRecipeIdAsync(recipeId);
+        var recipe = await _recipeRepository.GetRecipeByRecipeIdAsync(recipeId ,userId);
         
         if (recipe is null) return null;
 
@@ -31,18 +33,28 @@ public class RecipeService : IRecipeService
             userId);
     }
 
-    public async Task<Recipe> CreateRecipeAsync(CreateRecipeRequest request)
-    {
-        var newRecipe = new Recipe { Name = request.RecipeName, Description = request.Description, ImageUrl = request.ImageUrl, Ingredients = request.Ingredients, 
-            Instructions = request.Instructions, RecipeBookId = request.RecipebookId 
-        };
-        await _recipeRepository.AddRecipeAsync(newRecipe);
-        return newRecipe;
-    }
+    public async Task<Recipe> CreateRecipeAsync(CreateRecipeRequest request, string userId)
+    {        
+        var recipeBook = await _recipeBookRepository.GetRecipeBookByIdAsync(// we need to check if the book actually blong tto the user before he can create a recipe Evan--
+                                                                            
+            request.RecipebookId,
+            userId);
 
-    public async Task<Recipe?> UpdateRecipeAsync(int recipeId, UpdateRecipeRequest request)
+        if (recipeBook is null) return null;
+        
+            var newRecipe = new Recipe
+            {
+                Name = request.RecipeName, Description = request.Description, ImageUrl = request.ImageUrl, Ingredients = request.Ingredients,
+                Instructions = request.Instructions, RecipeBookId = request.RecipebookId
+            };
+            await _recipeRepository.AddRecipeAsync(newRecipe);
+            return newRecipe;
+        }
+    
+
+    public async Task<Recipe?> UpdateRecipeAsync(int recipeId, UpdateRecipeRequest request, string userId)
     {
-        var existingRecipe = await GetRecipeAsync(recipeId);
+        var existingRecipe = await GetRecipeAsync(recipeId, userId);
         
         if (existingRecipe is null) return null;
 
@@ -56,9 +68,9 @@ public class RecipeService : IRecipeService
         return existingRecipe;
     }
 
-    public async Task<bool> DeleteRecipeAsync(int recipeId)
+    public async Task<bool> DeleteRecipeAsync(int recipeId, string userId)
     {
-        var existingRecipe = await _recipeRepository.GetRecipeByRecipeIdAsync(recipeId);
+        var existingRecipe = await _recipeRepository.GetRecipeByRecipeIdAsync(recipeId, userId);
 
         if (existingRecipe is null) return false;
 
