@@ -4,7 +4,10 @@ import { useState } from "react";
 function CreateNewCookbook({ onSuccess }) {
   const [recipeBookName, setRecipeBookName] = useState("");
   const [description, setDescription] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  const [imageUrl, setImageUrl] = useState(
+    "" ??
+      "https://media.istockphoto.com/id/1980276924/vector/no-photo-thumbnail-graphic-element-no-found-or-available-image-in-the-gallery-or-album-flat.jpg?s=612x612&w=0&k=20&c=ZBE3NqfzIeHGDPkyvulUw14SaWfDj2rZtyiKv3toItk=",
+  );
 
   const createCookbook = useCreateCookbook();
 
@@ -68,7 +71,6 @@ function CreateNewCookbook({ onSuccess }) {
           value={imageUrl}
           onChange={(e) => setImageUrl(e.target.value)}
           className="input input-lg w-full bg-surface-secondary border-border text-foreground"
-          required
         />
 
         <button
