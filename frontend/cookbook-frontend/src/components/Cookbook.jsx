@@ -1,18 +1,23 @@
+import { Ellipsis } from "lucide-react";
+
 function Cookbook({ cookbook }) {
   return (
-    <div className="card  bg-surface border-2 w-auto shadow-sm hover:scale-105">
-      <figure>
+    <div className="card  bg-surface border-2 w-auto shadow-sm hover:scale-101">
+      <figure className="h-64 w-full">
         <img
-          src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-          alt="Shoes"
+          src={cookbook.imageUrl}
+          alt={cookbook.name}
+          className="w-full h-full object-cover"
         />
       </figure>
       <div className="card-body">
+        <div className="right-4 absolute">
+          <button className="">
+            <Ellipsis />
+          </button>
+        </div>
         <h2 className="card-title text-foreground text-2xl">{cookbook.name}</h2>
-        <p className="font-semibold text-lg">
-          A card component has a figure, a body part, and inside body there are
-          title and actions parts
-        </p>
+        <p className="font-semibold text-lg">{cookbook.description}</p>
         <div className="card-actions justify-end">
           <button className="btn btn-primary">View</button>
         </div>

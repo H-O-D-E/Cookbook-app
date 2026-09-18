@@ -45,7 +45,7 @@ function CookbookPage() {
         isOpen={isCreateModalOpen}
         onClose={() => setIsCreateModalOpen(false)}
       >
-        <CreateNewCookbook />
+        <CreateNewCookbook onSuccess={() => setIsCreateModalOpen(false)} />
       </Modal>
     </div>
   );
