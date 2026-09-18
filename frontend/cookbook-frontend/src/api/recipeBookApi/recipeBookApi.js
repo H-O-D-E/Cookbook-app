@@ -1,7 +1,7 @@
 import { apiFetch } from "../apiFetch";
 
-export async function getRecipeBook() {
-  const response = await apiFetch("/api/recipebooks/$1{id}");
+export async function getRecipeBook(id) {
+  const response = await apiFetch(`/api/recipebooks/${id}`);
 
   if (!response.ok) {
     throw new Error("Unable to find recipe book");
@@ -20,10 +20,14 @@ export async function getAllRecipeBooks() {
   return response.json();
 }
 
-export async function createRecipeBook(recipeBookName) {
-  const response = await apiFetch("api/recipebooks", {
+export async function createRecipeBook({
+  recipeBookName,
+  description,
+  imageUrl,
+}) {
+  const response = await apiFetch("/api/recipebooks", {
     method: "POST",
-    body: JSON.stringify({ recipeBookName }),
+    body: JSON.stringify({ recipeBookName, description, imageUrl }),
   });
 
   if (!response.ok) {
