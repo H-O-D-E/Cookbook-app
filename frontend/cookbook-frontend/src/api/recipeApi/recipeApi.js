@@ -10,10 +10,23 @@ export async function getRecipe(recipeId) {
     return response.json();
 }
 
-export async function createRecipe({name, description, ingredients, instructions, recipeBookId}) {
-    const response = await apiFetch("api/recipes", {
+export async function getRecipesByRecipeBookId(recipeBookId) {
+    const response = await apiFetch(`/api/recipebooks/${recipeBookId}/recipes`);
+
+
+
+    if (!response.ok) {
+        throw new Error("Unable to find recipes for this recipebook ");
+    }
+
+    return response.json();
+}
+
+
+export async function createRecipe({ name, description, imageUrl, ingredients, instructions, recipeBookId}) {
+    const response = await apiFetch("/api/recipes", {
         method: "POST",
-        body: JSON.stringify({ name, description, ingredients, instructions, recipebookId: recipeBookId }),
+        body: JSON.stringify({ recipeName: name, description, imageUrl, ingredients, instructions, recipebookId: recipeBookId }),
     });
 
     if (!response.ok) {
