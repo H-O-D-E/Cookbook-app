@@ -27,7 +27,7 @@ public class RecipeBookController : ControllerBase
         var book = await _service.GetRecipeBookAsync(id, UserId);
         if (book is null) return NotFound("Recipe book not found :( ");
 
-        return Ok(new RecipeBookResponse(book.RecipeBookId, book.Name, book.RecipeBookScore));
+        return Ok(new RecipeBookResponse(book.RecipeBookId, book.Name, book.Description, book.ImageUrl, book.RecipeBookScore));
     }
     
     [HttpGet]
@@ -39,6 +39,8 @@ public class RecipeBookController : ControllerBase
             .Select(book => new RecipeBookResponse(
                 book.RecipeBookId,
                 book.Name,
+                book.Description,
+                book.ImageUrl,
                 book.RecipeBookScore))
             .ToList();
 
@@ -52,16 +54,18 @@ public class RecipeBookController : ControllerBase
     public async Task<ActionResult<RecipeBookResponse>> CreateRecipeBookAsync(CreateRecipeBookRequest request)
     {
         var book = await _service.CreateRecipeBookAsync(request, UserId);
-        var response = new RecipeBookResponse(book.RecipeBookId, book.Name, book.RecipeBookScore);
+        var response = new RecipeBookResponse(book.RecipeBookId, book.Name, book.Description, book.ImageUrl, book.RecipeBookScore);
         
         return CreatedAtAction(nameof(GetRecipeBookAsync), new {id = book.RecipeBookId}, response);
     }
     
 
     [HttpPut("{id:int}")]
-    public async Task<ActionResult> UpdateRecipeBookAsync(int id, UpdateRecipeBookRequest request)
+    public async Task<ActionResult<RecipeBookResponse>> UpdateRecipeBookAsync(int id, UpdateRecipeBookRequest request)
     {
-        if (await _service.UpdateRecipeBookAsync(id, request, UserId) == null)
+        var book = await _service.UpdateRecipeBookAsync(id, request, UserId);
+
+        if (book is null)
         {
             return NotFound(new ProblemDetails
             {
@@ -70,7 +74,7 @@ public class RecipeBookController : ControllerBase
                 Status = StatusCodes.Status404NotFound
             });
         }
-        return NoContent();
+        return Ok(new RecipeBookResponse(book.RecipeBookId, book.Name, book.Description, book.ImageUrl, book.RecipeBookScore));
     }
     
     
@@ -83,7 +87,7 @@ public class RecipeBookController : ControllerBase
             return NotFound(new ProblemDetails
             {
                 Title = "Recipebook not found",
-                Detail = $"No recipebook with id {id} exists.",
+                Detail = $"No recipebook with id {id} found.",
                 Status = StatusCodes.Status404NotFound
             });
         }
