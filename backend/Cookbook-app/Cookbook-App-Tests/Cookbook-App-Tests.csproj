@@ -22,4 +22,8 @@
         <Using Include="NUnit.Framework"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Cookbook-app\Cookbook-app.csproj" />
+    </ItemGroup>
+
 </Project>
