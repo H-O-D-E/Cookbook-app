@@ -99,7 +99,7 @@ public class RecipeController : ControllerBase
     {
         var deleted = await _recipeService.DeleteRecipeAsync(recipeId);
 
-        if (false)
+        if (deleted)
         {
             return NotFound(new ProblemDetails
             {
