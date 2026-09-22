@@ -36,7 +36,7 @@
         - name: Run unit tests
           run: >
             dotnet test
-            Cookbook-App.UnitTests/Cookbook-App.UnitTests.csproj
+            Cookbook-App-Tests/Cookbook-App-Tests.csproj
             --configuration Release
             --no-restore
             --logger "trx;LogFileName=unit-tests.trx"
