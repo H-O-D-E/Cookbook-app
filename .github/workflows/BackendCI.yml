@@ -13,7 +13,11 @@
   jobs:
     unit-tests:
       name: Unit tests
-      runs-on: ubuntu-latest
+      runs-on: ubuntu-latest 
+      
+      defaults:
+        run:
+          working-directory: backend/Cookbook-app
 
       steps:
         - name: Check out repository
