@@ -1,0 +1,84 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-netname: Backend CI
+  name : Backend CI 
+  on:
+    pull_request:
+      branches: [main]
+    push:
+      branches: [main]
+
+  permissions:
+    contents: read
+
+  jobs:
+    unit-tests:
+      name: Unit tests
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Check out repository
+          uses: actions/checkout@v5
+
+        - name: Install .NET 8
+          uses: actions/setup-dotnet@v5
+          with:
+            dotnet-version: 8.0.x
+            cache: true
+            cache-dependency-path: "**/*.csproj"
+
+        - name: Restore dependencies
+          run: dotnet restore Cookbook-app.sln
+
+        - name: Run unit tests
+          run: >
+            dotnet test
+            Cookbook-App.UnitTests/Cookbook-App.UnitTests.csproj
+            --configuration Release
+            --no-restore
+            --logger "trx;LogFileName=unit-tests.trx"
+            --results-directory TestResults
+
+        - name: Upload unit-test results
+          if: always()
+          uses: actions/upload-artifact@v4
+          with:
+            name: unit-test-results
+            path: TestResults
+            if-no-files-found: warn
+
+    integration-tests:
+      name: Integration tests
+      needs: unit-tests
+      runs-on: ubuntu-latest
+      timeout-minutes: 15
+
+      steps:
+        - name: Check out repository
+          uses: actions/checkout@v5
+
+        - name: Install .NET 8
+          uses: actions/setup-dotnet@v5
+          with:
+            dotnet-version: 8.0.x
+            cache: true
+            cache-dependency-path: "**/*.csproj"
+
+        - name: Restore dependencies
+          run: dotnet restore Cookbook-app.sln
+
+        - name: Run integration tests
+          run: >
+            dotnet test
+            Cookbook-App.IntegrationTests/Cookbook-App.IntegrationTests.csproj
+            --configuration Release
+            --no-restore
+            --logger "trx;LogFileName=integration-tests.trx"
+            --results-directory TestResults
+
+        - name: Upload integration-test results
+          if: always()
+          uses: actions/upload-artifact@v4
+          with:
+            name: integration-test-results
+            path: TestResults
+            if-no-files-found: warn
