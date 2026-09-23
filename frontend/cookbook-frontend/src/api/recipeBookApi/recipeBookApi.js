@@ -36,10 +36,10 @@ export async function createRecipeBook({
   return response.json();
 }
 
-export async function updateRecipeBook(id, name) {
+export async function updateRecipeBook(id, { name, description, imageUrl }) {
   const response = await apiFetch(`/api/recipebooks/${id}`, {
     method: "PUT",
-    body: JSON.stringify({ name }),
+    body: JSON.stringify({ name, description, imageUrl }),
   });
 
   if (!response.ok) {
