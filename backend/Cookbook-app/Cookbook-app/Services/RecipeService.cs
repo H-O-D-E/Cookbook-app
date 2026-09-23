@@ -33,11 +33,11 @@ public class RecipeService : IRecipeService
             userId);
     }
 
-    public async Task<Recipe> CreateRecipeAsync(CreateRecipeRequest request, string userId)
+    public async Task<Recipe?> CreateRecipeAsync(CreateRecipeRequest request, string userId, int recipeBookId)
     {        
         var recipeBook = await _recipeBookRepository.GetRecipeBookByIdAsync(// we need to check if the book actually blong tto the user before he can create a recipe Evan--
                                                                             
-            request.RecipebookId,
+            recipeBookId,
             userId);
 
         if (recipeBook is null) return null;
@@ -45,7 +45,7 @@ public class RecipeService : IRecipeService
             var newRecipe = new Recipe
             {
                 Name = request.RecipeName, Description = request.Description, ImageUrl = request.ImageUrl, Ingredients = request.Ingredients,
-                Instructions = request.Instructions, RecipeBookId = request.RecipebookId
+                Instructions = request.Instructions, RecipeBookId = recipeBookId
             };
             await _recipeRepository.AddRecipeAsync(newRecipe);
             return newRecipe;
