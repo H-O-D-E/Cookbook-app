@@ -1,51 +1,94 @@
-# This workflow will build a .NET project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-netname: Backend CI
-  name : Backend CI 
-  on:
-    pull_request:
-      branches: [main]
-    push:
-      branches: [main]
+# This workflow builds and tests the .NET backend
 
-  permissions:
-    contents: read
+name: Backend CI
 
-  jobs:
-    unit-tests:
-      name: Unit tests
-      runs-on: ubuntu-latest 
-      
-      defaults:
-        run:
-          working-directory: backend/Cookbook-app
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
 
-      steps:
-        - name: Check out repository
-          uses: actions/checkout@v5
+permissions:
+  contents: read
 
-        - name: Install .NET 8
-          uses: actions/setup-dotnet@v5
-          with:
-            dotnet-version: 8.0.x
-            cache: true
-            cache-dependency-path: "**/*.csproj"
+jobs:
+  unit-tests:
+    name: Unit tests
+    runs-on: ubuntu-latest
 
-        - name: Restore dependencies
-          run: dotnet restore Cookbook-app.sln
+    defaults:
+      run:
+        working-directory: backend/Cookbook-app
 
-        - name: Run unit tests
-          run: >
-            dotnet test
-            Cookbook-App-Tests/Cookbook-App-Tests.csproj
-            --configuration Release
-            --no-restore
-            --logger "trx;LogFileName=unit-tests.trx"
-            --results-directory TestResults
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
 
-        - name: Upload unit-test results
-          if: always()
-          uses: actions/upload-artifact@v4
-          with:
-            name: unit-test-results
-            path: TestResults
-            if-no-files-found: warn
+      - name: Install .NET 8
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 8.0.x
+          cache: true
+          cache-dependency-path: "**/*.csproj"
+
+      - name: Restore dependencies
+        run: dotnet restore Cookbook-app.sln
+
+      - name: Run unit tests
+        run: >
+          dotnet test
+          Cookbook-App-Tests/Cookbook-App-Tests.csproj
+          --configuration Release
+          --no-restore
+          --filter "FullyQualifiedName!~CookBook.Tests.CookBookIntegrationTests"
+          --logger "trx;LogFileName=unit-tests.trx"
+          --results-directory TestResults
+
+      - name: Upload unit-test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit-test-results
+          path: backend/Cookbook-app/TestResults
+          if-no-files-found: warn
+
+  integration-tests:
+    name: Integration tests
+    runs-on: ubuntu-latest
+    needs: unit-tests
+
+    defaults:
+      run:
+        working-directory: backend/Cookbook-app
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Install .NET 8
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 8.0.x
+          cache: true
+          cache-dependency-path: "**/*.csproj"
+
+      - name: Restore dependencies
+        run: dotnet restore Cookbook-app.sln
+
+      - name: Run integration tests
+        run: >
+          dotnet test
+          Cookbook-App-Tests/Cookbook-App-Tests.csproj
+          --configuration Release
+          --no-restore
+          --filter "FullyQualifiedName~CookBook.Tests.CookBookIntegrationTests"
+          --logger "trx;LogFileName=integration-tests.trx"
+          --results-directory TestResults/Integration
+
+      - name: Upload integration-test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: integration-test-results
+          path: backend/Cookbook-app/TestResults/Integration
+          if-no-files-found: warn
