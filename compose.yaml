@@ -1,15 +1,4 @@
 ﻿services:
-  db:
-    image: postgres:17
-    environment:
-      POSTGRES_DB: cookbook
-      POSTGRES_USER: cookbook
-      POSTGRES_PASSWORD: hodehodehode
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
   backend:
     build:
       context: ./backend/Cookbook-app
@@ -22,8 +11,6 @@
       Jwt__ValidIssuer: CookbookApi
       Jwt__ValidAudience: CookbookClient
       Jwt__IssuerSigningKey: ${JWT_SIGNING_KEY}
-    depends_on:
-      - db
 
   frontend:
     build:
