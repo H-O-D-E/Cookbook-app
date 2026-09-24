@@ -1,14 +1,25 @@
 ﻿services:
-  db:
-    image: postgres:17
-    environment:
-      POSTGRES_DB: cookbook
-      POSTGRES_USER: cookbook
-      POSTGRES_PASSWORD: hodehodehode
+  backend:
+    build:
+      context: ./backend/Cookbook-app
+      dockerfile: Cookbook-app/Dockerfile
     ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - "7046:7046"
+    environment:
+      ASPNETCORE_URLS: http://+:7046
+      ConnectionStrings__DefaultConnection: ${ConnectionStrings__DefaultConnection}
+      Jwt__ValidIssuer: CookbookApi
+      Jwt__ValidAudience: CookbookClient
+      Jwt__IssuerSigningKey: ${JWT_SIGNING_KEY}
+
+  frontend:
+    build:
+      context: ./frontend/cookbook-frontend
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
 
 volumes:
   postgres_data:
