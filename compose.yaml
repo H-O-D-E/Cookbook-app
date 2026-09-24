@@ -10,5 +10,29 @@
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  backend:
+    build:
+      context: ./backend/Cookbook-app
+      dockerfile: Cookbook-app/Dockerfile
+    ports:
+      - "7046:7046"
+    environment:
+      ASPNETCORE_URLS: http://+:7046
+      ConnectionStrings__DefaultConnection: ${ConnectionStrings__DefaultConnection}
+      Jwt__ValidIssuer: CookbookApi
+      Jwt__ValidAudience: CookbookClient
+      Jwt__IssuerSigningKey: ${JWT_SIGNING_KEY}
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./frontend/cookbook-frontend
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
 volumes:
   postgres_data:
