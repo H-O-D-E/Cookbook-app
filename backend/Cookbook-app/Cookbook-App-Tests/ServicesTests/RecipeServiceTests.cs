@@ -43,28 +43,28 @@ public class RecipeServiceTests
     // Checks that creating a recipe returns it and saves it in the repository
     public async Task CreateRecipe_ReturnsAndSavesNewRecipe()
     {
-
+        const int recipeBookId = 3;
         var request = new CreateRecipeRequest(
             "pizza",
             "italian",
             "https://example.com/pizza.jpg",
             "tomato",
-            "just cook it",
-            3);
+            "just cook it");
         var recipeBook = new RecipeBook
         {
-            RecipeBookId = request.RecipebookId,
+            RecipeBookId = recipeBookId,
             UserId = UserId
         };
         _recipeBookRepositoryMock
-            .Setup(r => r.GetRecipeBookByIdAsync(request.RecipebookId, UserId))
+            .Setup(r => r.GetRecipeBookByIdAsync(recipeBookId, UserId))
             .ReturnsAsync(recipeBook);
 
-        var result = await _recipeService.CreateRecipeAsync(request, UserId);
+        var result = await _recipeService.CreateRecipeAsync(request, UserId, recipeBookId);
         
-        Assert.That(result.Name, Is.EqualTo(request.RecipeName));
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result!.Name, Is.EqualTo(request.RecipeName));
         _recipeRepositoryMock.Verify(r => r.AddRecipeAsync(It.Is<Recipe>(recipe =>
-            recipe.Name == request.RecipeName && recipe.RecipeBookId == request.RecipebookId)), Times.Once);
+            recipe.Name == request.RecipeName && recipe.RecipeBookId == recipeBookId)), Times.Once);
 
 
     }
