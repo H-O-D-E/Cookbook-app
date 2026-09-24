@@ -152,18 +152,16 @@ public class CookBookIntegrationTests
             .GetProperty("recipeBookId")
             .GetInt32();
         var recipeResponse = await _client.PostAsJsonAsync(
-            "/api/recipes",
+            $"/api/recipebooks/{recipeBookId}/recipes",
             new
             {
                 recipeName = "Pizza",
                 description = " pizza",
                 imageUrl = "httpsexmaple.com",
                 ingredients = "balls",
-                instructions = "pray to god",
-                recipebookId = recipeBookId
+                instructions = "pray to god"
             });
         
         Assert.That(recipeResponse.StatusCode,Is.EqualTo(HttpStatusCode.Created));
     }
 }
-
