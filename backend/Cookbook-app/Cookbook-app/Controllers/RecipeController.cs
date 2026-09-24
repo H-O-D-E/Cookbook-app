@@ -65,10 +65,10 @@ public class RecipeController : ControllerBase
         return Ok(response);
     }
 
-    [HttpPost]
-    public async Task<ActionResult<GetRecipeResponse>> CreateRecipeAsync(CreateRecipeRequest request)
+    [HttpPost ("/api/recipebooks/{recipeBookId:int}/recipes")]
+    public async Task<ActionResult<GetRecipeResponse>> CreateRecipeAsync(CreateRecipeRequest request, int recipeBookId)
     {
-        var recipe = await _recipeService.CreateRecipeAsync(request, UserId);
+        var recipe = await _recipeService.CreateRecipeAsync(request, UserId, recipeBookId);
         if (recipe is null)
         {
             return NotFound();
