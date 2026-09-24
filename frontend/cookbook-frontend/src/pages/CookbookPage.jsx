@@ -13,7 +13,7 @@ function CookbookPage() {
   if (isLoading) {
     return (
       <div className="min-h-dvh flex items-center justify-center">
-        <HashLoader color="#a3e635" size={68} />
+        <HashLoader color="#000000" size={72} />
       </div>
     );
   }
@@ -30,7 +30,7 @@ function CookbookPage() {
           My cookbooks
         </h1>
         <button
-          className="btn text-white bg-call-to-action border-0 font-extrabold text-md"
+          className="btn text-white bg-call-to-action border-0 font-extrabold text-md shadow-lg hover:scale-102"
           onClick={() => setIsCreateModalOpen(true)}
         >
           Create new cookbook

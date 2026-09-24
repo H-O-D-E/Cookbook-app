@@ -1,6 +1,5 @@
 import { Link, replace, useNavigate } from "react-router";
 import { Book } from "lucide-react";
-import Login from "../pages/authpages/Login";
 import { clearToken } from "@/auth/token";
 import { useTheme } from "@/hooks/useTheme";
 import ThemeToggler from "./ThemeToggler";
@@ -24,11 +23,17 @@ function Navbar() {
       <div />
       <div className="flex gap-3 justify-end items-center">
         <div className="nav-options">
-          <Link to="/recipebooks" className="btn btn-ghost">
-            <Book />
+          <Link
+            to="/recipebooks"
+            className="btn btn-ghost md:inline-flex hidden "
+          >
+            <Book size={30} />
           </Link>
           <ThemeToggler theme={theme} toggleTheme={toggleTheme} />
-          <button className="btn btn-ghost text-2xl" onClick={handleLogout}>
+          <button
+            className="btn btn-ghost text-lg lg:text-2xl"
+            onClick={handleLogout}
+          >
             Sign out
           </button>
         </div>
