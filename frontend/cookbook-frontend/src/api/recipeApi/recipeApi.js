@@ -28,7 +28,7 @@ export async function createRecipe({
   instructions,
   recipeBookId,
 }) {
-  const response = await apiFetch("/api/recipes", {
+  const response = await apiFetch(`/api/recipebooks/${recipeBookId}/recipes`, {
     method: "POST",
     body: JSON.stringify({
       recipeName: name,
@@ -36,7 +36,6 @@ export async function createRecipe({
       imageUrl,
       ingredients,
       instructions,
-      recipebookId: recipeBookId,
     }),
   });
 

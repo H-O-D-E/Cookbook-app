@@ -2,15 +2,19 @@ import { useState } from "react";
 import { useParams } from "react-router";
 import { HashLoader } from "react-spinners";
 import { useGetRecipes } from "@/hooks/recipes/useGetRecipes";
+import { useGetCookbook } from "@/hooks/cookbook/useGetCookBook";
 import CreateNewRecipe from "@/components/CreateNewRecipe";
 import RecipeList from "@/components/RecipeList";
 import Modal from "@/components/Modal";
+
 
 
 function RecipesPage() {
     const { recipeBookId } = useParams();
     const { data: recipes, isLoading, isError, error } = useGetRecipes(recipeBookId);
       const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+    
+    const { data: cookbook } = useGetCookbook(recipeBookId);
     
 
 
@@ -30,13 +34,13 @@ function RecipesPage() {
     <div className="w-4/5 mx-auto p-10 min-h-dvh ">
       <div className="mb-20 flex justify-between">
         <h1 className="text-5xl text-call-to-action font-extrabold">
-          Recipes for Cookbook: {recipeBookId}
+          Cookbook: {cookbook?.name}
         </h1>
         <button
           className="btn text-white bg-call-to-action border-0 font-extrabold text-md"
           onClick={() => setIsCreateModalOpen(true)}
         >
-          Create new recipe in {recipeBookId}
+          Create new recipe in "{cookbook?.name}"
         </button>
 
       </div>
