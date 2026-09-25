@@ -3,6 +3,8 @@ import { useTheme } from "@/hooks/useTheme";
 import { Outlet } from "react-router";
 
 function AuthLayout() {
+  console.log("hello");
+
   const { theme, toggleTheme } = useTheme();
 
   return (
