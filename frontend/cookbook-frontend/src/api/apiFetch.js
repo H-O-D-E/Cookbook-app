@@ -1,9 +1,9 @@
 //Use this method for every api fetch for standarization
 
-import { getToken } from "@/auth/token";
+import { getToken, clearToken } from "@/auth/token";
 
 //denne env var ligger i .env.local
-const API_BASE_URL = import.meta.env.VITE_API_URL;
+const API_BASE_URL = import.meta.env.VITE_API_URL ?? "";
 
 export async function apiFetch(path, init = {}) {
   const token = getToken();
