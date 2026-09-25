@@ -39,9 +39,8 @@ function RecipesPage() {
           Create new recipe in {recipeBookId}
         </button>
 
-        <RecipeList recipes={recipes} />
-
       </div>
+        <RecipeList recipes={recipes} />
 
       <Modal
         isOpen={isCreateModalOpen}

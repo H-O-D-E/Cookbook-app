@@ -7,6 +7,7 @@ import { ToastContainer } from "react-toastify";
 import MainLayout from "./layouts/MainLayout";
 import ProtectedRoute from "./auth/ProtectedRoute";
 import CookbookPage from "./pages/CookbookPage";
+import RecipesPage from "./pages/RecipesPage";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,7 @@ function App() {
             <Route element={<MainLayout />}>
               {/* mainpage */}
               <Route path="/" element={<CookbookPage />} />
+              <Route path="/cookbooks/:recipeBookId/recipes" element={<RecipesPage />} />
             </Route>
           </Route>
 
