@@ -15,7 +15,7 @@ function Modal({ isOpen, onClose, children }) {
         <button
           type="button"
           onClick={onClose}
-          className="absolute right-4 top-4 btn btn-ghost btn-circle"
+          className="absolute right-4 top-4 btn btn-ghost btn-circle bg-accent-color"
           aria-label="Close modal"
         >
           <X size={22} />

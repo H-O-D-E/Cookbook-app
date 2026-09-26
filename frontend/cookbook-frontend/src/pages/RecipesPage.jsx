@@ -7,18 +7,19 @@ import CreateNewRecipe from "@/components/CreateNewRecipe";
 import RecipeList from "@/components/RecipeList";
 import Modal from "@/components/Modal";
 
-
-
 function RecipesPage() {
-    const { recipeBookId } = useParams();
-    const { data: recipes, isLoading, isError, error } = useGetRecipes(recipeBookId);
-      const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-    
-    const { data: cookbook } = useGetCookbook(recipeBookId);
-    
+  const { recipeBookId } = useParams();
+  const {
+    data: recipes,
+    isLoading,
+    isError,
+    error,
+  } = useGetRecipes(recipeBookId);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
+  const { data: cookbook } = useGetCookbook(recipeBookId);
 
-    if (isLoading) {
+  if (isLoading) {
     return (
       <div className="min-h-dvh flex items-center justify-center">
         <HashLoader color="#a3e635" size={68} />
@@ -26,11 +27,11 @@ function RecipesPage() {
     );
   }
 
-    if (isError) {
+  if (isError) {
     return <p>{error.message}</p>;
   }
 
-    return (
+  return (
     <div className="w-4/5 mx-auto p-10 min-h-dvh ">
       <div className="mb-20 flex justify-between">
         <h1 className="text-5xl text-call-to-action font-extrabold">
@@ -40,22 +41,22 @@ function RecipesPage() {
           className="btn text-white bg-call-to-action border-0 font-extrabold text-md"
           onClick={() => setIsCreateModalOpen(true)}
         >
-          Create new recipe in "{cookbook?.name}"
+          Create a new recipe
         </button>
-
       </div>
-        <RecipeList recipes={recipes} />
+      <RecipeList recipes={recipes} />
 
       <Modal
         isOpen={isCreateModalOpen}
         onClose={() => setIsCreateModalOpen(false)}
       >
-        <CreateNewRecipe recipeBookId={recipeBookId} onSuccess={() => setIsCreateModalOpen(false)} />
+        <CreateNewRecipe
+          recipeBookId={recipeBookId}
+          onSuccess={() => setIsCreateModalOpen(false)}
+        />
       </Modal>
-
     </div>
-    );
-
+  );
 }
 
 export default RecipesPage;
