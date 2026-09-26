@@ -65,20 +65,42 @@ public class RecipeController : ControllerBase
         return Ok(response);
     }
 
-    [HttpPost ("/api/recipebooks/{recipeBookId:int}/recipes")]
-    public async Task<ActionResult<GetRecipeResponse>> CreateRecipeAsync(CreateRecipeRequest request, int recipeBookId)
+    [HttpPost("/api/recipebooks/{recipeBookId:int}/recipes")]
+    public async Task<ActionResult<GetRecipeResponse>> CreateRecipeAsync(
+        CreateRecipeRequest request,
+        int recipeBookId)
     {
-        var recipe = await _recipeService.CreateRecipeAsync(request, UserId, recipeBookId);
+        var recipe = await _recipeService.CreateRecipeAsync(
+            request,
+            UserId,
+            recipeBookId
+        );
+
         if (recipe is null)
         {
-            return NotFound();
+            return NotFound(new ProblemDetails
+            {
+                Title = "Recipe book not found",
+                Detail = $"Recipe book with id {recipeBookId} was not found.",
+                Status = StatusCodes.Status404NotFound
+            });
         }
+
+        var response = new GetRecipeResponse(
+            recipe.RecipeId,
+            recipe.Name,
+            recipe.Description,
+            recipe.ImageUrl,
+            recipe.Ingredients,
+            recipe.Instructions,
+            recipe.RecipeScore
+        );
 
         return CreatedAtAction(
             "GetRecipe",
             new { recipeId = recipe.RecipeId },
-            new GetRecipeResponse(recipe.RecipeId, recipe.Name, recipe.Description, recipe.ImageUrl, recipe.Ingredients,
-                recipe.Instructions, recipe.RecipeScore));
+            response
+        );
     }
 
     [HttpPut("{recipeId:int}")]
@@ -101,9 +123,9 @@ public class RecipeController : ControllerBase
     }
 
     [HttpDelete("{recipeId:int}")]
-    public async Task<ActionResult<bool>> DeleteRecipe(int recipeId)
+    public async Task<IActionResult> DeleteRecipe(int recipeId)
     {
-        if (!await _recipeService.DeleteRecipeAsync(recipeId, UserId));
+        if (!await _recipeService.DeleteRecipeAsync(recipeId, UserId))
         {
             return NotFound(new ProblemDetails
             {
