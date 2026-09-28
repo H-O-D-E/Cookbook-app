@@ -48,4 +48,14 @@ public class RecipeRepository : IRecipeRepository
         _context.Recipes.Remove(recipe);
         await _context.SaveChangesAsync();
     }
+    
+    public async Task<List<Recipe>> GetOtherUsersRecipesAsync(string userId)
+    {
+        return await _context.Recipes
+            .AsNoTracking()
+            .Where(recipe => recipe.RecipeBook.UserId != userId) //everyones else
+            .OrderBy(recipe => recipe.RecipeId)
+            .ToListAsync();
+    }
+    
 }

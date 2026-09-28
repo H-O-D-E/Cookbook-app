@@ -1,46 +1,23 @@
 import { useState } from "react";
 import Modal from "./Modal";
 import RecipeDetails from "./RecipeDetails";
-import EditRecipeMenu from "./EditRecipeMenu";
 
-function RecipeList({ recipes }) {
+function ExploreRecipeList({ recipes }) {
   const [selectedRecipe, setSelectedRecipe] = useState(null);
 
   if (!recipes?.length) {
-    return (
-      <p className="text-lg font-semibold">
-        No recipes in this cookbook yet :( Make one!
-      </p>
-    );
+    return <p className="text-lg font-semibold">No recipes are made</p>;
   }
 
   return (
     <>
-      <div className="w-full lg:w-2/3 mx-auto flex flex-col gap-6 text-foreground">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 text-foreground">
         {recipes.map((recipe) => (
           <div
             key={recipe.recipeId}
-            className="
-              card
-              md:card-side
-              w-full
-              md:h-64
-              bg-surface
-              border-2
-              shadow-sm
-              overflow-hidden
-            "
+            className="card w-full bg-surface border-2 shadow-sm overflow-hidden"
           >
-            <figure
-              className="
-                w-full
-                h-52
-                md:w-64
-                lg:w-80
-                md:h-full
-                shrink-0
-              "
-            >
+            <figure className="w-full h-48">
               <img
                 src={recipe.imageUrl}
                 alt={recipe.name}
@@ -48,13 +25,12 @@ function RecipeList({ recipes }) {
               />
             </figure>
 
-            <div className="card-body p-5 md:p-8">
-              <EditRecipeMenu recipe={recipe} />
-              <h2 className="card-title text-foreground text-2xl md:text-4xl line-clamp-1">
+            <div className="card-body p-5">
+              <h2 className="card-title text-foreground text-xl line-clamp-2">
                 {recipe.name}
               </h2>
 
-              <p className="font-extrabold text-muted md:text-xl line-clamp-1">
+              <p className="font-extrabold text-muted line-clamp-2">
                 {recipe.description}
               </p>
 
@@ -81,4 +57,4 @@ function RecipeList({ recipes }) {
   );
 }
 
-export default RecipeList;
+export default ExploreRecipeList;

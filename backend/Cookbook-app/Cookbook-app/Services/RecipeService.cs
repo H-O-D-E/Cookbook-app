@@ -78,4 +78,12 @@ public class RecipeService : IRecipeService
 
         return true;
     }
+
+
+    public async Task<List<Recipe>> GetOtherUsersRecipesAsync(string userId)
+    {
+        return await _recipeRepository.GetOtherUsersRecipesAsync(userId);
+    }
+    
+    
 }

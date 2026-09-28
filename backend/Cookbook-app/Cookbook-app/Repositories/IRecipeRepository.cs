@@ -13,4 +13,10 @@ public interface IRecipeRepository
     Task AddRecipeAsync(Recipe recipe);
     Task UpdateRecipeAsync(Recipe recipe);
     Task DeleteRecipeAsync(Recipe recipe);
+    
+    
+    //explore page
+
+    Task<List<Recipe>> GetOtherUsersRecipesAsync(string userId);
+
 }

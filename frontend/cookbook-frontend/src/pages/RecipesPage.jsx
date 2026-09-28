@@ -47,8 +47,8 @@ function RecipesPage() {
         </button>
       </div>
 
-      <h1 className=" text-3xl  lg:text-5xl font-extrabold text-call-to-action pb-6">
-        {cookbook.name}
+      <h1 className=" text-3xl  lg:text-5xl font-extrabold text-foreground pb-6">
+        {cookbook?.name}
       </h1>
       <RecipeList recipes={recipes} />
 

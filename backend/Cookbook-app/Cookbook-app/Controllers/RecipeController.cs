@@ -137,4 +137,26 @@ public class RecipeController : ControllerBase
 
         return NoContent();
     }
+    
+    
+    [HttpGet("explore")]
+    public async Task<ActionResult<IEnumerable<GetRecipeResponse>>>
+        GetOtherUsersRecipesAsync()
+    {
+        var recipes = await _recipeService.GetOtherUsersRecipesAsync(UserId);
+
+        var response = recipes.Select(recipe => new GetRecipeResponse(
+            recipe.RecipeId,
+            recipe.Name,
+            recipe.Description,
+            recipe.ImageUrl,
+            recipe.Ingredients,
+            recipe.Instructions,
+            recipe.RecipeScore
+        ));
+
+        return Ok(response);
+    }
+    
+    
 }
