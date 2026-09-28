@@ -18,6 +18,16 @@ public class CookbookDbContext : IdentityDbContext
     public DbSet<Recipe> Recipes { get; set; }
     public DbSet<RecipeBook> RecipeBooks { get; set; }
     
+    public DbSet<RecipeRating> RecipeRatings { get; set; }
+    
+    
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        base.OnModelCreating(builder);
+
+        builder.Entity<RecipeRating>()
+            .HasKey(r => new { r.RecipeId, r.UserId });
+    }
     
     
     

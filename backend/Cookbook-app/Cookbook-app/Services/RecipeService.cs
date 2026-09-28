@@ -85,5 +85,8 @@ public class RecipeService : IRecipeService
         return await _recipeRepository.GetOtherUsersRecipesAsync(userId);
     }
     
-    
+    public async Task<Recipe?> RateRecipeAsync(int recipeId, string userId, int score)
+    {
+        return await _recipeRepository.RateRecipeAsync(recipeId, userId, score);
+    }
 }

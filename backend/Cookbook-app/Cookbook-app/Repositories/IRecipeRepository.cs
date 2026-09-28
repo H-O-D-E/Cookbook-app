@@ -14,6 +14,9 @@ public interface IRecipeRepository
     Task UpdateRecipeAsync(Recipe recipe);
     Task DeleteRecipeAsync(Recipe recipe);
     
+    //rate
+    Task<Recipe?> RateRecipeAsync(int recipeId, string userId, int score);
+    
     
     //explore page
 
