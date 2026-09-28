@@ -46,18 +46,29 @@ export async function createRecipe({
   return response.json();
 }
 
-export async function updateRecipe(
+export async function updateRecipe({
   recipeId,
-  { name, description, ingredients, instructions },
-) {
+  name,
+  description,
+  imageUrl,
+  ingredients,
+  instructions,
+}) {
   const response = await apiFetch(`/api/recipes/${recipeId}`, {
     method: "PUT",
-    body: JSON.stringify({ name, description, ingredients, instructions }),
+    body: JSON.stringify({
+      name,
+      description,
+      imageUrl,
+      ingredients,
+      instructions,
+    }),
   });
 
   if (!response.ok) {
     throw new Error("Failed to update recipe");
   }
+
   return response.json();
 }
 

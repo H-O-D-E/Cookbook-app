@@ -1,4 +1,4 @@
-import { Link, replace, useNavigate } from "react-router";
+import { Link, replace, useNavigate, NavLink } from "react-router";
 import { Book } from "lucide-react";
 import { clearToken } from "@/auth/token";
 import { useTheme } from "@/hooks/useTheme";
@@ -23,12 +23,9 @@ function Navbar() {
       <div />
       <div className="flex gap-3 justify-end items-center">
         <div className="nav-options">
-          <Link
-            to="/recipebooks"
-            className="btn btn-ghost md:inline-flex hidden "
-          >
+          <NavLink to="/" className="btn btn-ghost md:inline-flex hidden ">
             <Book size={30} />
-          </Link>
+          </NavLink>
           <ThemeToggler theme={theme} toggleTheme={toggleTheme} />
           <button
             className="btn btn-ghost text-lg lg:text-2xl"

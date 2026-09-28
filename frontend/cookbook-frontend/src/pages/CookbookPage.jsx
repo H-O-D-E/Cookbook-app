@@ -26,7 +26,7 @@ function CookbookPage() {
   return (
     <div className="w-4/5 mx-auto p-10 min-h-dvh ">
       <div className="mb-20 flex justify-between">
-        <h1 className="text-5xl text-call-to-action font-extrabold">
+        <h1 className=" text-3xl lg:text-5xl text-call-to-action font-extrabold">
           My cookbooks
         </h1>
         <button
