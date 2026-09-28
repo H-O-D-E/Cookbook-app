@@ -48,7 +48,7 @@ function RecipesPage() {
       </div>
 
       <h1 className=" text-3xl  lg:text-5xl font-extrabold text-foreground pb-6">
-        {cookbook.name}
+        {cookbook?.name}
       </h1>
       <RecipeList recipes={recipes} />
 

@@ -8,6 +8,7 @@ import MainLayout from "./layouts/MainLayout";
 import ProtectedRoute from "./auth/ProtectedRoute";
 import CookbookPage from "./pages/CookbookPage";
 import RecipesPage from "./pages/RecipesPage";
+import AllRecipesPage from "./pages/AllRecipesPage";
 
 const queryClient = new QueryClient();
 
@@ -22,7 +23,11 @@ function App() {
             <Route element={<MainLayout />}>
               {/* mainpage */}
               <Route path="/" element={<CookbookPage />} />
-              <Route path="/cookbooks/:recipeBookId/recipes" element={<RecipesPage />} />
+              <Route
+                path="/cookbooks/:recipeBookId/recipes"
+                element={<RecipesPage />}
+              />
+              <Route path="/explore" element={<AllRecipesPage />} />
             </Route>
           </Route>
 

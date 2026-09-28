@@ -22,7 +22,7 @@ function Cookbook({ cookbook }) {
         <EditCookbookMenu cookbookInfo={cookbook} />
 
         <h2 className="card-title text-foreground text-3xl font-extrabold">
-          {cookbook.name}
+          {cookbook?.name}
         </h2>
         <p className="font-extrabold text-xl text-muted">
           {cookbook.description}
