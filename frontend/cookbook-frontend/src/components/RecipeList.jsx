@@ -54,7 +54,7 @@ function RecipeList({ recipes }) {
                 {recipe.name}
               </h2>
 
-              <p className="font-semibold text-base md:text-xl line-clamp-1">
+              <p className="font-extrabold text-muted md:text-xl line-clamp-1">
                 {recipe.description}
               </p>
 
