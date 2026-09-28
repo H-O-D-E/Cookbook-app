@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams } from "react-router";
+import { NavLink, useParams } from "react-router";
 import { HashLoader } from "react-spinners";
 import { useGetRecipes } from "@/hooks/recipes/useGetRecipes";
 import { useGetCookbook } from "@/hooks/cookbook/useGetCookBook";
@@ -34,9 +34,11 @@ function RecipesPage() {
   return (
     <div className="w-4/5 mx-auto p-10 min-h-dvh ">
       <div className="mb-20 flex justify-between">
-        <h1 className="text-5xl text-call-to-action font-extrabold">
-          Cookbook: {cookbook?.name}
-        </h1>
+        <NavLink to="/">
+          <button className="btn text-white bg-call-to-action border-0 font-extrabold text-md">
+            Back to cookbooks
+          </button>
+        </NavLink>
         <button
           className="btn text-white bg-call-to-action border-0 font-extrabold text-md"
           onClick={() => setIsCreateModalOpen(true)}
@@ -44,6 +46,10 @@ function RecipesPage() {
           Create a new recipe
         </button>
       </div>
+
+      <h1 className=" text-3xl  lg:text-5xl font-extrabold text-call-to-action pb-6">
+        {cookbook.name}
+      </h1>
       <RecipeList recipes={recipes} />
 
       <Modal

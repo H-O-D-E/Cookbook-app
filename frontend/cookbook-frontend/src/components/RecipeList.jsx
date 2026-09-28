@@ -50,11 +50,11 @@ function RecipeList({ recipes }) {
 
             <div className="card-body p-5 md:p-8">
               <EditRecipeMenu recipe={recipe} />
-              <h2 className="card-title text-foreground text-2xl md:text-4xl">
+              <h2 className="card-title text-foreground text-2xl md:text-4xl line-clamp-1">
                 {recipe.name}
               </h2>
 
-              <p className="font-semibold text-base md:text-xl line-clamp-3">
+              <p className="font-semibold text-base md:text-xl line-clamp-1">
                 {recipe.description}
               </p>
 
