@@ -2,6 +2,7 @@ import { useState } from "react";
 import Modal from "./Modal";
 import RecipeDetails from "./RecipeDetails";
 import RecipeDetailsWithRating from "./RecipeDetailsWithRating";
+import { Star, StarCheck, ThumbsUp } from "lucide-react";
 
 function ExploreRecipeList({ recipes }) {
   const [selectedRecipe, setSelectedRecipe] = useState(null);
@@ -16,31 +17,40 @@ function ExploreRecipeList({ recipes }) {
         {recipes.map((recipe) => (
           <div
             key={recipe.recipeId}
-            className="card w-full bg-surface border-2 shadow-sm overflow-hidden"
+            className="card w-full overflow-hidden border-2 bg-surface shadow-sm"
           >
-            <figure className="w-full h-48">
+            <figure className="h-48 w-full">
               <img
                 src={recipe.imageUrl}
                 alt={recipe.name}
-                className="w-full h-full object-cover"
+                className="h-full w-full object-cover"
               />
             </figure>
 
-            <div className="card-body p-5">
-              <h2 className="card-title text-foreground text-xl line-clamp-2">
+            <div className="card-body flex flex-1 flex-col p-5">
+              <h2 className="card-title line-clamp-2 text-xl text-foreground">
                 {recipe.name}
               </h2>
 
-              <p className="font-extrabold text-muted line-clamp-2">
+              <p className="line-clamp-2 font-extrabold text-muted">
                 {recipe.description}
               </p>
 
-              <div className="card-actions justify-end mt-auto">
+              <div className="card-actions mt-auto flex w-full items-center justify-between pt-4">
+                <div className="flex items-center gap-2">
+                  <Star />
+                  <span className="text-lg">
+                    {recipe.recipeScore === 0
+                      ? "Unrated"
+                      : recipe.recipeScore.toFixed(1)}
+                  </span>
+                </div>
+
                 <button
-                  className="btn bg-call-to-action border-0"
+                  className="btn border-0 bg-call-to-action"
                   onClick={() => setSelectedRecipe(recipe)}
                 >
-                  Details
+                  Discover
                 </button>
               </div>
             </div>

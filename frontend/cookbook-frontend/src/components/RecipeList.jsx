@@ -2,6 +2,7 @@ import { useState } from "react";
 import Modal from "./Modal";
 import RecipeDetails from "./RecipeDetails";
 import EditRecipeMenu from "./EditRecipeMenu";
+import { Star } from "lucide-react";
 
 function RecipeList({ recipes }) {
   const [selectedRecipe, setSelectedRecipe] = useState(null);
@@ -54,16 +55,21 @@ function RecipeList({ recipes }) {
                 {recipe.name}
               </h2>
 
-              <p className="font-extrabold text-muted md:text-xl line-clamp-1">
-                {recipe.description}
-              </p>
+              <div className="card-actions mt-auto flex w-full items-center justify-between pt-4">
+                <div className="flex items-center gap-2">
+                  <Star />
+                  <span className="text-lg">
+                    {recipe.recipeScore === 0
+                      ? "Unrated"
+                      : recipe.recipeScore.toFixed(1)}
+                  </span>
+                </div>
 
-              <div className="card-actions justify-end mt-auto">
                 <button
-                  className="btn bg-call-to-action border-0"
+                  className="btn border-0 bg-call-to-action"
                   onClick={() => setSelectedRecipe(recipe)}
                 >
-                  Details
+                  Discover
                 </button>
               </div>
             </div>
