@@ -42,7 +42,7 @@ public class RecipeBookRepository : IRecipeBookRepository
 
         var items = await sorted
             .Skip((options.Page - 1) * options.PageSize)
-            .Take(options.PageSize);
+            .Take(options.PageSize)
             .ToListAsync();
 
         return new PagedResult<RecipeBook>(
