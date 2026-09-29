@@ -54,6 +54,9 @@ function RecipeList({ recipes }) {
               <h2 className="card-title text-foreground text-2xl md:text-4xl line-clamp-1">
                 {recipe.name}
               </h2>
+              <h3 className="card-title text-muted text-xl">
+                {recipe.description}
+              </h3>
 
               <div className="card-actions mt-auto flex w-full items-center justify-between pt-4">
                 <div className="flex items-center gap-2">
@@ -69,7 +72,7 @@ function RecipeList({ recipes }) {
                   className="btn border-0 bg-call-to-action"
                   onClick={() => setSelectedRecipe(recipe)}
                 >
-                  Discover
+                  See more
                 </button>
               </div>
             </div>

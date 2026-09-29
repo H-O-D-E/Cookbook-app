@@ -24,14 +24,15 @@ function Register() {
   }
 
   return (
-    <div>
+    <div className="w-full">
       <form
         onSubmit={(e) => {
           e.preventDefault();
           handleRegister();
         }}
+        className="w-full"
       >
-        <fieldset className="fieldset bg-surface text-foreground rounded-2xl w-[32rem] border border-border p-10 shadow-xl">
+        <fieldset className="fieldset w-full max-w-[32rem] rounded-2xl border border-border bg-surface p-5 text-foreground shadow-xl sm:p-8 lg:p-10">
           <div className="mb-5">
             <h1 className="text-3xl font-bold">Create an account</h1>
             <p className="mt-1 text-sm font-normal text-muted">
