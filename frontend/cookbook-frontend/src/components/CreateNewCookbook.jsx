@@ -8,6 +8,7 @@ function CreateNewCookbook({ onSuccess }) {
     "" ??
       "https://media.istockphoto.com/id/1980276924/vector/no-photo-thumbnail-graphic-element-no-found-or-available-image-in-the-gallery-or-album-flat.jpg?s=612x612&w=0&k=20&c=ZBE3NqfzIeHGDPkyvulUw14SaWfDj2rZtyiKv3toItk=",
   );
+  const [tag, setTag] = useState("")
 
   const createCookbook = useCreateCookbook();
 
@@ -19,6 +20,7 @@ function CreateNewCookbook({ onSuccess }) {
         recipeBookName,
         description,
         imageUrl,
+        tag,
       },
       {
         onSuccess: () => {
@@ -72,6 +74,19 @@ function CreateNewCookbook({ onSuccess }) {
           onChange={(e) => setImageUrl(e.target.value)}
           className="input input-lg w-full bg-surface-secondary border-border text-foreground"
         />
+        <label className="text-foreground">
+          Tag
+          <select
+              className="select bg-surface text-foreground border-border"
+              value={tag}
+              onChange={(event) => setTag(event.target.value)}
+          >
+            <option value="">No tag</option>
+            <option value="Breakfast">Breakfast</option>
+            <option value="Dinner">Dinner</option>
+            <option value="Dessert">Dessert</option>
+          </select>
+        </label>
 
         <button
           className="btn mt-7 w-full border-0 bg-call-to-action text-white font-bold"

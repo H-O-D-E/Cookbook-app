@@ -5,6 +5,7 @@ using Cookbook_app.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace Cookbook_app.Controllers;
 
 [ApiController]
@@ -27,27 +28,34 @@ public class RecipeBookController : ControllerBase
         var book = await _service.GetRecipeBookAsync(id, UserId);
         if (book is null) return NotFound("Recipe book not found :( ");
 
-        return Ok(new RecipeBookResponse(book.RecipeBookId, book.Name, book.Description, book.ImageUrl, book.RecipeBookScore));
+        return Ok(new RecipeBookResponse(book.RecipeBookId, book.Name, book.Description, book.ImageUrl, book.RecipeBookScore, book.Tag));
     }
     
     [HttpGet]
-    public async Task<ActionResult<List<RecipeBookResponse>>> GetAllRecipeBooksAsync()
+    public async Task<ActionResult<PagedResult<RecipeBookResponse>>> GetAllRecipeBooksAsync(
+        [FromQuery] ListQuery options)
     {
-        var books = await _service.GetAllRecipeBooksAsync(UserId);
-
-        var response = books
+        var books = await _service.GetAllRecipeBooksAsync(UserId,options);
+        
+        var response = books.Items
             .Select(book => new RecipeBookResponse(
                 book.RecipeBookId,
                 book.Name,
                 book.Description,
                 book.ImageUrl,
                 book.Recipes
-                    .Where( r => r.RecipeScore > 0)
+                    .Where(r => r.RecipeScore > 0)
                     .Average(r => (float?)r.RecipeScore)
-                    ?? 0))
+                ?? 0,
+                book.Tag
+            ))
             .ToList();
 
-        return Ok(response);
+        return Ok(new PagedResult<RecipeBookResponse>(
+            response,
+            books.TotalCount,
+            books.Page,
+            books.PageSize));
     }
     
     
@@ -57,7 +65,7 @@ public class RecipeBookController : ControllerBase
     public async Task<ActionResult<RecipeBookResponse>> CreateRecipeBookAsync(CreateRecipeBookRequest request)
     {
         var book = await _service.CreateRecipeBookAsync(request, UserId);
-        var response = new RecipeBookResponse(book.RecipeBookId, book.Name, book.Description, book.ImageUrl, book.RecipeBookScore);
+        var response = new RecipeBookResponse(book.RecipeBookId, book.Name, book.Description, book.ImageUrl, book.RecipeBookScore,book.Tag);
         
         return CreatedAtAction(nameof(GetRecipeBookAsync), new {id = book.RecipeBookId}, response);
     }
@@ -77,7 +85,7 @@ public class RecipeBookController : ControllerBase
                 Status = StatusCodes.Status404NotFound
             });
         }
-        return Ok(new RecipeBookResponse(book.RecipeBookId, book.Name, book.Description, book.ImageUrl, book.RecipeBookScore));
+        return Ok(new RecipeBookResponse(book.RecipeBookId, book.Name, book.Description, book.ImageUrl, book.RecipeBookScore,book.Tag));
     }
     
     

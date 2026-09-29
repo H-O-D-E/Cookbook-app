@@ -6,8 +6,8 @@ export function useUpdateCookbook() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ id, name, description, imageUrl }) =>
-      updateRecipeBook(id, { name, description, imageUrl }),
+    mutationFn: ({ id, name, description, imageUrl, tag }) =>
+      updateRecipeBook(id, { name, description, imageUrl,tag }),
 
     onSuccess: () => {
       queryClient.invalidateQueries({

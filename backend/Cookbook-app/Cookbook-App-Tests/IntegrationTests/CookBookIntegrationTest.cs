@@ -139,7 +139,10 @@ public class CookBookIntegrationTests
             {
                 recipeBookName = "meatbalss",
                 description = "Italian recipes",
-                imageUrl = "hhh"
+                imageUrl = "hhh",
+                tag ="dinner"
+                
+                
             });
         
         Assert.That(
