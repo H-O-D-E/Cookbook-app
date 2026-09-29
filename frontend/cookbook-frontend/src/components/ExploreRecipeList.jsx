@@ -38,7 +38,7 @@ function ExploreRecipeList({ recipes }) {
 
               <div className="card-actions mt-auto flex w-full items-center justify-between pt-4">
                 <div className="flex items-center gap-2">
-                  <Star />
+                  <Star className="" />
                   <span className="text-lg">
                     {recipe.recipeScore === 0
                       ? "Unrated"
