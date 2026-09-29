@@ -40,17 +40,32 @@ function CookbookPage() {
   }
 
   return (
-    <div className="w-4/5 mx-auto p-10 min-h-dvh ">
-      <div className="mb-20 flex justify-between">
-        <h1 className=" text-3xl lg:text-5xl text-foreground font-extrabold">
-          My cookbooks
-        </h1>
-        <button
-          className="btn text-white bg-call-to-action border-0 font-extrabold text-md shadow-lg hover:scale-102"
-          onClick={() => setIsCreateModalOpen(true)}
-        >
-          Create new cookbook
-        </button>
+    <>
+      <div className="relative isolate min-h-dvh overflow-hidden">
+        <div className="relative z-10 mx-auto min-h-dvh w-4/5 p-10">
+          <div className="mb-20 flex justify-between">
+            <h1 className=" text-3xl lg:text-5xl text-foreground font-extrabold">
+              My cookbooks
+            </h1>
+            <button
+              className="btn text-white bg-call-to-action border-0 font-extrabold text-md shadow-lg hover:scale-102"
+              onClick={() => setIsCreateModalOpen(true)}
+            >
+              Create new cookbook
+            </button>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 min-[2500px]:grid-cols-4 gap-10">
+            {cookbooks?.map((cb) => (
+              <Cookbook key={cb.recipeBookId} cookbook={cb} />
+            ))}
+          </div>
+          <Modal
+            isOpen={isCreateModalOpen}
+            onClose={() => setIsCreateModalOpen(false)}
+          >
+            <CreateNewCookbook onSuccess={() => setIsCreateModalOpen(false)} />
+          </Modal>
+        </div>
       </div>
     <div className="text-foreground">
         <label>

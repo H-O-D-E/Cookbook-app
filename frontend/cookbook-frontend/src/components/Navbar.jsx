@@ -9,30 +9,36 @@ function Navbar() {
   const { theme, toggleTheme } = useTheme();
   const queryClient = useQueryClient();
 
-  function handleLogout() {
-    clearToken();
-    queryClient.clear();
-    navigate("/login", { replace: true });
+  async function handleLogout() {
+    
+    try {
+      await apiFetch("/api/auth/logout", { method: "POST" });
+    } finally {
+      clearToken();
+      queryClient.clear();
+      navigate("/login", { replace: true });
+    }
+    
   }
 
   return (
-    <nav className="grid grid-cols-3 items-center px-4 bg-base-100 h-16">
+    <nav className="grid grid-cols-2 items-center gap-y-2 bg-base-100 px-4 py-3 lg:h-16 lg:grid-cols-3 lg:py-0">
       <div className="flex justify-start">
-        <NavLink to="/" className="text-2xl font-bold ">
+        <NavLink to="/" className="text-lg font-bold sm:text-2xl">
           Cookbooklet
         </NavLink>
       </div>
 
-      <div className="flex justify-center gap-6 font-semibold text-2xl ">
+      <div className="order-3 col-span-2 flex justify-center gap-6 text-base font-semibold sm:text-lg lg:order-none lg:col-span-1 lg:text-2xl">
         <NavLink to="/">My cookbooks</NavLink>
         <NavLink to="/explore">Explore</NavLink>
       </div>
 
-      <div className="flex justify-end items-center gap-3">
+      <div className="flex items-center justify-end gap-3">
         <div className="nav-options">
           <ThemeToggler theme={theme} toggleTheme={toggleTheme} />
           <button
-            className="btn btn-ghost text-lg lg:text-2xl"
+            className="btn btn-ghost px-2 text-sm sm:text-lg lg:text-2xl"
             onClick={handleLogout}
           >
             Sign out

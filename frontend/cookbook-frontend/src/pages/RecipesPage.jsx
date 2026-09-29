@@ -32,36 +32,41 @@ function RecipesPage() {
   }
 
   return (
-    <div className="w-4/5 mx-auto p-10 min-h-dvh ">
-      <div className="mb-20 flex justify-between">
-        <NavLink to="/">
-          <button className="btn text-white bg-call-to-action border-0 font-extrabold text-md">
-            Back to cookbooks
-          </button>
-        </NavLink>
-        <button
-          className="btn text-white bg-call-to-action border-0 font-extrabold text-md"
-          onClick={() => setIsCreateModalOpen(true)}
-        >
-          Create a new recipe
-        </button>
+    <>
+      <div className="relative isolate min-h-dvh overflow-hidden">
+        {/*  */}
+        <div className="relative z-10  w-4/5 mx-auto p-8 ">
+          <div className="mb-20 flex justify-between">
+            <NavLink to="/">
+              <button className="btn text-white bg-call-to-action border-0 font-extrabold text-md">
+                Back to cookbooks
+              </button>
+            </NavLink>
+            <button
+              className="btn text-white bg-call-to-action border-0 font-extrabold text-md"
+              onClick={() => setIsCreateModalOpen(true)}
+            >
+              Create a new recipe
+            </button>
+          </div>
+
+          <h1 className=" text-3xl  lg:text-5xl font-extrabold text-foreground pb-6">
+            {cookbook?.name}
+          </h1>
+          <RecipeList recipes={recipes} />
+
+          <Modal
+            isOpen={isCreateModalOpen}
+            onClose={() => setIsCreateModalOpen(false)}
+          >
+            <CreateNewRecipe
+              recipeBookId={recipeBookId}
+              onSuccess={() => setIsCreateModalOpen(false)}
+            />
+          </Modal>
+        </div>
       </div>
-
-      <h1 className=" text-3xl  lg:text-5xl font-extrabold text-foreground pb-6">
-        {cookbook?.name}
-      </h1>
-      <RecipeList recipes={recipes} />
-
-      <Modal
-        isOpen={isCreateModalOpen}
-        onClose={() => setIsCreateModalOpen(false)}
-      >
-        <CreateNewRecipe
-          recipeBookId={recipeBookId}
-          onSuccess={() => setIsCreateModalOpen(false)}
-        />
-      </Modal>
-    </div>
+    </>
   );
 }
 

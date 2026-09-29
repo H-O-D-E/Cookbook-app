@@ -29,17 +29,16 @@ function Cookbook({ cookbook }) {
           {cookbook.description}
         </p>
         <div className="card-actions justify-between items-end">
-        <div className="flex items-center gap-1 font-bold text-lg text-muted">
-          {cookbook.recipeBookScore > 0 ? (
-            <>
-              <Star className="size-5 fill-current" />
-              {cookbook.recipeBookScore.toFixed(1)}
-            </>
-          ) : (
-            "No ratings yet"
-          )}
-        </div>
-
+          <div className="flex items-center gap-2  text-lg ">
+            {cookbook.recipeBookScore > 0 ? (
+              <>
+                <Star className="" />
+                {cookbook.recipeBookScore.toFixed(1)}
+              </>
+            ) : (
+              "No ratings yet"
+            )}
+          </div>
 
           <button
             className="btn btn-primary bg-call-to-action border-0 p-4"
