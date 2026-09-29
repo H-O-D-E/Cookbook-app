@@ -1,6 +1,8 @@
 ﻿using Cookbook_app.Data;
 using Cookbook_app.Models;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Cookbook_app.DTOs.RequestDTO;
 
 namespace Cookbook_app.Repositories;
 
@@ -20,12 +22,31 @@ public class RecipeBookRepository : IRecipeBookRepository
         return await _context.RecipeBooks.FirstOrDefaultAsync(b => b.RecipeBookId == id && b.UserId == userid);
     }
 
-    public async Task<List<RecipeBook>> GetAllRecipeBooksAsync(string userId)
+    public async Task<PagedResult<RecipeBook>> GetAllRecipeBooksAsync(string userId, ListQuery options )
     {
-        return await _context.RecipeBooks
+        var results = _context.RecipeBooks
             .Include(recipebook => recipebook.Recipes)
-            .Where(recipebook => recipebook.UserId == userId)
+            .AsNoTracking()
+            .Where(book => book.UserId == userId);
+        if (!string.IsNullOrWhiteSpace(options.Tag))
+        {
+            results = results.Where((book => book.Tag == options.Tag));
+            
+        }
+        var totalCount= await results.CountAsync();
+        var sorted = options.Sort == "desc"
+            ? results.OrderByDescending(book => book.Name)
+                .ThenBy(book => book.RecipeBookId)
+            : results.OrderBy(book => book.Name)
+                .ThenBy(book => book.RecipeBookId);
+
+        var items = await sorted
+            .Skip((options.Page - 1) * options.PageSize)
+            .Take(options.PageSize);
             .ToListAsync();
+
+        return new PagedResult<RecipeBook>(
+            items, totalCount, options.Page, options.PageSize);
     }
 
     public async Task<RecipeBook?> GetRecipeBookByNameAsync(string name, string userid)

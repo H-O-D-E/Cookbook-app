@@ -6,9 +6,11 @@ namespace Cookbook_app.Services;
 public interface IRecipeBookService
 {
     Task<RecipeBook?> GetRecipeBookAsync(int recipeBookId, string userId);
-    
-    
-    Task<List<RecipeBook>> GetAllRecipeBooksAsync(string userId);
+
+
+    Task<PagedResult<RecipeBook>> GetAllRecipeBooksAsync(
+        string userId,
+        ListQuery options);
 
     Task<RecipeBook> CreateRecipeBookAsync(
         CreateRecipeBookRequest request,

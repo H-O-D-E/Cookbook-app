@@ -3,6 +3,7 @@ import { useState } from "react";
 
 function EditCookBook({ cookbookInfo, onSuccess }) {
   const [recipeBookName, setRecipeBookName] = useState(cookbookInfo.name ?? "");
+  const[tag ,setTag]= useState(cookbookInfo.tag?? "");
   const [description, setDescription] = useState(
     cookbookInfo.description ?? "",
   );
@@ -19,6 +20,7 @@ function EditCookBook({ cookbookInfo, onSuccess }) {
         name: recipeBookName,
         description,
         imageUrl,
+        tag,
       },
       {
         onSuccess: () => {
@@ -75,6 +77,20 @@ function EditCookBook({ cookbookInfo, onSuccess }) {
             className="input input-lg w-full bg-surface-secondary border-border text-foreground"
             required
           />
+          <select
+              type="tag"
+              value={tag}
+              onChange={(e) => setTag(e.target.value)}
+              className="select bg-surface text-foreground border-border"
+          >
+            <option value="">No tag</option>
+            <option value="Breakfast">Breakfast</option>
+            <option value="Dinner">Dinner</option>
+            <option value="Dessert">Dessert</option>
+          </select>
+              
+          
+
 
           <button
             className="btn mt-7 w-full border-0 bg-call-to-action text-white font-bold"

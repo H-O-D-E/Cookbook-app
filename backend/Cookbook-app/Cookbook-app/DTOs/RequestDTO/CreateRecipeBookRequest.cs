@@ -1,3 +1,3 @@
 namespace Cookbook_app.DTOs.RequestDTO;
 
-public record CreateRecipeBookRequest(string RecipeBookName, string Description, string ImageUrl);
+public record CreateRecipeBookRequest(string RecipeBookName, string Description, string ImageUrl, string tag);
