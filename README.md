@@ -9,10 +9,10 @@ Cookbook app is a web app where you can create, browse and organise all of your 
 [Cookbooklet](https://wonderful-bush-014271b03.2.azurestaticapps.net/)
 
 ## Team:
-Oliver Kristiansen | [okristiansen](**https://github.com/okristiansen**)
-Håkon Lervåg | [haaler](**https://github.com/haaler**)
-David Hoang Nguyen | [DAVNGU99](**https://github.com/DAVNGU99**)
-Evan Hanif Belal | [visord3](**https://github.com/visord3**)
+- Oliver Kristiansen | [@okristiansen](**https://github.com/okristiansen**)
+- Håkon Lervåg | [@haaler](**https://github.com/haaler**)
+- David Hoang Nguyen | [@DAVNGU99](**https://github.com/DAVNGU99**)
+- Evan Hanif Belal | [@visord3](**https://github.com/visord3**)
 
 ## Domain mapping
 The template's generic placeholders map onto Cookbook's domain like this:
@@ -23,7 +23,7 @@ The template's generic placeholders map onto Cookbook's domain like this:
 | `[PRIMARY]`     | **Cookbook**   | A collection of recipes                                 |
 | `[CHILD]`       | **Recipe**     | A dish, belonging to a cookbook                         |
 | `[TAG]`         | **Ingredient** | An item in a recipe, such as "Chicken" or "Paprika"     |
-| `[INTERACTION]` | **Thumbs up (Like)**     | A thumbs up (Like) on a recipe                                 |
+| `[INTERACTION]` | **Rating**     | A rating on a recipe                                 |
 
 **Relationships:** A User has many Cookbooks. A Cookbook has many Recipes, which again have many Ingredients. Users can leave a like hos other users recipes.
 - In the code, a cookbook is called `recipebook`
