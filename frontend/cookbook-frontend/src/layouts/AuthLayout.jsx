@@ -25,9 +25,9 @@ function AuthLayout() {
           </p>
         </div>
         <img
-          src="/LoginPicture.svg"
+          src={theme === "dark" ? "/lady-darkmode.png" : "/LoginPicture.svg"}
           alt=""
-          className="hidden lg:block w-full max-w-2xl h-auto"
+          className="hidden h-auto w-full max-w-2xl lg:block"
         />
       </div>
       <div className="flex items-center justify-center px-6 pb-12 sm:px-8 lg:mr-30 lg:p-0">
