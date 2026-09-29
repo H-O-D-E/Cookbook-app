@@ -23,13 +23,16 @@ public class RecipeBookRepository : IRecipeBookRepository
     public async Task<List<RecipeBook>> GetAllRecipeBooksAsync(string userId)
     {
         return await _context.RecipeBooks
+            .Include(recipebook => recipebook.Recipes)
             .Where(recipebook => recipebook.UserId == userId)
             .ToListAsync();
     }
 
     public async Task<RecipeBook?> GetRecipeBookByNameAsync(string name, string userid)
     {
-        return await _context.RecipeBooks.FirstOrDefaultAsync(b => b.Name == name && b.UserId == userid);
+        return await _context.RecipeBooks
+            .Include(recipebook => recipebook.Recipes)
+            .FirstOrDefaultAsync(b => b.Name == name && b.UserId == userid);
     }
 
 

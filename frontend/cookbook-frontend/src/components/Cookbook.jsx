@@ -1,6 +1,7 @@
 import { useDeleteCookbook } from "@/hooks/cookbook/useDeleteCookbook";
 import EditCookbookMenu from "./EditCookbookMenu";
 import { useNavigate } from "react-router";
+import { Star } from "lucide-react";
 
 function Cookbook({ cookbook }) {
   const navigate = useNavigate();
@@ -27,7 +28,19 @@ function Cookbook({ cookbook }) {
         <p className="font-extrabold text-xl text-muted">
           {cookbook.description}
         </p>
-        <div className="card-actions justify-end">
+        <div className="card-actions justify-between items-end">
+        <div className="flex items-center gap-1 font-bold text-lg text-muted">
+          {cookbook.recipeBookScore > 0 ? (
+            <>
+              <Star className="size-5 fill-current" />
+              {cookbook.recipeBookScore.toFixed(1)}
+            </>
+          ) : (
+            "No ratings yet"
+          )}
+        </div>
+
+
           <button
             className="btn btn-primary bg-call-to-action border-0 p-4"
             onClick={handleViewRecipes}
