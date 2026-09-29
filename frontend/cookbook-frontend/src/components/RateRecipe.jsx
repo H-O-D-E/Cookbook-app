@@ -17,57 +17,60 @@ function RateRecipe({ recipe }) {
   const name = `rating-${recipe.recipeId}`;
 
   return (
-    <div className="flex items-center justify-center p-6 scale-120">
-      <div className="rating rating-xl">
-        <input
-          type="radio"
-          name={name}
-          className="mask mask-star-2 bg-orange-400"
-          aria-label="1 star"
-          checked={selectedScore === 1}
-          disabled={rateMutation.isPending}
-          onChange={() => handleRating(1)}
-        />
-        <input
-          type="radio"
-          name={name}
-          className="mask mask-star-2 bg-orange-400"
-          aria-label="2 stars"
-          checked={selectedScore === 2}
-          disabled={rateMutation.isPending}
-          onChange={() => handleRating(2)}
-        />
-        <input
-          type="radio"
-          name={name}
-          className="mask mask-star-2 bg-orange-400"
-          aria-label="3 stars"
-          checked={selectedScore === 3}
-          disabled={rateMutation.isPending}
-          onChange={() => handleRating(3)}
-        />
-        <input
-          type="radio"
-          name={name}
-          className="mask mask-star-2 bg-orange-400"
-          aria-label="4 stars"
-          checked={selectedScore === 4}
-          disabled={rateMutation.isPending}
-          onChange={() => handleRating(4)}
-        />
-        <input
-          type="radio"
-          name={name}
-          className="mask mask-star-2 bg-orange-400"
-          aria-label="5 stars"
-          checked={selectedScore === 5}
-          disabled={rateMutation.isPending}
-          onChange={() => handleRating(5)}
-        />
-      </div>
+    <>
+      <div className="flex items-center justify-center p-6 scale-120">
+        <div className="rating rating-xl">
+          <input
+            type="radio"
+            name={name}
+            className="mask mask-star-2 bg-orange-400"
+            aria-label="1 star"
+            checked={selectedScore === 1}
+            disabled={rateMutation.isPending}
+            onChange={() => handleRating(1)}
+          />
+          <input
+            type="radio"
+            name={name}
+            className="mask mask-star-2 bg-orange-400"
+            aria-label="2 stars"
+            checked={selectedScore === 2}
+            disabled={rateMutation.isPending}
+            onChange={() => handleRating(2)}
+          />
+          <input
+            type="radio"
+            name={name}
+            className="mask mask-star-2 bg-orange-400"
+            aria-label="3 stars"
+            checked={selectedScore === 3}
+            disabled={rateMutation.isPending}
+            onChange={() => handleRating(3)}
+          />
+          <input
+            type="radio"
+            name={name}
+            className="mask mask-star-2 bg-orange-400"
+            aria-label="4 stars"
+            checked={selectedScore === 4}
+            disabled={rateMutation.isPending}
+            onChange={() => handleRating(4)}
+          />
+          <input
+            type="radio"
+            name={name}
+            className="mask mask-star-2 bg-orange-400"
+            aria-label="5 stars"
+            checked={selectedScore === 5}
+            disabled={rateMutation.isPending}
+            onChange={() => handleRating(5)}
+          />
+        </div>
 
-      {rateMutation.isError && <p>Could not save rating.</p>}
-    </div>
+        {rateMutation.isError && <p>Could not save rating.</p>}
+      </div>
+      <p className="flex items-center justify-center"> Rate this recipe!</p>
+    </>
   );
 }
 
