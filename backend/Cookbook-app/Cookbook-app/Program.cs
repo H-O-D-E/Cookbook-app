@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System.Text;
 using Cookbook_app.Data;
 using Cookbook_app.Repositories;
@@ -80,6 +81,22 @@ builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
+        options.Events = new JwtBearerEvents
+        {
+            OnTokenValidated = async context =>
+            {
+                var userManager = context.HttpContext.RequestServices.GetRequiredService<UserManager<IdentityUser>>();
+                var userId = context.Principal?.FindFirstValue(ClaimTypes.NameIdentifier);
+                var tokenStamp = context.Principal?.FindFirstValue("security_stamp");
+                var user = userId is null ? null : await userManager.FindByIdAsync(userId);
+
+                if (user is null || tokenStamp != user.SecurityStamp)
+                {
+                    context.Fail("Token is invalid or expired.");
+                }
+            }
+        };
+        
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,

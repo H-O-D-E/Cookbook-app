@@ -9,10 +9,16 @@ function Navbar() {
   const { theme, toggleTheme } = useTheme();
   const queryClient = useQueryClient();
 
-  function handleLogout() {
-    clearToken();
-    queryClient.clear();
-    navigate("/login", { replace: true });
+  async function handleLogout() {
+    
+    try {
+      await apiFetch("/api/auth/logout", { method: "POST" });
+    } finally {
+      clearToken();
+      queryClient.clear();
+      navigate("/login", { replace: true });
+    }
+    
   }
 
   return (

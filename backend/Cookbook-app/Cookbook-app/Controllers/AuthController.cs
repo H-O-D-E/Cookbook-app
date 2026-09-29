@@ -1,5 +1,6 @@
 using Cookbook_app.Models.Auth;
 using Cookbook_app.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -44,7 +45,7 @@ public class AuthController : ControllerBase
         return Ok();
 
     }
-    
+
     [HttpPost("login")]
     public async Task<IActionResult> Login(LoginRequest request)
     {
@@ -70,5 +71,17 @@ public class AuthController : ControllerBase
             token
         });
     }
-    
+
+    [Authorize]
+    [HttpPost("logout")]
+    public async Task<IActionResult> Logout()
+    {
+        var user = await _userManager.GetUserAsync(User);
+        if (user is null) return Unauthorized();
+
+        await _userManager.UpdateSecurityStampAsync(user);
+
+        return NoContent();
+    }
+
 }
