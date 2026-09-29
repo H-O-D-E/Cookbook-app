@@ -22,7 +22,7 @@ function RecipesPage() {
   if (isLoading) {
     return (
       <div className="min-h-dvh flex items-center justify-center">
-        <HashLoader color="#a3e635" size={68} />
+        <HashLoader color="#000000" size={68} />
       </div>
     );
   }
