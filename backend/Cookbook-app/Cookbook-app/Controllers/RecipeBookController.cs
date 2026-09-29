@@ -41,7 +41,10 @@ public class RecipeBookController : ControllerBase
                 book.Name,
                 book.Description,
                 book.ImageUrl,
-                book.RecipeBookScore))
+                book.Recipes
+                    .Where( r => r.RecipeScore > 0)
+                    .Average(r => (float?)r.RecipeScore)
+                    ?? 0))
             .ToList();
 
         return Ok(response);
