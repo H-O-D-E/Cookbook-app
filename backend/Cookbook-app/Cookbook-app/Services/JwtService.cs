@@ -26,7 +26,8 @@ public class JwtService : IJwtService
         var claims = new List<Claim>
         {
             new Claim(ClaimTypes.NameIdentifier, user.Id),
-            new Claim(ClaimTypes.Name, user.UserName!)
+            new Claim(ClaimTypes.Name, user.UserName!),
+            new Claim("security_stamp", user.SecurityStamp!)
         };
 
         var key = new SymmetricSecurityKey(
