@@ -36,7 +36,7 @@ public class RecipeBookServiceTests
     // Checks that when  creating a recipe book returns it and saves it for the user
     public async Task CreateRecipeBook_ReturnsAndSavesNewBook()
     {
-        var request = new CreateRecipeBookRequest("Dinner","mexican", "http");
+        var request = new CreateRecipeBookRequest("Dinner","mexican", "http","dinner");
         _recipeBookRepositoryMock.Setup(r => r.GetRecipeBookByNameAsync(request.RecipeBookName, UserId)).ReturnsAsync((RecipeBook?)null);
 
         var result = await _recipeBookService.CreateRecipeBookAsync(request, UserId);
@@ -44,7 +44,7 @@ public class RecipeBookServiceTests
         Assert.That(result, Is.Not.Null);
         Assert.That(result!.Name, Is.EqualTo(request.RecipeBookName));
         _recipeBookRepositoryMock.Verify(r => r.AddRecipeBookAsync(It.Is<RecipeBook>(book =>
-            book.Name == request.RecipeBookName && book.UserId == UserId)), Times.Once);
+            book.Name == request.RecipeBookName && book.UserId == UserId )), Times.Once);
     }
 
     [Test]
@@ -52,7 +52,7 @@ public class RecipeBookServiceTests
     public async Task UpdateRecipeBook_UpdatesAndReturnsBookOwnedByUser()
     {
         var book = new RecipeBook { RecipeBookId = 1, Name = "Old name", UserId = UserId };
-        var request = new UpdateRecipeBookRequest("New name","italian","http");
+        var request = new UpdateRecipeBookRequest("New name","italian","http","breakfast");
         _recipeBookRepositoryMock.Setup(r => r.GetRecipeBookByIdAsync(book.RecipeBookId, UserId)).ReturnsAsync(book);
 
         var result = await _recipeBookService.UpdateRecipeBookAsync(book.RecipeBookId, request, UserId);
