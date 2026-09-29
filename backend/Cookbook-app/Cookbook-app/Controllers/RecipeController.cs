@@ -158,5 +158,34 @@ public class RecipeController : ControllerBase
         return Ok(response);
     }
     
+    [HttpPut("{recipeId:int}/rating")]
+    public async Task<ActionResult<GetRecipeResponse>> RateRecipeAsync(
+        int recipeId, RateRecipeRequest request)
+    {
+        try
+        {
+            var recipe = await _recipeService.RateRecipeAsync(
+                recipeId, UserId, request.Score);
+
+            if (recipe is null)
+                return NotFound();
+
+            return Ok(new GetRecipeResponse(
+                recipe.RecipeId,
+                recipe.Name,
+                recipe.Description,
+                recipe.ImageUrl,
+                recipe.Ingredients,
+                recipe.Instructions,
+                recipe.RecipeScore
+            ));
+        }
+        catch (InvalidOperationException ex)
+            when (ex.Message == "You cannot rate your own recipe.")
+        {
+            return Forbid();
+        }
+    }
+    
     
 }

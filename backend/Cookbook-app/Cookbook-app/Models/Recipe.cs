@@ -23,4 +23,6 @@ public class Recipe
     public int RecipeBookId { get; set; }
     
     public RecipeBook RecipeBook { get; set; }
+    
+    public List<RecipeRating> Ratings { get; set; } = new();
 }

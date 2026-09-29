@@ -48,7 +48,50 @@ public class RecipeRepository : IRecipeRepository
         _context.Recipes.Remove(recipe);
         await _context.SaveChangesAsync();
     }
-    
+
+    public async Task<Recipe?> RateRecipeAsync(
+        int recipeId, string userId, int score)
+    {
+        if (score < 1 || score > 5)
+            throw new ArgumentOutOfRangeException(nameof(score));
+
+        var recipe = await _context.Recipes
+            .Include(r => r.RecipeBook)
+            .Include(r => r.Ratings)
+            .FirstOrDefaultAsync(r => r.RecipeId == recipeId);
+
+        if (recipe is null)
+            return null;
+
+        if (recipe.RecipeBook.UserId == userId)
+            throw new InvalidOperationException(
+                "You cannot rate your own recipe.");
+
+        var rating = recipe.Ratings
+            .SingleOrDefault(r => r.UserId == userId);
+
+        if (rating is null)
+        {
+            recipe.Ratings.Add(new RecipeRating
+            {
+                RecipeId = recipeId,
+                UserId = userId,
+                Score = score
+            });
+        }
+        else
+        {
+            rating.Score = score;
+        }
+
+        recipe.RecipeScore =
+            (float)recipe.Ratings.Average(r => r.Score);
+
+        await _context.SaveChangesAsync();
+
+        return recipe;
+    }
+
     public async Task<List<Recipe>> GetOtherUsersRecipesAsync(string userId)
     {
         return await _context.Recipes
@@ -57,5 +100,7 @@ public class RecipeRepository : IRecipeRepository
             .OrderBy(recipe => recipe.RecipeId)
             .ToListAsync();
     }
+    
+    
     
 }
