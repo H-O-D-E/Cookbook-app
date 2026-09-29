@@ -56,6 +56,9 @@ namespace Cookbook_app.Migrations
                     b.Property<float>("RecipeScore")
                         .HasColumnType("real");
 
+                    b.Property<string>("Tag")
+                        .HasColumnType("text");
+
                     b.HasKey("RecipeId");
 
                     b.HasIndex("RecipeBookId");
@@ -85,6 +88,9 @@ namespace Cookbook_app.Migrations
 
                     b.Property<float>("RecipeBookScore")
                         .HasColumnType("real");
+
+                    b.Property<string>("Tag")
+                        .HasColumnType("text");
 
                     b.Property<string>("UserId")
                         .IsRequired()

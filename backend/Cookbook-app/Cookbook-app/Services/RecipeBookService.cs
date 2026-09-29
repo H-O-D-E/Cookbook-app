@@ -30,9 +30,12 @@ public class RecipeBookService : IRecipeBookService
         return cookbook;
     }
 
-    public async Task<List<RecipeBook>> GetAllRecipeBooksAsync(string userId)
+    public async Task<PagedResult<RecipeBook>> GetAllRecipeBooksAsync(
+        string userId,
+        ListQuery options)
     {
-        return await _recipeBookRepository.GetAllRecipeBooksAsync(userId);
+        return await _recipeBookRepository.GetAllRecipeBooksAsync(
+            userId, options);
     }
 
     public async Task<RecipeBook> CreateRecipeBookAsync(
@@ -54,7 +57,10 @@ public class RecipeBookService : IRecipeBookService
             Name = request.RecipeBookName,
             Description = request.Description,
             ImageUrl = request.ImageUrl,
-            UserId = userId
+            UserId = userId,
+            Tag= request.tag
+                
+            
         };
 
         await _recipeBookRepository.AddRecipeBookAsync(recipeBook);
@@ -84,6 +90,9 @@ public class RecipeBookService : IRecipeBookService
 
         if (request.ImageUrl is not null)
             recipeBook.ImageUrl = request.ImageUrl;
+        
+        if  (request.tag is not null)
+            recipeBook.Tag = request.tag;
 
         await _recipeBookRepository.UpdateRecipeBookAsync(recipeBook);
 
