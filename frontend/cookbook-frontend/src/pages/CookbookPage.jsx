@@ -17,7 +17,7 @@ function CookbookPage() {
     useGetAllRecipebooks(options);
   const totalPages = Math.max(
     1,
-    Math.ceil((data?.totalCount ?? 0) / options.pageSize)
+    Math.ceil((data?.totalCount ?? 0) / options.pageSize),
   );
 
   // Adjust this component's state only when a refreshed list loses a page.
@@ -46,17 +46,18 @@ function CookbookPage() {
               My cookbooks
             </h1>
             <button
-              className="btn text-white bg-call-to-action border-0 font-extrabold text-md shadow-lg hover:scale-102"
+              className="btn text-white bg-call-to-action border-0 font-extrabold text-md shadow-lg hover:scale-102 hover:bg-accent-color"
               onClick={() => setIsCreateModalOpen(true)}
+              title="Create a new cookbook"
             >
               Create new cookbook
             </button>
           </div>
-          <div className="mb-8 flex flex-wrap gap-4 text-foreground">
+          <div className="mb-8 flex flex-wrap gap-4 text-foreground ">
             <label>
               Sort
               <select
-                className="select ml-2 bg-surface text-foreground border-border"
+                className="select ml-2 bg-surface text-foreground border"
                 value={options.sort}
                 onChange={(event) =>
                   setOptions((previous) => ({
@@ -74,7 +75,7 @@ function CookbookPage() {
             <label>
               Tag
               <select
-                className="select ml-2 bg-surface text-foreground border-border"
+                className="select ml-2 bg-surface text-foreground border"
                 value={options.tag}
                 onChange={(event) =>
                   setOptions((previous) => ({
@@ -96,9 +97,7 @@ function CookbookPage() {
               <Cookbook key={cb.recipeBookId} cookbook={cb} />
             ))}
           </div>
-          {data?.totalCount === 0 && (
-            <p>No cookbooks match your selection.</p>
-          )}
+          {data?.totalCount === 0 && <p>No cookbooks match your selection.</p>}
           <nav
             aria-label="Cookbook pages"
             className="flex items-center justify-center gap-4 mt-8"
@@ -107,17 +106,25 @@ function CookbookPage() {
               className="btn"
               disabled={options.page <= 1 || isFetching}
               onClick={() =>
-                setOptions((previous) => ({ ...previous, page: previous.page - 1 }))
+                setOptions((previous) => ({
+                  ...previous,
+                  page: previous.page - 1,
+                }))
               }
             >
               Previous
             </button>
-            <span>Page {options.page} of {totalPages}</span>
+            <span>
+              Page {options.page} of {totalPages}
+            </span>
             <button
               className="btn"
               disabled={options.page >= totalPages || isFetching}
               onClick={() =>
-                setOptions((previous) => ({ ...previous, page: previous.page + 1 }))
+                setOptions((previous) => ({
+                  ...previous,
+                  page: previous.page + 1,
+                }))
               }
             >
               Next

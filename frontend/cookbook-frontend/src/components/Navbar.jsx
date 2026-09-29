@@ -10,7 +10,6 @@ function Navbar() {
   const queryClient = useQueryClient();
 
   async function handleLogout() {
-    
     try {
       await apiFetch("/api/auth/logout", { method: "POST" });
     } finally {
@@ -18,7 +17,6 @@ function Navbar() {
       queryClient.clear();
       navigate("/login", { replace: true });
     }
-    
   }
 
   return (
@@ -30,16 +28,25 @@ function Navbar() {
       </div>
 
       <div className="order-3 col-span-2 flex justify-center gap-6 text-base font-semibold sm:text-lg lg:order-none lg:col-span-1 lg:text-2xl">
-        <NavLink to="/">My cookbooks</NavLink>
-        <NavLink to="/explore">Explore</NavLink>
+        <div className="hover:underline">
+          <NavLink to="/">My cookbooks</NavLink>
+        </div>
+        <div className="hover:underline cursor-pointer">
+          <NavLink to="/explore">Explore</NavLink>
+        </div>
       </div>
 
       <div className="flex items-center justify-end gap-3">
         <div className="nav-options">
-          <ThemeToggler theme={theme} toggleTheme={toggleTheme} />
+          <ThemeToggler
+            title="Change light theme"
+            theme={theme}
+            toggleTheme={toggleTheme}
+          />
           <button
             className="btn btn-ghost px-2 text-sm sm:text-lg lg:text-2xl"
             onClick={handleLogout}
+            title="Sign out button"
           >
             Sign out
           </button>

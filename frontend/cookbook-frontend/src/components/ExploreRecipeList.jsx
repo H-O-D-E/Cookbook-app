@@ -13,11 +13,11 @@ function ExploreRecipeList({ recipes }) {
 
   return (
     <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 text-foreground">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 text-foreground ">
         {recipes.map((recipe) => (
           <div
             key={recipe.recipeId}
-            className="card w-full overflow-hidden border-2 bg-surface shadow-sm"
+            className="card w-full overflow-hidden border-2 bg-surface shadow-sm hover:scale-105"
           >
             <figure className="h-48 w-full">
               <img
@@ -47,7 +47,7 @@ function ExploreRecipeList({ recipes }) {
                 </div>
 
                 <button
-                  className="btn border-0 bg-call-to-action"
+                  className="btn border-0 bg-call-to-action hover:bg-accent-color"
                   onClick={() => setSelectedRecipe(recipe)}
                 >
                   Discover
