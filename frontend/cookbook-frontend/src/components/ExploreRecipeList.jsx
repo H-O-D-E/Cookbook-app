@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Modal from "./Modal";
 import RecipeDetails from "./RecipeDetails";
+import RecipeDetailsWithRating from "./RecipeDetailsWithRating";
 
 function ExploreRecipeList({ recipes }) {
   const [selectedRecipe, setSelectedRecipe] = useState(null);
@@ -51,7 +52,7 @@ function ExploreRecipeList({ recipes }) {
         isOpen={selectedRecipe !== null}
         onClose={() => setSelectedRecipe(null)}
       >
-        {selectedRecipe && <RecipeDetails recipe={selectedRecipe} />}
+        {selectedRecipe && <RecipeDetailsWithRating recipe={selectedRecipe} />}
       </Modal>
     </>
   );

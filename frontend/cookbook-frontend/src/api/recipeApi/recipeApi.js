@@ -91,3 +91,16 @@ export async function deleteRecipe(recipeId) {
     throw new Error("Failed to delete recipe");
   }
 }
+
+export async function rateRecipe(recipeId, score) {
+  const response = await apiFetch(`/api/recipes/${recipeId}/rating`, {
+    method: "PUT",
+    body: JSON.stringify({ score }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Could not rate this recipe");
+  }
+
+  return response.json();
+}
