@@ -38,12 +38,16 @@ function RecipesPage() {
         <div className="relative z-10  w-4/5 mx-auto p-8 ">
           <div className="mb-20 flex justify-between">
             <NavLink to="/">
-              <button className="btn text-white bg-call-to-action border-0 font-extrabold text-md">
+              <button
+                className="btn text-white hover:bg-accent-color bg-call-to-action border-0 font-extrabold text-md"
+                title="back to cookbooks"
+              >
                 Back to cookbooks
               </button>
             </NavLink>
             <button
-              className="btn text-white bg-call-to-action border-0 font-extrabold text-md"
+              className="btn text-white bg-call-to-action border-0 font-extrabold text-md hover:bg-accent-color"
+              title="Create new recipe"
               onClick={() => setIsCreateModalOpen(true)}
             >
               Create a new recipe

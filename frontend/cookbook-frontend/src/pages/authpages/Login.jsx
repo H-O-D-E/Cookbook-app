@@ -67,8 +67,9 @@ function Login() {
           />
 
           <button
-            className="btn mt-7 w-full border-0 bg-call-to-action text-white"
+            className="btn mt-7 w-full border-0 bg-call-to-action hover:bg-accent-color text-white"
             type="submit"
+            title="Login button"
           >
             Login
           </button>
@@ -78,6 +79,7 @@ function Login() {
             <NavLink
               className="ml-1 font-semibold text-accent-color hover:underline"
               to="/register"
+              title="Navigate to regisration"
             >
               Create an account
             </NavLink>

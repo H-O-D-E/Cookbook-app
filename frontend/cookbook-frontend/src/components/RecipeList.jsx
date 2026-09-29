@@ -69,7 +69,8 @@ function RecipeList({ recipes }) {
                 </div>
 
                 <button
-                  className="btn border-0 bg-call-to-action"
+                  className="btn border-0 bg-call-to-action hover:bg-accent-color"
+                  title="See more details about this recipe"
                   onClick={() => setSelectedRecipe(recipe)}
                 >
                   See more

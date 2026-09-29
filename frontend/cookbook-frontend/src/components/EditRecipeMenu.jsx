@@ -20,13 +20,18 @@ function EditRecipeMenu({ recipe }) {
         />
       </Modal>
       <div className="dropdown dropdown-end absolute right-4">
-        <button tabIndex={0} role="button" className="text-foreground">
+        <button
+          tabIndex={0}
+          role="button"
+          className="text-foreground"
+          title="Edit or delete this recipe"
+        >
           <Ellipsis />
         </button>
 
         <ul
           tabIndex={0}
-          className="dropdown-content menu bg-surface rounded-box z-10 w-52 p-2 shadow-sm font-extrabold"
+          className="dropdown-content menu bg-surface rounded-box z-10 w-52 p-2 shadow-sm font-extrabold border"
         >
           <li>
             <button

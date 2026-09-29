@@ -17,15 +17,20 @@ function EditCookbookMenu({ cookbookInfo }) {
         />
       </Modal>
       <div className="dropdown dropdown-end absolute right-4">
-        <button tabIndex={0} role="button" className="text-foreground">
+        <button
+          tabIndex={0}
+          role="button"
+          className="text-foreground"
+          title="edit cookbook"
+        >
           <Ellipsis />
         </button>
 
         <ul
           tabIndex={0}
-          className="dropdown-content menu bg-surface rounded-box z-10 w-52 p-2 shadow-sm font-extrabold"
+          className="dropdown-content menu bg-surface rounded-box z-10 w-52 p-2 shadow-sm font-extrabold border"
         >
-          <li>
+          <li className="">
             <button
               className="hover:bg-background"
               onClick={() => setIsModalOpen(true)}

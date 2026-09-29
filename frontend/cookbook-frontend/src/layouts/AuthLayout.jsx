@@ -26,7 +26,7 @@ function AuthLayout() {
         </div>
         <img
           src={theme === "dark" ? "/lady-darkmode.png" : "/LoginPicture.svg"}
-          alt=""
+          alt="Login picture of a lady cooking"
           className="hidden h-auto w-full max-w-2xl lg:block"
         />
       </div>
@@ -35,7 +35,7 @@ function AuthLayout() {
       </div>
 
       <div className="fixed top-5 right-5 m-2">
-        <button className="btn btn-circle btn-xl">
+        <button className="btn btn-circle btn-xl" title="Change light theme">
           <ThemeToggler theme={theme} toggleTheme={toggleTheme} />
         </button>
       </div>

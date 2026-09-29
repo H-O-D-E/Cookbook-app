@@ -1,4 +1,3 @@
-import { useDeleteCookbook } from "@/hooks/cookbook/useDeleteCookbook";
 import EditCookbookMenu from "./EditCookbookMenu";
 import { useNavigate } from "react-router";
 import { Star } from "lucide-react";
@@ -11,7 +10,7 @@ function Cookbook({ cookbook }) {
   }
 
   return (
-    <div className="card  bg-surface border-2 w-auto shadow-sm ">
+    <div className="card  bg-surface border-2 w-auto shadow-sm hover:scale-102 ">
       <figure className="h-64 w-full">
         <img
           src={cookbook.imageUrl}
@@ -41,8 +40,9 @@ function Cookbook({ cookbook }) {
           </div>
 
           <button
-            className="btn btn-primary bg-call-to-action border-0 p-4"
+            className="btn btn-primary bg-call-to-action border-0 p-4 hover:bg-accent-color"
             onClick={handleViewRecipes}
+            title="View recipes in cookbook"
           >
             View
           </button>

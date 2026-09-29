@@ -24,8 +24,8 @@ function AllRecipesPage() {
 
   return (
     <div className="w-4/5 mx-auto p-10 ">
-      <h1 className="text-3xl lg:text-5xl items-center flex justify-center font-extrabold underline text-call-to-action pb-20 ">
-        Explore and rate other recipes
+      <h1 className="text-3xl lg:text-5xl items-center flex justify-center font-extrabold text-call-to-action pb-20 ">
+        Find new recipes and share your ratings
       </h1>
 
       <ExploreRecipeList recipes={recipes} />
