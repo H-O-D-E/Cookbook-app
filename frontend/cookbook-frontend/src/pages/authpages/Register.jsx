@@ -18,8 +18,7 @@ function Register() {
       await register(trimmedName, trimmedEmail, password);
       navigate("/login", { replace: true });
     } catch (error) {
-      console.error(error);
-      alert("Registration failed");
+      alert(error instanceof Error ? error.message : "Registration failed");
     }
   }
 

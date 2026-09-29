@@ -26,7 +26,18 @@ export async function register(username, email, password) {
     }),
   });
 
-  if (!res.ok) {
-    throw new Error("Registration failed");
+   if (!res.ok) {
+    const problem = await res.json().catch(() => null);
+    const validationMessages = Object.values(problem?.errors ?? {})
+      .flatMap((value) => (Array.isArray(value) ? value : [value]))
+      .filter((value) => typeof value === "string" && value.trim());
+
+    const message =
+      validationMessages.join(" ") ||
+      problem?.detail ||
+      problem?.title ||
+      "Registration failed";
+
+    throw new Error(message);
   }
 }

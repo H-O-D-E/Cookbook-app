@@ -27,6 +27,17 @@ public class AuthController : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterUserRequest registerRequest)
     {
+        var usernameExists = await _userManager.FindByNameAsync(registerRequest.Username);
+        var emailExists = await _userManager.FindByEmailAsync(registerRequest.Email);
+        if (usernameExists is not null || emailExists is not null) {
+            return Conflict(new ProblemDetails
+            {
+                Title = "Username or Email already exists",
+                Detail = $"Username or Email already exists",
+                Status = StatusCodes.Status409Conflict
+            });
+        }
+
         var newUser = new IdentityUser
         {
             UserName = registerRequest.Username,
@@ -39,11 +50,15 @@ public class AuthController : ControllerBase
 
         if (!result.Succeeded)
         {
-            return BadRequest(result.Errors);
+            return Conflict(new ProblemDetails
+            {
+                Title = "User could not be registered",
+                Detail = $"Password must be longer than 8 characters, require at least one digit, lower- and upper-case letters, and one special character",
+                Status = StatusCodes.Status409Conflict
+            });
         }
 
         return Ok();
-
     }
 
     [HttpPost("login")]

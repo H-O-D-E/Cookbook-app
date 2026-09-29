@@ -91,13 +91,13 @@
      }
 
      [Test]
-     public async Task Register_WhenUserIsNotCreated_ReturnsBadRequest()
+     public async Task Register_WhenUserIsNotCreated_ReturnsConflict()
      {
          var request = new RegisterUserRequest(
              null, null, null);
          _userManager.Setup(um => um.CreateAsync(It.IsAny<IdentityUser>(), request.Password)).ReturnsAsync(IdentityResult.Failed());
          var result = await _controller.Register(request);
-         Assert.IsInstanceOf<BadRequestObjectResult>(result);
+         Assert.IsInstanceOf<ConflictObjectResult>(result);
      }
 
      [Test]
