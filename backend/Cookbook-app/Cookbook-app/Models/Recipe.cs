@@ -21,6 +21,7 @@ public class Recipe
 
     public string Instructions { get; set; }
 
+    public bool IsPublic { get; set; } = false;
     public float RecipeScore { get; set; } = 0;
 
     public int RecipeBookId { get; set; }
