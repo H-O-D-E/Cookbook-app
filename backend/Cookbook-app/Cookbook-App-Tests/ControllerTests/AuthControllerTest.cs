@@ -121,7 +121,7 @@
              new LoginRequest("testUser", "wrongPassword")
          );
 
-         Assert.IsInstanceOf<UnauthorizedResult>(result);
+         Assert.IsInstanceOf<UnauthorizedObjectResult>(result);
      }
 
      [Test]
@@ -135,7 +135,7 @@
              new LoginRequest("wrongUser", "testPassword123")
          );
 
-         Assert.IsInstanceOf<UnauthorizedResult>(result);
+         Assert.IsInstanceOf<UnauthorizedObjectResult>(result);
      }
      
      
