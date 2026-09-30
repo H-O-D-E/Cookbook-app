@@ -59,7 +59,7 @@ public class RecipeRepository : IRecipeRepository
         var recipe = await _context.Recipes
             .Include(r => r.RecipeBook)
             .Include(r => r.Ratings)
-            .FirstOrDefaultAsync(r => r.RecipeId == recipeId);
+            .FirstOrDefaultAsync(r => r.RecipeId == recipeId && r.IsPublic);
 
         if (recipe is null)
             return null;
@@ -97,7 +97,8 @@ public class RecipeRepository : IRecipeRepository
     {
         var results = _context.Recipes
             .AsNoTracking()
-            .Where(Recipe => Recipe.RecipeBook.UserId != userId);
+            .Where(Recipe => Recipe.RecipeBook.UserId != userId && Recipe.IsPublic) 
+                      ;
         if (!string.IsNullOrWhiteSpace(options.Tag))
         {
             results = results.Where((recipe => recipe.Tag == options.Tag));
@@ -107,13 +108,15 @@ public class RecipeRepository : IRecipeRepository
         var totalcount = await results.CountAsync();
 
         var sorted = options.Sort switch
-
         {
-            "desc" => results.OrderByDescending(recipe => recipe.Name),
-            "rating" => results.OrderByDescending(recipe => recipe.RecipeScore)
-                .ThenBy(recipe => recipe.RecipeId),
-            _=> results.OrderBy(recipe => recipe.Name)
+            "desc" => results.OrderByDescending(r => r.Name)
+                .ThenBy(r => r.RecipeId),
 
+            "rating" => results.OrderByDescending(r => r.RecipeScore)
+                .ThenBy(r => r.RecipeId),
+
+            _ => results.OrderBy(r => r.Name)
+                .ThenBy(r => r.RecipeId)
         };
            
 
