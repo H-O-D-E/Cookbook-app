@@ -12,9 +12,9 @@ export function useGetRecipes(recipeBookId) {
   });
 }
 
-export function useGetOtherUsersRecipes() {
+export function useGetOtherUsersRecipes(options) {
   return useQuery({
-    queryKey: ["recipes", "explore"],
-    queryFn: getOtherUsersRecipes,
+    queryKey: ["recipes", "explore",options],
+    queryFn: ()=>getOtherUsersRecipes(options),
   });
 }

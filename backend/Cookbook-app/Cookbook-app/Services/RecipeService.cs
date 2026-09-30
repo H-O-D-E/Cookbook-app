@@ -80,9 +80,9 @@ public class RecipeService : IRecipeService
     }
 
 
-    public async Task<List<Recipe>> GetOtherUsersRecipesAsync(string userId)
+    public async Task<PagedResult<Recipe>> GetOtherUsersRecipesAsync(string userId, ListQuery options)
     {
-        return await _recipeRepository.GetOtherUsersRecipesAsync(userId);
+        return await _recipeRepository.GetOtherUsersRecipesAsync(userId, options);
     }
     
     public async Task<Recipe?> RateRecipeAsync(int recipeId, string userId, int score)

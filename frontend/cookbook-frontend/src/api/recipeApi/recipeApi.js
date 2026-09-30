@@ -20,8 +20,24 @@ export async function getRecipesByRecipeBookId(recipeBookId) {
   return response.json();
 }
 
-export async function getOtherUsersRecipes() {
-  const response = await apiFetch(`/api/recipes/explore`);
+export async function getOtherUsersRecipes({page = 1 ,
+                                           pageSize=12,
+                                           sort = "asc",
+                                           tag ="",
+                                           }={}) {
+  
+  const params= new URLSearchParams({
+    page : String(page),
+    pageSize:String(pageSize),
+    sort,
+  })
+
+  
+  if (tag){
+    params.set("tag",tag);
+  }
+  const response = await apiFetch(`/api/recipes/explore?${params}`);
+  
 
   if (!response.ok) {
     throw new Error("Unable to load others recipes");

@@ -140,12 +140,12 @@ public class RecipeController : ControllerBase
     
     
     [HttpGet("explore")]
-    public async Task<ActionResult<IEnumerable<GetRecipeResponse>>>
-        GetOtherUsersRecipesAsync()
+    public async Task<ActionResult<PagedResult<GetRecipeResponse>>>
+        GetOtherUsersRecipesAsync([FromQuery] ListQuery options)
     {
-        var recipes = await _recipeService.GetOtherUsersRecipesAsync(UserId);
+        var recipes = await _recipeService.GetOtherUsersRecipesAsync(UserId, options);
 
-        var response = recipes.Select(recipe => new GetRecipeResponse(
+        var response = recipes.Items.Select(recipe => new GetRecipeResponse(
             recipe.RecipeId,
             recipe.Name,
             recipe.Description,
@@ -153,9 +153,13 @@ public class RecipeController : ControllerBase
             recipe.Ingredients,
             recipe.Instructions,
             recipe.RecipeScore
-        ));
+        )).ToList();
 
-        return Ok(response);
+        return Ok(new PagedResult<GetRecipeResponse>(
+            response,
+            recipes.TotalCount,
+            recipes.Page,
+            recipes.PageSize));
     }
     
     [HttpPut("{recipeId:int}/rating")]

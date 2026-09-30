@@ -1,3 +1,4 @@
+using Cookbook_app.DTOs.RequestDTO;
 using Cookbook_app.Models;
 
 namespace Cookbook_app.Repositories;
@@ -20,6 +21,6 @@ public interface IRecipeRepository
     
     //explore page
 
-    Task<List<Recipe>> GetOtherUsersRecipesAsync(string userId);
+    public Task<PagedResult<Recipe>> GetOtherUsersRecipesAsync(string userId, ListQuery options);
 
 }
