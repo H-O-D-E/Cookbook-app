@@ -41,7 +41,7 @@ public class RecipeController : ControllerBase
         }
 
         return Ok(new GetRecipeResponse(recipe.RecipeId, recipe.Name, recipe.Description, recipe.ImageUrl, recipe.Ingredients,
-            recipe.Instructions, recipe.RecipeScore, recipe.IsPublic));
+            recipe.Instructions, recipe.RecipeScore, recipe.IsPublic, recipe.Tag));
     }
     
     [HttpGet("/api/recipebooks/{recipeBookId:int}/recipes")]
@@ -59,7 +59,7 @@ public class RecipeController : ControllerBase
                 recipe.ImageUrl,
                 recipe.Ingredients,
                 recipe.Instructions,
-                recipe.RecipeScore, recipe.IsPublic
+                recipe.RecipeScore, recipe.IsPublic, recipe.Tag
             ));
 
         return Ok(response);
@@ -96,6 +96,7 @@ public class RecipeController : ControllerBase
             recipe.Instructions,
             recipe.RecipeScore,
             recipe.IsPublic
+            , recipe.Tag
         );
 
         return CreatedAtAction(
@@ -121,7 +122,7 @@ public class RecipeController : ControllerBase
         }
 
         return Ok(new GetRecipeResponse(recipe.RecipeId, recipe.Name, recipe.Description, recipe.ImageUrl, recipe.Ingredients,
-            recipe.Instructions, recipe.RecipeScore, recipe.IsPublic));
+            recipe.Instructions, recipe.RecipeScore, recipe.IsPublic, recipe.Tag));
     }
 
     [HttpDelete("{recipeId:int}")]
@@ -155,7 +156,8 @@ public class RecipeController : ControllerBase
             recipe.Ingredients,
             recipe.Instructions,
             recipe.RecipeScore,
-            recipe.IsPublic
+            recipe.IsPublic,
+            recipe.Tag
         )).ToList();
 
         return Ok(new PagedResult<GetRecipeResponse>(
@@ -186,6 +188,7 @@ public class RecipeController : ControllerBase
                 recipe.Instructions,
                 recipe.RecipeScore,
                 recipe.IsPublic
+                ,recipe.Tag
             ));
         }
         catch (InvalidOperationException ex)
