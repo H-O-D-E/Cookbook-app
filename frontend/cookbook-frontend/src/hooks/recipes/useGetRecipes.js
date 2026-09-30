@@ -14,7 +14,7 @@ export function useGetRecipes(recipeBookId) {
 
 export function useGetOtherUsersRecipes(options) {
   return useQuery({
-    queryKey: ["recipes", "explore",options],
-    queryFn: ()=>getOtherUsersRecipes(options),
+    queryKey: ["recipes", "explore", options],
+    queryFn: () => getOtherUsersRecipes(options),
   });
 }

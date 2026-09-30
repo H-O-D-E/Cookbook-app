@@ -27,6 +27,7 @@ public class RecipeRepository : IRecipeRepository
             .Where(recipe =>
                 recipe.RecipeBookId == recipeBookId &&
                 recipe.RecipeBook.UserId == userId)
+            .OrderBy(recipe => recipe.RecipeId)
             .ToListAsync();
     }
 

@@ -57,7 +57,7 @@ function RecipesPage() {
           <h1 className=" text-3xl  lg:text-5xl font-extrabold text-foreground pb-6">
             {cookbook?.name}
           </h1>
-          <RecipeList recipes={recipes} />
+          <RecipeList recipes={recipes} recipeBookId={recipeBookId} />
 
           <Modal
             isOpen={isCreateModalOpen}

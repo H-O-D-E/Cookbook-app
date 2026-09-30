@@ -19,14 +19,13 @@ function EditRecipeMenu({ recipe }) {
           onSuccess={() => setIsModalOpen(false)}
         />
       </Modal>
-      <div className="dropdown dropdown-end absolute right-4">
+      <div className="dropdown dropdown-end">
         <button
           tabIndex={0}
-          role="button"
-          className="text-foreground"
+          className="flex h-6 w-6 items-center justify-center text-foreground cursor-pointer"
           title="Edit or delete this recipe"
         >
-          <Ellipsis />
+          <Ellipsis className="h-5 w-5" />
         </button>
 
         <ul
