@@ -8,6 +8,7 @@ function CreateNewRecipe({ recipeBookId, onSuccess }) {
     const [ingredients, setIngredients] = useState("");
     const [instructions, setInstructions] = useState("");
     const createRecipe = useCreateRecipe(recipeBookId);
+    const [tag, setTag] = useState("");
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -18,6 +19,7 @@ function CreateNewRecipe({ recipeBookId, onSuccess }) {
             imageUrl,
             ingredients,
             instructions,
+            tag,
             recipeBookId: Number(recipeBookId),
         }, {
             onSuccess: () => {
@@ -96,6 +98,20 @@ function CreateNewRecipe({ recipeBookId, onSuccess }) {
           className="input input-lg w-full bg-surface-secondary border-border text-foreground"
           required
         />
+          <label htmlFor="recipe-tag" className="label mt-3 font-semibold text-foreground">
+              Tag
+          </label>
+          <select
+              id="recipe-tag"
+              value={tag}
+              onChange={(e) => setTag(e.target.value)}
+              className="select w-full bg-surface text-foreground border-border"
+          >
+              <option value="">No tag</option>
+              <option value="Breakfast">Breakfast</option>
+              <option value="Dinner">Dinner</option>
+              <option value="Dessert">Dessert</option>
+          </select>
 
         <button
           className="btn mt-7 w-full border-0 bg-call-to-action text-white font-bold"

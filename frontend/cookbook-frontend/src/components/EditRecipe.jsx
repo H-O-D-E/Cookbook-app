@@ -7,6 +7,7 @@ function EditRecipe({ recipe, recipeBookId, onSuccess }) {
   const [imageUrl, setImageUrl] = useState(recipe.imageUrl ?? "");
   const [ingredients, setIngredients] = useState(recipe.ingredients ?? "");
   const [instructions, setInstructions] = useState(recipe.instructions ?? "");
+  const [tag, setTag] = useState(recipe.tag ?? "");
 
   const updateRecipe = useUpdateRecipe(recipeBookId);
 
@@ -21,6 +22,7 @@ function EditRecipe({ recipe, recipeBookId, onSuccess }) {
         imageUrl,
         ingredients,
         instructions,
+        tag,
       },
       {
         onSuccess: () => {
@@ -99,6 +101,17 @@ function EditRecipe({ recipe, recipeBookId, onSuccess }) {
             className="textarea textarea-lg w-full bg-surface-secondary border-border text-foreground"
             required
           />
+          <select
+              type="tag"
+              value={tag}
+              onChange={(e) => setTag(e.target.value)}
+              className="select bg-surface text-foreground border-border"
+          >
+            <option value="">No tag</option>
+            <option value="Breakfast">Breakfast</option>
+            <option value="Dinner">Dinner</option>
+            <option value="Dessert">Dessert</option>
+          </select>
 
           <button
             className="btn mt-7 w-full border-0 bg-call-to-action text-white font-bold"

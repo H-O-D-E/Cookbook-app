@@ -45,7 +45,7 @@ public class RecipeService : IRecipeService
             var newRecipe = new Recipe
             {
                 Name = request.RecipeName, Description = request.Description, ImageUrl = request.ImageUrl, Ingredients = request.Ingredients,
-                Instructions = request.Instructions, RecipeBookId = recipeBookId
+                Instructions = request.Instructions, RecipeBookId = recipeBookId, Tag = request.tag
             };
             await _recipeRepository.AddRecipeAsync(newRecipe);
             return newRecipe;
@@ -63,6 +63,7 @@ public class RecipeService : IRecipeService
         if (request.ImageUrl is not null) existingRecipe.ImageUrl = request.ImageUrl;
         if (request.Ingredients is not null) existingRecipe.Ingredients = request.Ingredients;
         if (request.Instructions is not null) existingRecipe.Instructions = request.Instructions;
+        if (request.Tag is not null) existingRecipe.Tag = request.Tag;
         
         await _recipeRepository.UpdateRecipeAsync(existingRecipe);
         return existingRecipe;

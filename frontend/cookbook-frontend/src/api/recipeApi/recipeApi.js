@@ -53,6 +53,7 @@ export async function createRecipe({
   ingredients,
   instructions,
   recipeBookId,
+    tag,
 }) {
   const response = await apiFetch(`/api/recipebooks/${recipeBookId}/recipes`, {
     method: "POST",
@@ -62,6 +63,7 @@ export async function createRecipe({
       imageUrl,
       ingredients,
       instructions,
+      tag,
     }),
   });
 
@@ -79,6 +81,7 @@ export async function updateRecipe({
   imageUrl,
   ingredients,
   instructions,
+    tag,
 }) {
   const response = await apiFetch(`/api/recipes/${recipeId}`, {
     method: "PUT",
@@ -88,6 +91,7 @@ export async function updateRecipe({
       imageUrl,
       ingredients,
       instructions,
+      tag,
     }),
   });
 

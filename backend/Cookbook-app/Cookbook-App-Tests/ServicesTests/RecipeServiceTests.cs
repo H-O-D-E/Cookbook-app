@@ -49,7 +49,8 @@ public class RecipeServiceTests
             "italian",
             "https://example.com/pizza.jpg",
             "tomato",
-            "just cook it");
+            "just cook it",
+            "dinner");
         var recipeBook = new RecipeBook
         {
             RecipeBookId = recipeBookId,
@@ -74,7 +75,7 @@ public class RecipeServiceTests
     public async Task UpdateRecipe_UpdatesAndReturnsExistingRecipe()
     {
         var recipe = new Recipe { RecipeId = 1, Name = "Old name" };
-        var request = new UpdateRecipeRequest("New name", null, null, null, null);
+        var request = new UpdateRecipeRequest("New name", null, null, null, null, null);
         _recipeRepositoryMock
             .Setup(r => r.GetRecipeByRecipeIdAsync(recipe.RecipeId, UserId))
             .ReturnsAsync(recipe);
