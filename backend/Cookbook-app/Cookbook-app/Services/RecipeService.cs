@@ -45,7 +45,7 @@ public class RecipeService : IRecipeService
             var newRecipe = new Recipe
             {
                 Name = request.RecipeName, Description = request.Description, ImageUrl = request.ImageUrl, Ingredients = request.Ingredients,
-                Instructions = request.Instructions, RecipeBookId = recipeBookId
+                Instructions = request.Instructions, RecipeBookId = recipeBookId, Tag = request.tag
             };
             await _recipeRepository.AddRecipeAsync(newRecipe);
             return newRecipe;

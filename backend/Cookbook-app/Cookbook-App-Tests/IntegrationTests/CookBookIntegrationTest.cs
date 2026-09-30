@@ -140,7 +140,10 @@ public class CookBookIntegrationTests
                 recipeBookName = "meatbalss",
                 description = "Italian recipes",
                 imageUrl = "hhh",
-                tag ="dinner"
+                tag ="dinner",
+                
+                
+                
                 
                 
             });
@@ -162,7 +165,9 @@ public class CookBookIntegrationTests
                 description = " pizza",
                 imageUrl = "httpsexmaple.com",
                 ingredients = "balls",
-                instructions = "pray to god"
+                instructions = "pray to god",
+                tag ="Dinner"
+                
             });
         
         Assert.That(recipeResponse.StatusCode,Is.EqualTo(HttpStatusCode.Created));
