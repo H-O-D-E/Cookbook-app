@@ -18,8 +18,7 @@ function Login() {
       setToken(res.token);
       navigate("/", { replace: true });
     } catch (error) {
-      console.error(error);
-      alert("Feil brukernavn eller passord");
+      alert(error instanceof Error ? error.message : "Login failed");
     }
   }
 

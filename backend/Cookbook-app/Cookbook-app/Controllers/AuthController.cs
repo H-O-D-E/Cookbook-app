@@ -68,15 +68,24 @@ public class AuthController : ControllerBase
 
         if (user is null)
         {
-            return Unauthorized();
+            return Unauthorized(new ProblemDetails
+            {
+                Title = "Login failed",
+                Detail = $"Username does not exist",
+                Status = StatusCodes.Status401Unauthorized
+            });
         }
 
-        var validPassword =
-            await _userManager.CheckPasswordAsync(user, request.Password);
+        var validPassword = await _userManager.CheckPasswordAsync(user, request.Password);
 
         if (!validPassword)
         {
-            return Unauthorized();
+            return Unauthorized(new ProblemDetails
+            {
+                Title = "Login failed",
+                Detail = $"Password is incorrect",
+                Status = StatusCodes.Status401Unauthorized
+            });
         }
 
         var token = _jwtService.CreateToken(user);

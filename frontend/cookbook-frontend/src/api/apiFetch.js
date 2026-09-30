@@ -5,7 +5,7 @@ import { getToken, clearToken } from "@/auth/token";
 //denne env var ligger i .env.local
 const API_BASE_URL = import.meta.env.VITE_API_URL ?? "";
 
-export async function apiFetch(path, init = {}) {
+export async function apiFetch(path, init = {}, redirectOn401 = true) {
   const token = getToken();
 
   const headers = new Headers(init.headers);
@@ -23,7 +23,7 @@ export async function apiFetch(path, init = {}) {
     headers,
   });
 
-  if (res.status === 401) {
+  if (res.status === 401 && redirectOn401) {
     clearToken();
     window.location.href = "/login";
     throw new Error("Unauthorized");
