@@ -63,7 +63,9 @@ public class RecipeService : IRecipeService
         if (request.ImageUrl is not null) existingRecipe.ImageUrl = request.ImageUrl;
         if (request.Ingredients is not null) existingRecipe.Ingredients = request.Ingredients;
         if (request.Instructions is not null) existingRecipe.Instructions = request.Instructions;
+        if (request.IsPublic.HasValue) existingRecipe.IsPublic = request.IsPublic.Value;
         if (request.Tag is not null) existingRecipe.Tag = request.Tag;
+        
         
         await _recipeRepository.UpdateRecipeAsync(existingRecipe);
         return existingRecipe;

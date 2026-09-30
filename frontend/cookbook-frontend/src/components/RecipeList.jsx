@@ -2,10 +2,21 @@ import { useState } from "react";
 import Modal from "./Modal";
 import RecipeDetails from "./RecipeDetails";
 import EditRecipeMenu from "./EditRecipeMenu";
-import { Star } from "lucide-react";
+import { Eye, Lock, LockOpen, Star } from "lucide-react";
+import { useUpdateRecipeVisibility } from "@/hooks/recipes/useUpdateRecipe";
 
-function RecipeList({ recipes }) {
+function RecipeList({ recipes, recipeBookId }) {
   const [selectedRecipe, setSelectedRecipe] = useState(null);
+  const changeRecipeVisibility = useUpdateRecipeVisibility(recipeBookId);
+
+  function handleChangeVisibility(recipeId, isPublic) {
+    changeRecipeVisibility.mutate({
+      recipeId,
+      isPublic: !isPublic,
+    });
+  }
+
+  console.log(recipes);
 
   if (!recipes?.length) {
     return (
@@ -49,8 +60,32 @@ function RecipeList({ recipes }) {
               />
             </figure>
 
-            <div className="card-body p-5 md:p-8">
-              <EditRecipeMenu recipe={recipe} />
+            <div className="card-body p-5 md:p-8 ">
+              <div className="flex items-center justify-end gap-2">
+                <button
+                  disabled={changeRecipeVisibility.isPending}
+                  onClick={() =>
+                    handleChangeVisibility(recipe.recipeId, recipe.isPublic)
+                  }
+                  title="Set recipe public or private"
+                  className="cursor-pointer"
+                >
+                  {!recipe.isPublic ? (
+                    <Lock
+                      className="h-5 w-5 shrink-0"
+                      title="ed"
+                      strokeWidth={3}
+                    />
+                  ) : (
+                    <LockOpen
+                      className="h-5 w-5 shrink-0"
+                      title="ed"
+                      strokeWidth={3}
+                    />
+                  )}
+                </button>
+                <EditRecipeMenu recipe={recipe} />
+              </div>
               <h2 className="card-title text-foreground text-2xl md:text-4xl line-clamp-1">
                 {recipe.name}
               </h2>
@@ -67,14 +102,15 @@ function RecipeList({ recipes }) {
                       : recipe.recipeScore.toFixed(1)}
                   </span>
                 </div>
-
-                <button
-                  className="btn border-0 bg-call-to-action hover:bg-accent-color"
-                  title="See more details about this recipe"
-                  onClick={() => setSelectedRecipe(recipe)}
-                >
-                  See more
-                </button>
+                <div className="flex gap-3 items-center">
+                  <button
+                    className="btn border-0 bg-call-to-action hover:bg-accent-color"
+                    title="See more details about this recipe"
+                    onClick={() => setSelectedRecipe(recipe)}
+                  >
+                    See more
+                  </button>
+                </div>
               </div>
             </div>
           </div>
