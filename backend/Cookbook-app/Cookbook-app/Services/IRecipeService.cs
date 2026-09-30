@@ -13,7 +13,9 @@ public interface IRecipeService
     Task<Recipe?> UpdateRecipeAsync(int recipeId, UpdateRecipeRequest request, string userId);
     Task<bool> DeleteRecipeAsync(int recipeId, string userId);
     
-    Task<List<Recipe>> GetOtherUsersRecipesAsync(string userId);
+    Task<PagedResult<Recipe>> GetOtherUsersRecipesAsync( 
+        string userId, 
+        ListQuery options);
     
     Task<Recipe?> RateRecipeAsync(int recipeId, string userId, int score);
 }

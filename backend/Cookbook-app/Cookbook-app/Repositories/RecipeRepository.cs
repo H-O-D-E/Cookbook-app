@@ -1,4 +1,5 @@
 ﻿using Cookbook_app.Data;
+using Cookbook_app.DTOs.RequestDTO;
 using Cookbook_app.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -92,13 +93,41 @@ public class RecipeRepository : IRecipeRepository
         return recipe;
     }
 
-    public async Task<List<Recipe>> GetOtherUsersRecipesAsync(string userId)
+    public async Task<PagedResult<Recipe>> GetOtherUsersRecipesAsync(string userId, ListQuery options)
     {
-        return await _context.Recipes
+        var results = _context.Recipes
             .AsNoTracking()
-            .Where(recipe => recipe.RecipeBook.UserId != userId) //everyones else
-            .OrderBy(recipe => recipe.RecipeId)
+            .Where(Recipe => Recipe.RecipeBook.UserId != userId);
+        if (!string.IsNullOrWhiteSpace(options.Tag))
+        {
+            results = results.Where((recipe => recipe.Tag == options.Tag));
+            
+        }
+
+        var totalcount = await results.CountAsync();
+
+        var sorted = options.Sort switch
+
+        {
+            "desc" => results.OrderByDescending(recipe => recipe.Name),
+            "rating" => results.OrderByDescending(recipe => recipe.RecipeScore)
+                .ThenBy(recipe => recipe.RecipeId),
+            _=> results.OrderBy(recipe => recipe.Name)
+
+        };
+           
+
+        var items = await sorted
+            .Skip((options.Page - 1) * options.PageSize)
+            .Take(options.PageSize)
             .ToListAsync();
+        return new PagedResult<Recipe>(
+            items,
+            totalcount,
+            options.Page,
+            options.PageSize);
+
+
     }
     
     

@@ -10,7 +10,7 @@ public class ListQuery
     [Range(1, 100)]
     public int PageSize { get; set; } = 12;
 
-    [RegularExpression("^(asc|desc)$")]
+    [RegularExpression("^(asc|desc|rating)$")]
     public string Sort { get; set; } = "asc";
 
     public string? Tag { get; set; }
