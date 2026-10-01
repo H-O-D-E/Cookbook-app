@@ -2,31 +2,34 @@ import { useState } from "react";
 import { useCreateRecipe } from "@/hooks/recipes/UseCreateRecipe";
 
 function CreateNewRecipe({ recipeBookId, onSuccess }) {
-    const [name, setName] = useState("");
-    const [description, setDescription] = useState("");
-    const [imageUrl, setImageUrl] = useState("");
-    const [ingredients, setIngredients] = useState("");
-    const [instructions, setInstructions] = useState("");
-    const createRecipe = useCreateRecipe(recipeBookId);
-    const [tag, setTag] = useState("");
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [ingredients, setIngredients] = useState("");
+  const [instructions, setInstructions] = useState("");
+  const createRecipe = useCreateRecipe(recipeBookId);
+  const [tag, setTag] = useState("");
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-        createRecipe.mutate({
-            name,
-            description,
-            imageUrl,
-            ingredients,
-            instructions,
-            tag,
-            recipeBookId: Number(recipeBookId),
-        }, {
-            onSuccess: () => {
-                onSuccess?.();
-            },
-        });
-    }
+    createRecipe.mutate(
+      {
+        name,
+        description,
+        imageUrl,
+        ingredients,
+        instructions,
+        tag,
+        recipeBookId: Number(recipeBookId),
+      },
+      {
+        onSuccess: () => {
+          onSuccess?.();
+        },
+      },
+    );
+  };
 
   return (
     <form className="w-full" onSubmit={handleSubmit}>
@@ -55,9 +58,8 @@ function CreateNewRecipe({ recipeBookId, onSuccess }) {
           Description
         </label>
 
-        <input
-          type="text"
-          className="input input-lg w-full bg-surface-secondary border-border text-foreground"
+        <textarea
+          className="textarea textarea-lg w-full bg-surface-secondary border-border text-foreground"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           required
@@ -79,11 +81,12 @@ function CreateNewRecipe({ recipeBookId, onSuccess }) {
           Ingredients
         </label>
 
-        <input
-          type="text"
+        <textarea
           value={ingredients}
           onChange={(e) => setIngredients(e.target.value)}
-          className="input input-lg w-full bg-surface-secondary border-border text-foreground"
+          className="textarea textarea-lg w-full bg-surface-secondary border-border text-foreground"
+          rows={4}
+          placeholder="Enter each ingredient on a new line..."
           required
         />
 
@@ -91,27 +94,33 @@ function CreateNewRecipe({ recipeBookId, onSuccess }) {
           Instructions
         </label>
 
-        <input
-          type="text"
+        <textarea
           value={instructions}
           onChange={(e) => setInstructions(e.target.value)}
-          className="input input-lg w-full bg-surface-secondary border-border text-foreground"
+          className="textarea textarea-lg w-full bg-surface-secondary border-border text-foreground"
+          rows={4}
+          placeholder="Enter the cooking instructions..."
           required
         />
-          <label htmlFor="recipe-tag" className="label mt-3 font-semibold text-foreground">
-              Tag
-          </label>
-          <select
-              id="recipe-tag"
-              value={tag}
-              onChange={(e) => setTag(e.target.value)}
-              className="select w-full bg-surface text-foreground border-border"
-          >
-              <option value="">No tag</option>
-              <option value="Breakfast">Breakfast</option>
-              <option value="Dinner">Dinner</option>
-              <option value="Dessert">Dessert</option>
-          </select>
+
+        <label
+          htmlFor="recipe-tag"
+          className="label mt-3 font-semibold text-foreground"
+        >
+          Tag
+        </label>
+
+        <select
+          id="recipe-tag"
+          value={tag}
+          onChange={(e) => setTag(e.target.value)}
+          className="select w-full bg-surface text-foreground border"
+        >
+          <option value="">No tag</option>
+          <option value="Breakfast">Breakfast</option>
+          <option value="Dinner">Dinner</option>
+          <option value="Dessert">Dessert</option>
+        </select>
 
         <button
           className="btn mt-7 w-full border-0 bg-call-to-action text-white font-bold"

@@ -3,6 +3,7 @@ import { clearToken } from "@/auth/token";
 import { useTheme } from "@/hooks/useTheme";
 import ThemeToggler from "./ThemeToggler";
 import { useQueryClient } from "@tanstack/react-query";
+import { apiFetch } from "@/api/apiFetch";
 
 function Navbar() {
   const navigate = useNavigate();
