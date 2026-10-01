@@ -2,21 +2,25 @@ import { useState } from "react";
 import Modal from "./Modal";
 import RecipeDetails from "./RecipeDetails";
 import EditRecipeMenu from "./EditRecipeMenu";
-import { Eye, Lock, LockOpen, Star } from "lucide-react";
+import { Lock, LockOpen, Star } from "lucide-react";
 import { useUpdateRecipeVisibility } from "@/hooks/recipes/useUpdateRecipe";
+import { toast } from "react-toastify";
 
 function RecipeList({ recipes, recipeBookId }) {
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const changeRecipeVisibility = useUpdateRecipeVisibility(recipeBookId);
 
   function handleChangeVisibility(recipeId, isPublic) {
-    changeRecipeVisibility.mutate({
-      recipeId,
-      isPublic: !isPublic,
-    });
+    changeRecipeVisibility.mutate(
+      {
+        recipeId,
+        isPublic: !isPublic,
+      },
+      toast.success(
+        isPublic ? `Recipe changed to private` : "Recipe changed to public",
+      ),
+    );
   }
-
-  console.log(recipes);
 
   if (!recipes?.length) {
     return (
@@ -28,7 +32,7 @@ function RecipeList({ recipes, recipeBookId }) {
 
   return (
     <>
-      <div className="w-full lg:w-2/3 mx-auto flex flex-col gap-6 text-foreground">
+      <div className="w-full max-w-5xl mx-auto px-3 sm:px-4 md:px-6 flex flex-col gap-5 sm:gap-6 text-foreground">
         {recipes.map((recipe) => (
           <div
             key={recipe.recipeId}
@@ -86,10 +90,18 @@ function RecipeList({ recipes, recipeBookId }) {
                 </button>
                 <EditRecipeMenu recipe={recipe} />
               </div>
-              <h2 className="card-title text-foreground text-2xl md:text-4xl line-clamp-1">
+              <h2
+                className=" text-foreground
+                  font-bold
+                  text-xl
+                  sm:text-2xl
+                  lg:text-3xl
+                  break-words
+                  overflow-wrap-anywhere"
+              >
                 {recipe.name}
               </h2>
-              <h3 className="card-title text-muted text-xl">
+              <h3 className="card-title text-muted text-sm md:text-lg ">
                 {recipe.description}
               </h3>
 
