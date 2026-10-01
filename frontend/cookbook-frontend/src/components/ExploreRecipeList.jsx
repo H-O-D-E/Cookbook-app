@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Modal from "./Modal";
-import RecipeDetails from "./RecipeDetails";
+
 import RecipeDetailsWithRating from "./RecipeDetailsWithRating";
-import { Star, StarCheck, ThumbsUp } from "lucide-react";
+import { Star } from "lucide-react";
 
 function ExploreRecipeList({ recipes }) {
   const [selectedRecipe, setSelectedRecipe] = useState(null);

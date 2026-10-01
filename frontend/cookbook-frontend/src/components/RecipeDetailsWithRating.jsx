@@ -2,7 +2,7 @@ import RateRecipe from "./RateRecipe";
 
 function RecipeDetailsWithRating({ recipe }) {
   return (
-    <div className="text-foreground">
+    <div className="text-foreground ">
       <img
         src={recipe.imageUrl}
         alt={recipe.name}

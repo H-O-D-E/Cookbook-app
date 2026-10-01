@@ -5,17 +5,26 @@ function Modal({ isOpen, onClose, children }) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-lg rounded-2xl bg-surface text-foreground shadow-2xl p-8"
+        className="
+          relative
+          w-full h-full
+          sm:h-auto sm:max-h-[90vh] sm:max-w-lg
+          bg-surface text-foreground
+          shadow-2xl
+          p-5 sm:p-8
+          sm:rounded-2xl
+          overflow-y-auto
+        "
         onClick={(e) => e.stopPropagation()}
       >
         <button
           type="button"
           onClick={onClose}
-          className="absolute right-4 top-4 btn btn-ghost btn-circle bg-accent-color"
+          className="absolute right-3 top-3 sm:right-4 sm:top-4 btn btn-ghost btn-circle bg-accent-color"
           aria-label="Close modal"
         >
           <X size={22} />
