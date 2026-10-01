@@ -1,8 +1,7 @@
 import { HashLoader } from "react-spinners";
 import { useGetOtherUsersRecipes } from "@/hooks/recipes/useGetRecipes";
 import ExploreRecipeList from "@/components/ExploreRecipeList";
-import {useState} from "react";
-
+import { useState } from "react";
 
 function AllRecipesPage() {
   const [options, setOptions] = useState({
@@ -18,14 +17,11 @@ function AllRecipesPage() {
     isError,
     error,
   } = useGetOtherUsersRecipes(options);
-  
-  
- 
-  const totalPages = Math.max(
-      1,
-      Math.ceil((recipes?.totalCount ?? 0) / options.pageSize)
-  );
 
+  const totalPages = Math.max(
+    1,
+    Math.ceil((recipes?.totalCount ?? 0) / options.pageSize),
+  );
 
   if (isLoading) {
     return (
@@ -49,15 +45,15 @@ function AllRecipesPage() {
         <label>
           Sort
           <select
-              className="select ml-2 bg-surface text-foreground border-border"
-              value={options.sort}
-              onChange={(event) =>
-                  setOptions((previous) => ({
-                    ...previous,
-                    sort: event.target.value,
-                    page: 1,
-                  }))
-              }
+            className="select ml-2 bg-surface text-foreground border"
+            value={options.sort}
+            onChange={(event) =>
+              setOptions((previous) => ({
+                ...previous,
+                sort: event.target.value,
+                page: 1,
+              }))
+            }
           >
             <option value="asc">A–Z</option>
             <option value="desc">Z–A</option>
@@ -68,15 +64,15 @@ function AllRecipesPage() {
         <label>
           Tag
           <select
-              className="select ml-2 bg-surface text-foreground border-border"
-              value={options.tag}
-              onChange={(event) =>
-                  setOptions((previous) => ({
-                    ...previous,
-                    tag: event.target.value,
-                    page: 1,
-                  }))
-              }
+            className="select ml-2 bg-surface text-foreground border"
+            value={options.tag}
+            onChange={(event) =>
+              setOptions((previous) => ({
+                ...previous,
+                tag: event.target.value,
+                page: 1,
+              }))
+            }
           >
             <option value="">All tags</option>
             <option value="Breakfast">Breakfast</option>
@@ -86,38 +82,34 @@ function AllRecipesPage() {
         </label>
       </div>
 
-      <ExploreRecipeList recipes={recipes?.items?? []} />
+      <ExploreRecipeList recipes={recipes?.items ?? []} />
       <nav
         aria-label="Recipe pages"
         className="flex items-center justify-center gap-4 mt-8"
       >
         <button
-            className="btn"
-            disabled={options.page <= 1 || isFetching}
-            onClick={() =>
-                setOptions((previous) => ({ ...previous, page: previous.page - 1 }))
-            }
+          className="btn"
+          disabled={options.page <= 1 || isFetching}
+          onClick={() =>
+            setOptions((previous) => ({ ...previous, page: previous.page - 1 }))
+          }
         >
           Previous
         </button>
-        <span>Page {options.page} of {totalPages}</span>
+        <span>
+          Page {options.page} of {totalPages}
+        </span>
         <button
-            className="btn"
-            disabled={options.page >= totalPages || isFetching}
-            onClick={() =>
-                setOptions((previous) => ({ ...previous, page: previous.page + 1 }))
-            }
+          className="btn"
+          disabled={options.page >= totalPages || isFetching}
+          onClick={() =>
+            setOptions((previous) => ({ ...previous, page: previous.page + 1 }))
+          }
         >
           Next
         </button>
       </nav>
-    
-
-    
-  
     </div>
-        
-      
   );
 }
 

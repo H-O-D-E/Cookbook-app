@@ -32,8 +32,6 @@ export function useUpdateRecipeVisibility(recipeBookId) {
       queryClient.invalidateQueries({
         queryKey: ["recipebooks", recipeBookId, "recipes"],
       });
-
-      toast.success("Successfully changed this recipe's visibility");
     },
 
     onError: () => {
